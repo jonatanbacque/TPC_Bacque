@@ -18,15 +18,13 @@ GO
 
 CREATE TABLE [dbo].[MARCAS](
 	[Id] [int] IDENTITY(1,1) PRIMARY KEY NOT NULL,
-	[Descripcion] [varchar](50) NULL
-	)
+	[Descripcion] [varchar](50) NULL)
 GO
 
 
 CREATE TABLE [dbo].[CATEGORIAS](
 	[Id] [int] IDENTITY(1,1) PRIMARY KEY NOT NULL,
-	[Descripcion] [varchar](50) NULL
-	)
+	[Descripcion] [varchar](50) NULL)
 GO
 
 CREATE TABLE [dbo].[ARTICULOS](
@@ -34,11 +32,10 @@ CREATE TABLE [dbo].[ARTICULOS](
 	[Codigo] [varchar](50) NULL,
 	[Nombre] [varchar](50) NULL,
 	[Descripcion] [varchar](150) NULL,
-	[IdMarca] [int] FOREIGN KEY REFERENCES MARCAS(Id) NOT NULL,
-	[IdCategoria] [int] FOREIGN KEY REFERENCES CATEGORIAS(Id) NOT NULL,
+	[IdMarca] [int] foreign key references marcas(id) not NULL,
+	[IdCategoria] [int] foreign key references categorias(id) not NULL,
 	[ImagenUrl] [varchar](1000) NULL,
-	[Precio] [money] NULL
-	)
+	[Precio] [float] NULL)
 
 GO
 
@@ -48,6 +45,6 @@ insert into ARTICULOS values ('S01', 'Galaxy S10', 'Una canoa cara', 1, 1, 'http
 ('M03', 'Moto G Play 7ma Gen', 'Ya siete de estos?', 1, 4, 'https://www.motorola.cl/arquivos/moto-g7-play-img-product.png?v=636862863804700000', 15699),
 ('S99', 'Play 4', 'Ya no se cuantas versiones hay', 3, 3, 'https://www.euronics.cz/image/product/800x800/532620.jpg', 35000),
 ('S56', 'Bravia 55', 'Alta tele', 3, 2, 'https://intercompras.com/product_thumb_keepratio_2.php?img=images/product/SONY_KDL-55W950A.jpg&w=650&h=450', 49500),
-('A23', 'Apple TV', 'lindo loro', 2, 3, 'https://cnnespanol2.files.wordpress.com/2015/12/gadgets-mc3a1s-populares-apple-tv-2015-18.jpg?quality=100&strip=info&w=460&h=260&crop=1', 7850)
+('A23', 'Apple TV', 'lindo loro', 2, 3, 'https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/apple-tv-hero-select-201709', 7850)
 
-select * from ARTICULOS
+select *  from articulos
