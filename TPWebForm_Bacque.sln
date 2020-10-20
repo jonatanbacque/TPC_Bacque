@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30413.136
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebForm", "WebForm\WebForm.csproj", "{70154773-E82D-45A9-935B-97E349A8C508}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dominio", "Dominio\Dominio.csproj", "{CAA75600-1D71-4EA7-ACE7-E967EFD2A824}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{70154773-E82D-45A9-935B-97E349A8C508}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70154773-E82D-45A9-935B-97E349A8C508}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70154773-E82D-45A9-935B-97E349A8C508}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70154773-E82D-45A9-935B-97E349A8C508}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CAA75600-1D71-4EA7-ACE7-E967EFD2A824}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CAA75600-1D71-4EA7-ACE7-E967EFD2A824}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CAA75600-1D71-4EA7-ACE7-E967EFD2A824}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CAA75600-1D71-4EA7-ACE7-E967EFD2A824}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {AA2D3BF6-7F2E-4EC3-BB66-228F175274EF}
+	EndGlobalSection
+EndGlobal
