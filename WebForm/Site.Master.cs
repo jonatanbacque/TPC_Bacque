@@ -13,5 +13,6 @@ namespace WebForm
         {
             //txtBuscar.AutoCompleteType = "";
         }
+
     }
 }

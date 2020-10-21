@@ -35,7 +35,7 @@ CREATE TABLE [dbo].[ARTICULOS](
 	[IdMarca] [int] foreign key references marcas(id) not NULL,
 	[IdCategoria] [int] foreign key references categorias(id) not NULL,
 	[ImagenUrl] [varchar](1000) NULL,
-	[Precio] [float] NULL)
+	[Precio] numeric(17,3) NULL)
 
 GO
 

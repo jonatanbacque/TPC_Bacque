@@ -18,7 +18,8 @@ namespace Negocio
             try
             {
                 conexion.abrirConexion();
-                conexion.setearConsulta("Select ID, codigo, Nombre, Descripcion, IdMarca, IdCategoria, ImagenUrl, Precio from ARTICULOS");
+                conexion.setearConsulta("Select ID, codigo, Nombre, Descripcion,IdMarca" +
+                                        ", IdCategoria, ImagenUrl, Precio from ARTICULOS");
                 conexion.ejecutarConsulta();
 
                 while (conexion.Lector.Read())
@@ -51,7 +52,7 @@ namespace Negocio
             }
         }
 
-        public List<Articulo> listarID(int ID)
+        public Articulo listarID(int ID)
         {
             AccesoDatos conexion = new AccesoDatos();
             List<Articulo> lista = new List<Articulo>();
@@ -72,11 +73,10 @@ namespace Negocio
                         IdMarca = conexion.Lector.GetInt32(4),
                         IdCategoria = conexion.Lector.GetInt32(5),
                         ImagenUrl = conexion.Lector.GetString(6),
-                        //Precio = conexion.Lector.GetSqlMoney(7).ToDecimal(),
+                        Precio = conexion.Lector.GetDecimal(7),
                     };
-                    lista.Add(articulo);
                 }
-                return lista;
+                return articulo;
             }
             catch (Exception ex)
             {
