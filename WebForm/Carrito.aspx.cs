@@ -14,6 +14,7 @@ namespace WebForm
         ArticuloNegocio negocio = new ArticuloNegocio();
 
         public List<Articulo> aux;
+        public bool auxBit = new bool();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -30,8 +31,19 @@ namespace WebForm
 
                 if (Request.QueryString["ID"] != null)
                 {
-                    aux.Add(negocio.listarID(Convert.ToInt32(Request.QueryString["ID"])));
-                    Session.Add("listaCarrito", aux);
+                    foreach (Articulo item in aux)
+                    {
+                        if (item.Id == Convert.ToInt32(Request.QueryString["ID"]))
+                        {
+                            auxBit = true;
+                        }
+                    }
+
+                    if (!auxBit)
+                    {
+                        aux.Add(negocio.listarID(Convert.ToInt32(Request.QueryString["ID"])));
+                        Session.Add("listaCarrito", aux);
+                    }
                 }
 
                 dgvCarrito.DataSource = Session["listaCarrito"];
@@ -46,6 +58,13 @@ namespace WebForm
                 Response.Redirect("Error.aspx");
             }
 
+        }
+
+        protected void btnCarritoVaciar_Click(object sender, EventArgs e)
+        {
+            aux = new List<Articulo>();
+            Session.Add("listaCarrito", aux);
+            Response.Redirect("Default.aspx");
         }
     }
 }

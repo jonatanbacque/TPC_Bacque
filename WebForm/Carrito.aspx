@@ -2,7 +2,17 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <asp:GridView runat="server" ID="dgvCarrito" UseAccessibleHeader="true" CssClass="table table-condensed table-hover" Width="50%" />
+
     <hr />
-    <asp:Label class="text-muted font-weight-bold text-right" Text="<%=this.aux.Sum(s => s.Precio)%>" runat="server" />
-    
+
+    <div class="btn-group" role="group" aria-label="Basic example">
+        <a href="Default" class="btn btn-primary">Volvel al Listado</a>
+        <button type="button" class="btn btn-primary" data-toggle="tooltip" data-placement="bottom" title="No tiene función">
+            Comprar
+        </button>
+        <asp:Button class="btn btn-primary" ID="btnCarritoVaciar" Text="Vaciar Carrito" OnClick="btnCarritoVaciar_Click" runat="server" />
+    </div>
+
+    <label class="text-right text-muted font-weight-bold">Total: $<%=this.aux.Sum(s => s.Precio)%></label>
+
 </asp:Content>
