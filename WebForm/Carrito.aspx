@@ -1,7 +1,10 @@
 ﻿<%@ Page Title="Carrito" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Carrito.aspx.cs" Inherits="WebForm.Carrito" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-    <asp:GridView runat="server" ID="dgvCarrito" UseAccessibleHeader="true" CssClass="table table-condensed table-hover" Width="50%" />
+
+    <asp:GridView ID="gvCarrito" runat="server" AutoGenerateColumns="true" CssClass="table table-striped" />
+
+    <%--<asp:GridView runat="server" ID="dgvCarrito" UseAccessibleHeader="true" CssClass="table table-condensed table-hover" Width="50%" />--%>
 
     <hr />
 

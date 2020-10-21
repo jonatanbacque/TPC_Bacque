@@ -19,8 +19,8 @@
                         <a class="nav-link" href="Carrito.aspx"> Carrito <span class="sr-only">(current)</span></a>
                     </li>
                 </ul>
-                <asp:TextBox ID="txtBuscar" class="form-control mr-sm-2" type="search" runat="server"></asp:TextBox>
-                <asp:Button Text="Search" runat="server" class="btn btn-outline-success my-2 my-sm-0" type="submit"/> 
+<%--                <asp:TextBox ID="txtBuscar" class="form-control mr-sm-2" type="search" runat="server"></asp:TextBox>
+                <asp:Button Text="Search" runat="server" class="btn btn-outline-success my-2 my-sm-0" type="submit"/> --%>
             </div>
         </nav>
         <div class="container body-content">

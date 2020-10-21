@@ -43,14 +43,12 @@ namespace WebForm
                     {
                         aux.Add(negocio.listarID(Convert.ToInt32(Request.QueryString["ID"])));
                         Session.Add("listaCarrito", aux);
+
                     }
                 }
 
-                dgvCarrito.DataSource = Session["listaCarrito"];
-                dgvCarrito.DataBind();
-                //dgvCarrito.Columns[3].Visible = false;
-                //dgvCarrito.Columns[4].Visible = false;
-
+                gvCarrito.DataSource = Session["listaCarrito"];
+                gvCarrito.DataBind();
             }
             catch (Exception ex)
             {
