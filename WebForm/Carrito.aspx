@@ -9,7 +9,7 @@
     <hr />
 
     <div class="btn-group" role="group" aria-label="Basic example">
-        <a href="Default" class="btn btn-primary">Volvel al Listado</a>
+        <a href="/" class="btn btn-primary">Volvel al Listado</a>
         <button type="button" class="btn btn-primary" data-toggle="tooltip" data-placement="bottom" title="No tiene función">
             Comprar
         </button>

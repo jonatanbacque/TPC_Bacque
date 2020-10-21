@@ -62,7 +62,7 @@ namespace WebForm
         {
             aux = new List<Articulo>();
             Session.Add("listaCarrito", aux);
-            Response.Redirect("Default.aspx");
+            Response.Redirect("/");
         }
     }
 }

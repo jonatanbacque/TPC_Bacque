@@ -15,7 +15,7 @@
                     <asp:Label ID="lblDescripcion" runat="server"></asp:Label>
                     <hr />
                     <div class="btn-group" role="group" aria-label="Basic example">
-                        <a href="Default" class="btn btn-primary">Volvel al Listado</a>
+                        <a href="/" class="btn btn-primary">Volvel al Listado</a>
                         <a href="Carrito.aspx?ID=<% =id.ToString() %>" class="btn btn-primary">Agregar</a>
                     </div>
                 </div>

@@ -5,7 +5,7 @@
         <h1>Error</h1>
         <asp:Label Text="text" ID="lblError" runat="server" />
         <div>
-            <a href="Default.aspx">Volver</a>
+            <a href="/">Volver</a>
         </div>
     </div>
 </asp:Content>
