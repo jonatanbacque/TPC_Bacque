@@ -7,9 +7,9 @@
     <title><%: Page.Title %> - TP WebForm Bacque</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 </head>
-<body>
+<body onkeydown = "return (event.keyCode! = 13)">
     <form runat="server">
-        <nav class="navbar navbar-expand navbar-dark bg-dark">
+        <nav class="navbar navbar-expand navbar-dark bg-dark" >
             <div class="collapse navbar-collapse" id="navbarText">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
@@ -22,12 +22,11 @@
                         <a class="nav-link" href="Contacto.aspx">Contacto <span class="sr-only">(current)</span></a>
                     </li>
                 </ul>
-                <span class="navbar-text">Elige el Producto!</span>
             </div>
-            <%--                <asp:TextBox ID="txtBuscar" class="form-control mr-sm-2" type="search" runat="server"></asp:TextBox>
-                <asp:Button Text="Search" runat="server" class="btn btn-outline-success my-2 my-sm-0" type="submit"/> --%>
+            <asp:TextBox ID="txtBuscar" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" runat="server"></asp:TextBox>
+            <a href="Default.aspx?Nombre=<% =txtBuscar.Text %>" class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</a>
         </nav>
-        <hr/>
+        <hr />
         <div class="container body-content">
             <asp:ContentPlaceHolder ID="MainContent" runat="server">
             </asp:ContentPlaceHolder>

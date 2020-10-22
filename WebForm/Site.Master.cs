@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Dominio;
+using Negocio;
 
 namespace WebForm
 {
@@ -11,8 +13,7 @@ namespace WebForm
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            //txtBuscar.AutoCompleteType = "";
-        }
 
+        }
     }
 }

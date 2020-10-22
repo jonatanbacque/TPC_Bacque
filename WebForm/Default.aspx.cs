@@ -13,12 +13,21 @@ namespace WebForm
     {
         ArticuloNegocio negocio = new ArticuloNegocio();
         public List<Articulo> listaArticulos { get; set; }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             try
             {
-                listaArticulos = negocio.listar();
-                Session.Add("listado", listaArticulos);
+                if (Request.QueryString["nombre"] == null)
+                {
+                    listaArticulos = negocio.listar();
+                    Session.Add("listado", listaArticulos);
+                }
+                else
+                {
+                    listaArticulos = negocio.Buscar(Request.QueryString["nombre"]);
+                    Session.Add("listado", listaArticulos);
+                }
             }
             catch (Exception ex)
             {

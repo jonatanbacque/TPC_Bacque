@@ -33,7 +33,7 @@ namespace Negocio
                         IdMarca = conexion.Lector.GetInt32(4),
                         IdCategoria = conexion.Lector.GetInt32(5),
                         ImagenUrl = conexion.Lector.GetString(6),
-                        //Precio = conexion.Lector.GetSqlMoney(7).ToDecimal(),
+                        Precio = conexion.Lector.GetDecimal(7),
                     };
 
                     lista.Add(articulo);
@@ -77,6 +77,48 @@ namespace Negocio
                     };
                 }
                 return articulo;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conexion.cerrarConexion();
+
+            }
+        }
+
+        public List<Articulo> Buscar(string nombre)
+        {
+            AccesoDatos conexion = new AccesoDatos();
+            List<Articulo> lista = new List<Articulo>();
+            try
+            {
+                conexion.abrirConexion();
+                conexion.setearConsulta("SELECT ID, codigo, Nombre, Descripcion,IdMarca, " +
+                                        "IdCategoria, ImagenUrl, Precio from ARTICULOS " +
+                                        "WHERE Nombre LIKE '%" + nombre + "%'");
+                conexion.ejecutarConsulta();
+
+                while (conexion.Lector.Read())
+                {
+                    articulo = new Articulo
+                    {
+                        Id = conexion.Lector.GetInt32(0),
+                        Codigo = conexion.Lector.GetString(1),
+                        Nombre = conexion.Lector.GetString(2),
+                        Descripcion = conexion.Lector.GetString(3),
+                        IdMarca = conexion.Lector.GetInt32(4),
+                        IdCategoria = conexion.Lector.GetInt32(5),
+                        ImagenUrl = conexion.Lector.GetString(6),
+                        Precio = conexion.Lector.GetDecimal(7),
+                    };
+
+                    lista.Add(articulo);
+
+                }
+                return lista;
             }
             catch (Exception ex)
             {
