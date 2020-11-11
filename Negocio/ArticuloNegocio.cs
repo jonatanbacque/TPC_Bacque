@@ -17,8 +17,8 @@ namespace Negocio
             List<Articulo> lista = new List<Articulo>();
             try
             {
-                conexion.setearConsulta("Select ID, Nombre, Descripcion, ImagenUrl" +
-                ", Precio, Marca, Categoria from ARTICULOS");
+                conexion.abrirConexion();
+                conexion.setearConsulta("Select ID, Nombre, Descripcion, ImagenUrl, Precio, Marca, Categoria from ARTICULO");
                 conexion.ejecutarConsulta();
 
                 while (conexion.Lector.Read())
@@ -57,7 +57,7 @@ namespace Negocio
             try
             {
                 conexion.abrirConexion();
-                conexion.setearConsulta("Select ID, codigo, Nombre, Descripcion, IdMarca, IdCategoria, ImagenUrl, Precio from ARTICULOS where id =" + ID);
+                conexion.setearConsulta("Select ID, Nombre, Descripcion, ImagenUrl, Precio, Marca, Categoria from ARTICULO where id =" + ID);
                 conexion.ejecutarConsulta();
 
                 while (conexion.Lector.Read())
@@ -93,8 +93,7 @@ namespace Negocio
             try
             {
                 conexion.abrirConexion();
-                conexion.setearConsulta("SELECT ID, codigo, Nombre, Descripcion,IdMarca, " +
-                                        "IdCategoria, ImagenUrl, Precio from ARTICULOS " +
+                conexion.setearConsulta("Select ID, Nombre, Descripcion, ImagenUrl, Precio, Marca, Categoria from ARTICULO " +
                                         "WHERE Nombre LIKE '%" + nombre + "%'");
                 conexion.ejecutarConsulta();
 
