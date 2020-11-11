@@ -11,6 +11,7 @@ namespace WebForm
     public partial class Detalle : System.Web.UI.Page
     {
         public int id;
+                public List<Articulo> listaArticulos { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
             try
@@ -19,6 +20,7 @@ namespace WebForm
 
                 if (Session["Listado"] != null)
                 {
+                    listaArticulos = (List<Articulo>)Session["listado"];
                     Articulo seleccionado = ((List<Articulo>)Session["listado"])[id - 1];
                     imgImagen.ImageUrl = seleccionado.ImagenUrl;
                     lblNombre.Text = seleccionado.Nombre + ":";

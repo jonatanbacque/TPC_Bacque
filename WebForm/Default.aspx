@@ -9,7 +9,7 @@
         <% foreach (Dominio.Articulo item in listaArticulos)
             { %>
 
-        <div class="card border-primary mb-3 text-center">
+        <div class="card border-primary text-center">
             <img src="<% = item.ImagenUrl %>"" class="card-img-top" alt="<% = item.Nombre %>"></img>
             <div class="card-body">
                 <h5 class="card-title"><% = item.Nombre %></h5>
