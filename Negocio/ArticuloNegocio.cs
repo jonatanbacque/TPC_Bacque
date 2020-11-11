@@ -17,9 +17,8 @@ namespace Negocio
             List<Articulo> lista = new List<Articulo>();
             try
             {
-                conexion.abrirConexion();
-                conexion.setearConsulta("Select ID, codigo, Nombre, Descripcion,IdMarca" +
-                                        ", IdCategoria, ImagenUrl, Precio from ARTICULOS");
+                conexion.setearConsulta("Select ID, Nombre, Descripcion, ImagenUrl" +
+                ", Precio, Marca, Categoria from ARTICULOS");
                 conexion.ejecutarConsulta();
 
                 while (conexion.Lector.Read())
@@ -27,13 +26,12 @@ namespace Negocio
                     articulo = new Articulo
                     {
                         Id = conexion.Lector.GetInt32(0),
-                        Codigo = conexion.Lector.GetString(1),
-                        Nombre = conexion.Lector.GetString(2),
-                        Descripcion = conexion.Lector.GetString(3),
-                        IdMarca = conexion.Lector.GetInt32(4),
-                        IdCategoria = conexion.Lector.GetInt32(5),
-                        ImagenUrl = conexion.Lector.GetString(6),
-                        Precio = conexion.Lector.GetDecimal(7),
+                        Nombre = conexion.Lector.GetString(1),
+                        Descripcion = conexion.Lector.GetString(2),
+                        ImagenUrl = conexion.Lector.GetString(3),
+                        Precio = conexion.Lector.GetDecimal(4),
+                        Marca = conexion.Lector.GetString(5),
+                        Categoria = conexion.Lector.GetString(6),
                     };
 
                     lista.Add(articulo);
@@ -67,13 +65,12 @@ namespace Negocio
                     articulo = new Articulo
                     {
                         Id = conexion.Lector.GetInt32(0),
-                        Codigo = conexion.Lector.GetString(1),
-                        Nombre = conexion.Lector.GetString(2),
-                        Descripcion = conexion.Lector.GetString(3),
-                        IdMarca = conexion.Lector.GetInt32(4),
-                        IdCategoria = conexion.Lector.GetInt32(5),
-                        ImagenUrl = conexion.Lector.GetString(6),
-                        Precio = conexion.Lector.GetDecimal(7),
+                        Nombre = conexion.Lector.GetString(1),
+                        Descripcion = conexion.Lector.GetString(2),
+                        ImagenUrl = conexion.Lector.GetString(3),
+                        Precio = conexion.Lector.GetDecimal(4),
+                        Marca = conexion.Lector.GetString(5),
+                        Categoria = conexion.Lector.GetString(6),
                     };
                 }
                 return articulo;
@@ -106,13 +103,12 @@ namespace Negocio
                     articulo = new Articulo
                     {
                         Id = conexion.Lector.GetInt32(0),
-                        Codigo = conexion.Lector.GetString(1),
-                        Nombre = conexion.Lector.GetString(2),
-                        Descripcion = conexion.Lector.GetString(3),
-                        IdMarca = conexion.Lector.GetInt32(4),
-                        IdCategoria = conexion.Lector.GetInt32(5),
-                        ImagenUrl = conexion.Lector.GetString(6),
-                        Precio = conexion.Lector.GetDecimal(7),
+                        Nombre = conexion.Lector.GetString(1),
+                        Descripcion = conexion.Lector.GetString(2),
+                        ImagenUrl = conexion.Lector.GetString(3),
+                        Precio = conexion.Lector.GetDecimal(4),
+                        Marca = conexion.Lector.GetString(5),
+                        Categoria = conexion.Lector.GetString(6),
                     };
 
                     lista.Add(articulo);
