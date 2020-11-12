@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Mercadito" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="WebForm._Default" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="WebForm._Default" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
     <div>
@@ -8,9 +8,8 @@
     <div class="card-columns">
         <% foreach (Dominio.Articulo item in listaArticulos)
             { %>
-
         <div class="card border-primary text-center">
-            <img src="<% = item.ImagenUrl %>"" class="card-img-top" alt="<% = item.Nombre %>"></img>
+            <img style="width: 18rem; height: 18rem;" src="<% = item.ImagenUrl %>" class="img-fluid" alt="<% = item.Nombre %>">
             <div class="card-body">
                 <h5 class="card-title"><% = item.Nombre %></h5>
                 <%--<p class="card-text"><% = item.Descripcion %></p>--%>

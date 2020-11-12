@@ -4,14 +4,27 @@
 
 <html lang="es">
 <head runat="server">
-    <title><%: Page.Title %> - TP WebForm Bacque</title>
+    <title><%: Page.Title %> - TPC Bacque</title>
+
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+
 </head>
-<body onkeydown = "return (event.keyCode! = 13)">
+<body>
     <form runat="server">
-        <nav class="navbar navbar-expand navbar-dark bg-dark" >
-            <div class="collapse navbar-collapse" id="navbarText">
-                <ul class="navbar-nav mr-auto">
+        <nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                        <asp:ImageButton src=" ID="ImageButton1" href="/" runat="server" />
+                        
+            <img style="width: 18rem; height: 18rem;" src="<% = item.ImagenUrl %>" class="img-fluid" alt="<% = item.Nombre %>">
+                    </li>
                     <li class="nav-item active">
                         <a class="nav-link" href="/">Inicio <span class="sr-only">(current)</span></a>
                     </li>
@@ -21,11 +34,29 @@
                     <li class="nav-item active">
                         <a class="nav-link" href="Contacto.aspx">Contacto <span class="sr-only">(current)</span></a>
                     </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown link
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="#">Action</a>
+                            <a class="dropdown-item" href="#">Another action</a>
+                            <a class="dropdown-item" href="#">Something else here</a>
+                        </div>
+                    </li>
                 </ul>
             </div>
-            <asp:TextBox ID="txtBuscar" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" runat="server"></asp:TextBox>
-            <a href="Default.aspx?Nombre=<% =txtBuscar.Text %>" class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</a>
+            <div class="container justify-content-end">
+                <div class="row" >
+                    <div class="col-sm">
+                        <asp:TextBox class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" ID="txtBuscar" runat="server"></asp:TextBox>
+                    </div>
+                    <div class="col-sm">
+                        <a class="btn btn-outline-success my-2 my-sm-0" type="submit" href="Default.aspx?Nombre=<% =txtBuscar.Text %>">Buscar</a>
+                    </div>
+                </div>
+            </div>
         </nav>
+
         <hr />
         <div class="container body-content">
             <asp:ContentPlaceHolder ID="MainContent" runat="server">
@@ -33,7 +64,7 @@
         </div>
         <hr />
         <footer>
-            <p>&copy; <%: DateTime.Now.Year %> - TP WebForm Bacque</p>
+            <p>&copy; <%: DateTime.Now.Year %> - TPC Bacque</p>
         </footer>
     </form>
 </body>
