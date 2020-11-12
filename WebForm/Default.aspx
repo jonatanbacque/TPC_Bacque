@@ -4,12 +4,14 @@
     <div>
         <h2>Catalogo de productos</h2>
     </div>
+
     <hr />
-    <div class="card-columns">
+
+    <div class="card-deck">
         <% foreach (Dominio.Articulo item in listaArticulos)
             { %>
         <div class="card border-primary text-center">
-            <img style="width: 18rem; height: 18rem;" src="<% = item.ImagenUrl %>" class="img-fluid" alt="<% = item.Nombre %>">
+            <%--<img class="card-img-top" src="<% = item.ImagenUrl %>"  alt="<% = item.Nombre %>">--%>
             <div class="card-body">
                 <h5 class="card-title"><% = item.Nombre %></h5>
                 <%--<p class="card-text"><% = item.Descripcion %></p>--%>
@@ -19,7 +21,11 @@
                     <a href="Carrito.aspx?ID=<% =item.Id.ToString() %>" class="btn btn-primary">Agregar</a>
                 </div>
             </div>
+            <div class="card-footer">
+                <small class="text-muted"><% = item.Descripcion %></small>
+            </div>
         </div>
         <% } %>
     </div>
+
 </asp:Content>
