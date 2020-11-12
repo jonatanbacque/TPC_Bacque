@@ -21,7 +21,7 @@
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav">
                     <li class="nav-item active">
-                        <asp:ImageButton src="" ID="ImageButton1" href="/" runat="server" />
+                        <asp:ImageButton src="https://github.com/jonatanbacque/TPC_Bacque/blob/master/WebForm/media/logo.png?raw=true" ID="ImageButton1" href="/" runat="server" />
                     </li>
                     <li class="nav-item active">
                         <a class="nav-link" href="/">Inicio <span class="sr-only">(current)</span></a>
