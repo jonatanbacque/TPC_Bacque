@@ -31,12 +31,11 @@
                         <a class="nav-link" href="Contacto.aspx">Contacto <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown link
-                        </a>
+                        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categorias</a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <a class="dropdown-item" href="#">Something else here</a>
+                            <a class="dropdown-item" href="?Categ=Perfumería">Perfumería</a>
+                            <a class="dropdown-item" href="?Categ=Limpieza">Limpieza</a>
+                            <a class="dropdown-item" href="?Categ=Decoración">Decoración</a>
                         </div>
                     </li>
                 </ul>
@@ -49,7 +48,7 @@
                                 <asp:TextBox class="form-control w-auto" type="search" placeholder="Ingrese su busqueda" aria-label="Search" ID="txtBuscar" runat="server" OnTextChanged="txtBuscar_TextChanged"></asp:TextBox>
                             </div>
                             <div class="col-sm">
-                                <asp:Button type="submit" class="btn btn-outline-success my-2 my-sm-0" ID="btnBuscar" runat="server" Text="Buscar" href="Default.aspx?Nombre=<% =txtBuscar.Text %>" />
+                                <a class="btn btn-outline-success my-2 my-sm-0" href="?Nombre=<% =txtBuscar.Text %>">Buscar</a>
                             </div>
                         </div>
                     </div>

@@ -5,14 +5,21 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Dominio;
+using Negocio;
 
 namespace WebForm
 {
     public partial class Detalle : System.Web.UI.Page
     {
+        ArticuloNegocio negocio = new ArticuloNegocio();
+
         public int id;
 
         public List<Articulo> listaArticulos { get; set; }
+
+        public List<Articulo> aux;
+
+        public bool auxBit = new bool();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -25,8 +32,9 @@ namespace WebForm
                     listaArticulos = (List<Articulo>)Session["listado"];
                     Articulo seleccionado = ((List<Articulo>)Session["listado"])[id - 1];
                     imgImagen.ImageUrl = seleccionado.ImagenUrl;
-                    lblNombre.Text = seleccionado.Nombre + ":";
+                    lblNombre.Text = seleccionado.Nombre;
                     lblDescripcion.Text = seleccionado.Descripcion;
+
                 }
                 else
                 {
@@ -40,6 +48,46 @@ namespace WebForm
                 Response.Redirect("Error.aspx");
             }
 
+        }
+
+        protected void btnCarritoAgregar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                //Consulto si la lista esta vacia para inicializarla
+                if (Session["listaCarrito"] != null)
+                {
+                    aux = (List<Articulo>)Session["listaCarrito"];
+                }
+                else
+                {
+                    aux = new List<Articulo>();
+                }
+                //Cargo el carrito
+                if (Request.QueryString["ID"] != null)
+                {
+                    //Consulto si el articulo ya fue agregado
+                    foreach (Articulo item in aux)
+                    {
+                        if (item.Id == Convert.ToInt32(Request.QueryString["ID"]))
+                        {
+                            auxBit = true;
+                        }
+                    }
+
+                    //Cargo el articulo en la lista
+                    if (!auxBit)
+                    {
+                        aux.Add(negocio.listarID(Convert.ToInt32(Request.QueryString["ID"])));
+                        Session.Add("listaCarrito", aux);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Session.Add("errorEncontrado", ex.ToString());
+                Response.Redirect("Error.aspx");
+            }
         }
     }
 }

@@ -23,6 +23,7 @@ namespace WebForm
         {
             try
             {
+                //Consulto si la lista esta vacia para inicializarla
                 if (Session["listaCarrito"] != null)
                 {
                     aux = (List<Articulo>)Session["listaCarrito"];
@@ -32,19 +33,23 @@ namespace WebForm
                     aux = new List<Articulo>();
                 }
 
+                //Si no hay busqueda, muestro lista completa
                 if (Request.QueryString["nombre"] == null)
                 {
                     listaArticulos = negocio.listar();
                     Session.Add("listado", listaArticulos);
                 }
+                //Muestro lista filtrada
                 else
                 {
                     listaArticulos = negocio.Buscar(Request.QueryString["nombre"]);
                     Session.Add("listado", listaArticulos);
                 }
 
+                //Cargo el carrito
                 if (Request.QueryString["ID"] != null)
                 {
+                    //Consulto si el articulo ya fue agregado
                     foreach (Articulo item in aux)
                     {
                         if (item.Id == Convert.ToInt32(Request.QueryString["ID"]))
@@ -53,11 +58,11 @@ namespace WebForm
                         }
                     }
 
+                    //Cargo el articulo en la lista
                     if (!auxBit)
                     {
                         aux.Add(negocio.listarID(Convert.ToInt32(Request.QueryString["ID"])));
                         Session.Add("listaCarrito", aux);
-
                     }
                 }
             }

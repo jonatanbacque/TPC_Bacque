@@ -10,20 +10,18 @@
     <div class="card-deck">
         <% foreach (Dominio.Articulo item in listaArticulos)
             { %>
-        <div class="card border-primary text-center">
-            <%--<img class="card-img-top" src="<% = item.ImagenUrl %>"  alt="<% = item.Nombre %>">--%>
-            <div class="card-body">
+        <div class="card border-primary text-center container-fluid" style="max-width:300px; min-width:200px;">
+            <img class="card-img-top img-fluid" src="<% = item.ImagenUrl %>"  alt="<% = item.Nombre %>">
+            <div class="card-body"></div>
+            <div class="card-footer">
                 <h5 class="card-title"><% = item.Nombre %></h5>
-                <%--<p class="card-text"><% = item.Descripcion %></p>--%>
+                <small class="text-muted"><% = item.Descripcion %></small>
                 <hr />
                 <div class="btn-group" role="group" aria-label="Basic example">
                     <a href="Detalle.aspx?ID=<% =item.Id.ToString() %>" class="btn btn-primary">Detalle</a>
 
                     <a href="?ID=<% =item.Id.ToString() %>" class="btn btn-primary">Agregar al Carrito</a>
                 </div>
-            </div>
-            <div class="card-footer">
-                <small class="text-muted"><% = item.Descripcion %></small>
             </div>
         </div>
         <% } %>

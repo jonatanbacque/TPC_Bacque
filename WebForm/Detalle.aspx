@@ -8,43 +8,49 @@
     <div class="card-deck">
         <div class="card border-primary text-center">
             <asp:Image class="card-img-top" ID="imgImagen" runat="server" />
-            <div class="card-body">
-                <h5 class="card-title">
+        </div>
+        <div class="card border-primary text-left">
+            <div class="card-header">
+                <h4>
                     <asp:Label ID="lblNombre" runat="server"></asp:Label>
-                </h5>
+                </h4>
+            </div>
+            <small class="text-muted">
                 <asp:Label ID="lblDescripcion" runat="server"></asp:Label>
-                <hr />
+            </small>
+            <hr />
+            <div class="card-footer">
                 <div class="btn-group" role="group" aria-label="Basic example">
                     <a href="/" class="btn btn-primary">Volver al Listado</a>
-                    <a href="Carrito.aspx?ID=<% =id.ToString() %>" class="btn btn-primary">Agregar al carrito</a>
+
+                    <asp:Button class="btn btn-primary" ID="btnCarritoAgregar" Text="Agregar al Carrito" OnClick="btnCarritoAgregar_Click" runat="server" />
                 </div>
             </div>
         </div>
-        <div class="card border-primary text-center">
-            One of three columns
-        </div>
     </div>
 
-    <h6 class="text-left">Productos relacionados:</h6>
+    <h1 class="text-left">Productos relacionados:</h1>
+
 
     <div class="card-deck">
         <% foreach (Dominio.Articulo item in listaArticulos)
             { %>
-        <div class="card border-primary text-center">
-            <img class="card-img-top" src="<% = item.ImagenUrl %>"  alt="<% = item.Nombre %>">
-            <div class="card-body">
+        <div class="card border-primary text-center" style="max-width: 250px;">
+            <img class="card-img-top" src="<% = item.ImagenUrl %>" alt="<% = item.Nombre %>">
+            <div class="card-body"></div>
+            <div class="card-footer">
                 <h5 class="card-title"><% = item.Nombre %></h5>
-                <p class="card-text"><% = item.Descripcion %></p>
+                <small class="text-muted"><% = item.Descripcion %></small>
                 <hr />
                 <div class="btn-group" role="group" aria-label="Basic example">
-                    <%--<a href="Detalle.aspx?ID=<% =item.Id.ToString() %>" class="btn btn-primary">Detalle</a>--%>
-                    <a href="Carrito.aspx?ID=<% =item.Id.ToString() %>" class="btn btn-primary">Agregar</a>
+                    <a href="Detalle.aspx?ID=<% =item.Id.ToString() %>" class="btn btn-primary">Detalle</a>
+
+                    <a href="?ID=<% =item.Id.ToString() %>" class="btn btn-primary">Agregar al Carrito</a>
                 </div>
-            </div>
-            <div class="card-footer">
-                <small class="text-muted"><% = item.Descripcion %></small>
             </div>
         </div>
         <% } %>
     </div>
+
+
 </asp:Content>

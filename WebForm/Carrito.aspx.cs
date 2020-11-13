@@ -56,14 +56,16 @@ namespace WebForm
                 Session.Add("errorEncontrado", ex.ToString());
                 Response.Redirect("Error.aspx");
             }
-
+            finally
+            {
+            }
         }
 
         protected void btnCarritoVaciar_Click(object sender, EventArgs e)
         {
             aux = new List<Articulo>();
             Session.Add("listaCarrito", aux);
-            Response.Redirect("/");
+            Response.Redirect("Carrito.aspx");
         }
     }
 }

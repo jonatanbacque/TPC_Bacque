@@ -69,7 +69,7 @@ CREATE TABLE [dbo].[CARRITO](
 	[IdElemento] [int] FOREIGN KEY REFERENCES ELEMENTO(Id) not NULL,
 	[IdUsuario] [int] FOREIGN KEY REFERENCES USUARIO(Id) not NULL,
 	[IdEnvio] [int] FOREIGN KEY REFERENCES ENVIO(Id) not NULL,
-	[IdFactura] [int] FOREIGN KEY REFERENCES Factura(Id) not NULL)
+	[IdFactura] [int] FOREIGN KEY REFERENCES FACTURA(Id) not NULL)
 GO
 
 
