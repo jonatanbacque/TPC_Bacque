@@ -29,26 +29,27 @@ namespace WebForm
                     aux = new List<Articulo>();
                 }
 
-                if (Request.QueryString["ID"] != null)
-                {
-                    foreach (Articulo item in aux)
-                    {
-                        if (item.Id == Convert.ToInt32(Request.QueryString["ID"]))
-                        {
-                            auxBit = true;
-                        }
-                    }
+                //if (Request.QueryString["ID"] != null)
+                //{
+                //    foreach (Articulo item in aux)
+                //    {
+                //        if (item.Id == Convert.ToInt32(Request.QueryString["ID"]))
+                //        {
+                //            auxBit = true;
+                //        }
+                //    }
 
-                    if (!auxBit)
-                    {
-                        aux.Add(negocio.listarID(Convert.ToInt32(Request.QueryString["ID"])));
-                        Session.Add("listaCarrito", aux);
+                //    if (!auxBit)
+                //    {
+                //        aux.Add(negocio.listarID(Convert.ToInt32(Request.QueryString["ID"])));
+                //        Session.Add("listaCarrito", aux);
 
-                    }
-                }
+                //    }
+                //}
 
                 gvCarrito.DataSource = Session["listaCarrito"];
                 gvCarrito.DataBind();
+
             }
             catch (Exception ex)
             {

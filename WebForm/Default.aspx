@@ -19,7 +19,7 @@
                 <div class="btn-group" role="group" aria-label="Basic example">
                     <a href="Detalle.aspx?ID=<% =item.Id.ToString() %>" class="btn btn-primary">Detalle</a>
 
-                    <a href="Carrito.aspx?ID=<% =item.Id.ToString() %>" class="btn btn-primary">Agregar al Carrito</a>
+                    <a href="?ID=<% =item.Id.ToString() %>" class="btn btn-primary">Agregar al Carrito</a>
                 </div>
             </div>
             <div class="card-footer">
