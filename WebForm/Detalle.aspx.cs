@@ -34,6 +34,7 @@ namespace WebForm
                     imgImagen.ImageUrl = seleccionado.ImagenUrl;
                     lblNombre.Text = seleccionado.Nombre;
                     lblDescripcion.Text = seleccionado.Descripcion;
+                    lblPrecio.Text = seleccionado.Precio.ToString();
 
                 }
                 else

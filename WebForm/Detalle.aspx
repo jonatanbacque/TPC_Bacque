@@ -17,6 +17,7 @@
             </div>
             <small class="text-muted">
                 <asp:Label ID="lblDescripcion" runat="server"></asp:Label>
+                <asp:Label ID="lblPrecio" runat="server"></asp:Label>
             </small>
             <hr />
             <div class="card-footer">

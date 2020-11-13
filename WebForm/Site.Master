@@ -17,6 +17,9 @@
 
     <form runat="server">
 
+        
+        <asp:ScriptManager ID="ScriptManager1" runat="server">
+        </asp:ScriptManager>
 
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -43,14 +46,18 @@
             <ul class="navbar-nav">
                 <li class="nav-item active">
                     <div class="container align-items-center">
-                        <div class="row">
-                            <div id="divBuscar" class="col-sm" onkeypress="divBuscar_onkeypress" runat="server">
-                                <asp:TextBox class="form-control w-auto" type="search" placeholder="Ingrese su busqueda" aria-label="Search" ID="txtBuscar" runat="server" OnTextChanged="txtBuscar_TextChanged"></asp:TextBox>
-                            </div>
-                            <div class="col-sm">
-                                <a class="btn btn-outline-success my-2 my-sm-0" href="?Nombre=<% =txtBuscar.Text %>">Buscar</a>
-                            </div>
-                        </div>
+                        <asp:UpdatePanel runat="server">
+                            <ContentTemplate>
+                                <div class="row">
+                                    <div id="divBuscar" class="col-sm" onkeypress="divBuscar_onkeypress" runat="server">
+                                        <asp:TextBox AutoPostBack="true" class="form-control w-auto" type="search" placeholder="Ingrese su busqueda" aria-label="Search" ID="txtBuscar" runat="server" OnTextChanged="txtBuscar_TextChanged"></asp:TextBox>
+                                    </div>
+                                    <div class="col-sm">
+                                        <a class="btn btn-outline-success my-2 my-sm-0" href="?Nombre=<% =txtBuscar.Text %>">Buscar</a>
+                                    </div>
+                                </div>
+                            </ContentTemplate>
+                        </asp:UpdatePanel>
                     </div>
                 </li>
             </ul>

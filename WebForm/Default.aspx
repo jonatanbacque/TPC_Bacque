@@ -16,6 +16,7 @@
             <div class="card-footer">
                 <h5 class="card-title"><% = item.Nombre %></h5>
                 <small class="text-muted"><% = item.Descripcion %></small>
+                <small class="text-muted">$ <% = item.Precio %></small>
                 <hr />
                 <div class="btn-group" role="group" aria-label="Basic example">
                     <a href="Detalle.aspx?ID=<% =item.Id.ToString() %>" class="btn btn-primary">Detalle</a>

@@ -11,7 +11,7 @@
     <div class="btn-group" role="group" aria-label="Basic example">
         <a href="/" class="btn btn-primary">Seguir Comprando</a>
         <asp:Button class="btn btn-primary" ID="btnCarritoVaciar" Text="Vaciar Carrito" OnClick="btnCarritoVaciar_Click" runat="server" />
-        <button type="button" class="btn btn-primary" data-toggle="tooltip" data-placement="bottom" title="No tiene función">Finalizar Compra</button>
+        <a href="/Compra.aspx" class="btn btn-primary">Finalizar Compra</a>
     </div>
 
     <label class="text-right text-muted font-weight-bold">Total: $<%=this.aux.Sum(s => s.Precio)%></label>

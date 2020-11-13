@@ -14,6 +14,7 @@ namespace WebForm
         ArticuloNegocio negocio = new ArticuloNegocio();
 
         public List<Articulo> aux;
+
         public bool auxBit = new bool();
 
         protected void Page_Load(object sender, EventArgs e)
