@@ -11,7 +11,9 @@ namespace WebForm
     public partial class Detalle : System.Web.UI.Page
     {
         public int id;
-                public List<Articulo> listaArticulos { get; set; }
+
+        public List<Articulo> listaArticulos { get; set; }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             try
@@ -29,6 +31,7 @@ namespace WebForm
                 else
                 {
                     lblNombre.Text = "Selección inválida";
+
                 }
             }
             catch (Exception ex)

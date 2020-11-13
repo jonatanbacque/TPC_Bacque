@@ -15,8 +15,8 @@
                 <asp:Label ID="lblDescripcion" runat="server"></asp:Label>
                 <hr />
                 <div class="btn-group" role="group" aria-label="Basic example">
-                    <a href="/" class="btn btn-primary">Volvel al Listado</a>
-                    <a href="Carrito.aspx?ID=<% =id.ToString() %>" class="btn btn-primary">Agregar</a>
+                    <a href="/" class="btn btn-primary">Volver al Listado</a>
+                    <a href="Carrito.aspx?ID=<% =id.ToString() %>" class="btn btn-primary">Agregar al carrito</a>
                 </div>
             </div>
         </div>
@@ -25,19 +25,19 @@
         </div>
     </div>
 
-    <h6 class="text-left">Tambien puede interesarte estos productos</h6>
+    <h6 class="text-left">Productos relacionados:</h6>
 
     <div class="card-deck">
         <% foreach (Dominio.Articulo item in listaArticulos)
             { %>
         <div class="card border-primary text-center">
-            <%--<img class="card-img-top" src="<% = item.ImagenUrl %>"  alt="<% = item.Nombre %>">--%>
+            <img class="card-img-top" src="<% = item.ImagenUrl %>"  alt="<% = item.Nombre %>">
             <div class="card-body">
                 <h5 class="card-title"><% = item.Nombre %></h5>
-                <%--<p class="card-text"><% = item.Descripcion %></p>--%>
+                <p class="card-text"><% = item.Descripcion %></p>
                 <hr />
                 <div class="btn-group" role="group" aria-label="Basic example">
-                    <a href="Detalle.aspx?ID=<% =item.Id.ToString() %>" class="btn btn-primary">Detalle</a>
+                    <%--<a href="Detalle.aspx?ID=<% =item.Id.ToString() %>" class="btn btn-primary">Detalle</a>--%>
                     <a href="Carrito.aspx?ID=<% =item.Id.ToString() %>" class="btn btn-primary">Agregar</a>
                 </div>
             </div>
