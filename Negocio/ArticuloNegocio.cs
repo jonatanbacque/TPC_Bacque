@@ -18,7 +18,8 @@ namespace Negocio
             try
             {
                 conexion.abrirConexion();
-                conexion.setearConsulta("Select ID, Nombre, Descripcion, ImagenUrl, Precio, Marca, Categoria from ARTICULO");
+                conexion.setearConsulta("Select a.ID, a.Nombre, a.Descripcion, a.ImagenUrl, a.Precio, a.Marca, c.Nombre from ARTICULO as a " +
+                                        "INNER JOIN CATEGORIA as c on c.Id = a.IdCategoria");
                 conexion.ejecutarConsulta();
 
                 while (conexion.Lector.Read())
@@ -57,7 +58,8 @@ namespace Negocio
             try
             {
                 conexion.abrirConexion();
-                conexion.setearConsulta("Select ID, Nombre, Descripcion, ImagenUrl, Precio, Marca, Categoria from ARTICULO where id =" + ID);
+                conexion.setearConsulta("Select a.ID, a.Nombre, a.Descripcion, a.ImagenUrl, a.Precio, a.Marca, c.Nombre from ARTICULO as a " +
+                                        "INNER JOIN CATEGORIA as c on c.Id = a.IdCategoria where a.id =" + ID);
                 conexion.ejecutarConsulta();
 
                 while (conexion.Lector.Read())
@@ -93,8 +95,48 @@ namespace Negocio
             try
             {
                 conexion.abrirConexion();
-                conexion.setearConsulta("Select ID, Nombre, Descripcion, ImagenUrl, Precio, Marca, Categoria from ARTICULO " +
-                                        "WHERE Nombre LIKE '%" + nombre + "%'");
+                conexion.setearConsulta("Select a.ID, a.Nombre, a.Descripcion, a.ImagenUrl, a.Precio, a.Marca, c.Nombre from ARTICULO as a " +
+                                        "INNER JOIN CATEGORIA as c on c.Id = a.IdCategoria WHERE a.nombre LIKE '%" + nombre + "%'");
+                conexion.ejecutarConsulta();
+
+                while (conexion.Lector.Read())
+                {
+                    articulo = new Articulo
+                    {
+                        Id = conexion.Lector.GetInt32(0),
+                        Nombre = conexion.Lector.GetString(1),
+                        Descripcion = conexion.Lector.GetString(2),
+                        ImagenUrl = conexion.Lector.GetString(3),
+                        Precio = conexion.Lector.GetDecimal(4),
+                        Marca = conexion.Lector.GetString(5),
+                        Categoria = conexion.Lector.GetString(6),
+                    };
+
+                    lista.Add(articulo);
+
+                }
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conexion.cerrarConexion();
+
+            }
+        }
+
+        public List<Articulo> BuscarCateg(string nombre)
+        {
+            AccesoDatos conexion = new AccesoDatos();
+            List<Articulo> lista = new List<Articulo>();
+            try
+            {
+                conexion.abrirConexion();
+                conexion.setearConsulta("Select a.ID, a.Nombre, a.Descripcion, a.ImagenUrl, a.Precio, a.Marca, c.Nombre from ARTICULO as a " +
+                                        "INNER JOIN CATEGORIA as c on c.Id = a.IdCategoria WHERE c.nombre LIKE '%" + nombre + "%'");
                 conexion.ejecutarConsulta();
 
                 while (conexion.Lector.Read())

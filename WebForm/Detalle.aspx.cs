@@ -25,22 +25,35 @@ namespace WebForm
         {
             try
             {
-                id = Convert.ToInt32(Request.QueryString["ID"]);
-
-                if (Session["Listado"] != null)
+                //Consulto si la lista esta vacia para inicializarla
+                if (Session["listaCarrito"] != null)
                 {
-                    listaArticulos = (List<Articulo>)Session["listado"];
-                    Articulo seleccionado = ((List<Articulo>)Session["listado"])[id - 1];
-                    imgImagen.ImageUrl = seleccionado.ImagenUrl;
-                    lblNombre.Text = seleccionado.Nombre;
-                    lblDescripcion.Text = seleccionado.Descripcion;
-                    lblPrecio.Text = seleccionado.Precio.ToString();
-
+                    aux = (List<Articulo>)Session["listaCarrito"];
                 }
                 else
                 {
-                    lblNombre.Text = "Selección inválida";
+                    aux = new List<Articulo>();
+                }
 
+                if (Request.QueryString["ID"] != null)
+                {
+                    id = Convert.ToInt32(Request.QueryString["ID"]);
+
+                    if (Session["Listado"] != null)
+                    {
+                        listaArticulos = (List<Articulo>)Session["listado"];
+                        Articulo seleccionado = ((List<Articulo>)Session["listado"])[id - 1];
+                        imgImagen.ImageUrl = seleccionado.ImagenUrl;
+                        lblNombre.Text = seleccionado.Nombre;
+                        lblDescripcion.Text = seleccionado.Descripcion;
+                        lblPrecio.Text = seleccionado.Precio.ToString();
+
+                    }
+                    else
+                    {
+                        lblNombre.Text = "Selección inválida";
+
+                    }
                 }
             }
             catch (Exception ex)
@@ -55,15 +68,6 @@ namespace WebForm
         {
             try
             {
-                //Consulto si la lista esta vacia para inicializarla
-                if (Session["listaCarrito"] != null)
-                {
-                    aux = (List<Articulo>)Session["listaCarrito"];
-                }
-                else
-                {
-                    aux = new List<Articulo>();
-                }
                 //Cargo el carrito
                 if (Request.QueryString["ID"] != null)
                 {

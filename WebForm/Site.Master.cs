@@ -12,10 +12,11 @@ namespace WebForm
     public partial class SiteMaster : MasterPage
     {
         ArticuloNegocio negocio = new ArticuloNegocio();
+        public List<Articulo> listaArticulos { get; set; }
 
-        public List<Articulo> aux;
+        public List<Articulo> aux = new List<Articulo>();
 
-        public bool auxBit = new bool();
+        public string auxString= null;
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -25,12 +26,11 @@ namespace WebForm
                 {
                     aux = (List<Articulo>)Session["listaCarrito"];
                 }
-                else
-                {
-                    aux = new List<Articulo>();
-                }
 
-                
+                //Consulto el URL si ya se hizo una busqueda antes de ingresar la categoria
+                if (Request.QueryString["nombre"] != null) auxString = "?nombre=" + Request.QueryString["nombre"] + "&";
+
+                else auxString = "?";
 
             }
             catch (Exception ex)
@@ -40,9 +40,28 @@ namespace WebForm
             }
         }
 
-        protected void txtBuscar_TextChanged(object sender, EventArgs e)
+        protected void btnBuscar_Click(object sender, EventArgs e)
         {
-            //btnBuscar.Text = txtBuscar.Text;
+            if (Request.QueryString["categ"] != null) auxString = "?categ=" + Request.QueryString["categ"] + "&";
+
+            else auxString = "?";
+
+            Response.Redirect(auxString + "nombre=" + txtBuscar.Text);
+        }
+
+        protected void btnCategPerf_Click(object sender, EventArgs e)
+        {
+            Response.Redirect(auxString + "categ=" + btnCategPerf.Text);
+        }
+
+        protected void btnCategLimp_Click(object sender, EventArgs e)
+        {
+            Response.Redirect(auxString + "categ=" + btnCategLimp.Text);
+        }
+
+        protected void btnCategDeco_Click(object sender, EventArgs e)
+        {
+            Response.Redirect(auxString + "categ=" + btnCategDeco.Text);
         }
     }
 }

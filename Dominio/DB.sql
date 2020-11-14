@@ -1,5 +1,7 @@
 use master
 go
+drop database db
+go
 create database DB
 go
 use DB
@@ -16,13 +18,20 @@ GO
 
 CREATE TABLE [dbo].[PERSONA](
 	[Id] [int] IDENTITY(1,1) PRIMARY KEY NOT NULL,
-	[IdUsuario] [int] FOREIGN KEY REFERENCES USUARIO(Id) not NULL,
+	[IdUsuario] [int] FOREIGN KEY REFERENCES USUARIO(Id) NOT NULL,
 	[DNI] [int] NULL,
 	[Nombre] [varchar](20) NULL,
 	[Apellido] [varchar](20) NULL,
 	[Direccion] [varchar](50) NULL,
 	[Genero] [varchar](20) NULL,
 	[Condicion] [int] NULL)
+GO
+
+
+CREATE TABLE [dbo].[CATEGORIA](
+	[Id] [int] IDENTITY(1,1) PRIMARY KEY NOT NULL,
+	[Nombre] [varchar](50) NULL,
+	[Descripcion] [varchar](150) NULL)
 GO
 
 
@@ -33,51 +42,53 @@ CREATE TABLE [dbo].[ARTICULO](
 	[ImagenUrl] [varchar](1000) NULL,
 	[Precio] numeric(17,3) NULL,
 	[Marca] [varchar](20) NULL,
-	[Categoria] [varchar](20) NULL)
+	[IdCategoria] [int] FOREIGN KEY REFERENCES CATEGORIA(Id) NOT NULL)
 GO
 
 
 CREATE TABLE [dbo].[ENVIO](
 	[Id] [int] IDENTITY(1,1) PRIMARY KEY NOT NULL,
-	[Metodo] [int] NULL,
-	[Estado] [int] NULL,
+	[Metodo] [varchar](50) NULL,
+	[Estado] [varchar](50) NULL,
 	[FechaEntrega] [date] NULL,
 	[Precio] numeric(17,3) NULL)
 GO
 
 
-CREATE TABLE [dbo].[FACTURA](
+CREATE TABLE [dbo].[COMPRA](
 	[Id] [int] IDENTITY(1,1) PRIMARY KEY NOT NULL,
-	[Tipo] [int] NULL,
-	[Metodo] [int] NULL,
-	[Fecha] [date] NULL,
+	[MetodoPago] [varchar](50) NULL,
+	[FechaCompra] [date] NULL,
 	[Importe] numeric(17,3) NULL)
 GO
 
-
-CREATE TABLE [dbo].[ELEMENTO](
-	[Id] [int] IDENTITY(1,1) PRIMARY KEY NOT NULL,
-	[IdCarrito] [int] not null,
-	[IdArticulo] [int] FOREIGN KEY REFERENCES ARTICULO(Id) not NULL,
-	[Cantidad] [int] NULL,
-	[Descuento] numeric(17,3) NULL)
-GO
-
-
 CREATE TABLE [dbo].[CARRITO](
 	[Id] [int] IDENTITY(1,1) PRIMARY KEY NOT NULL,
-	[IdElemento] [int] FOREIGN KEY REFERENCES ELEMENTO(Id) not NULL,
-	[IdUsuario] [int] FOREIGN KEY REFERENCES USUARIO(Id) not NULL,
-	[IdEnvio] [int] FOREIGN KEY REFERENCES ENVIO(Id) not NULL,
-	[IdFactura] [int] FOREIGN KEY REFERENCES FACTURA(Id) not NULL)
+	[IdUsuario] [int] FOREIGN KEY REFERENCES USUARIO(Id) NOT NULL,
+	[IdEnvio] [int] FOREIGN KEY REFERENCES ENVIO(Id) NOT NULL,
+	[IdCompra] [int] FOREIGN KEY REFERENCES COMPRA(Id) NOT NULL)
+GO
+
+CREATE TABLE [dbo].[ELEMENTO](
+	[IdCarrito] [int] FOREIGN KEY REFERENCES CARRITO(Id) NOT NULL,
+	[IdArticulo] [int] FOREIGN KEY REFERENCES ARTICULO(Id) NOT NULL,
+	[Cantidad] [int] NULL,
+	[Descuento] numeric(17,3) NULL,	
+    PRIMARY KEY (IdCarrito, IdArticulo)
+	)
 GO
 
 
 
-insert into ARTICULO values ('AGUA FRESCA AZAHAR', 'Floral Fresca', 'https://perfumeriaspigmento.com.ar/media/catalog/product/cache/small_image/400x437/beff4985b56e3afdbeabfc89641a4582/a/d/adolfo-dominguez-agua-fresca-azahar-edt-60-ml.jpg', 2350, 'ADOLFO DOMINGUEZ', 'Perfume'),
-('212 NYC', 'Tamaño: 100mL', 'https://perfumeriaspigmento.com.ar/media/catalog/product/cache/image/620x678/e9c3970ab036de70892d86c6d221abfe/s/c/sch-11599_8411061865408_1_.png', 10285, 'CAROLINA HERRERA', 'Perfume'),
-('CH', 'Tamaño: 100mL', 'https://perfumeriaspigmento.com.ar/media/catalog/product/cache/image/620x678/e9c3970ab036de70892d86c6d221abfe/8/4/8411061607152_1.jpg', 9065, 'CAROLINA HERRERA', 'Perfume'),
-('ACQUA DI GIOIA', 'Acuatica', 'https://perfumeriaspigmento.com.ar/media/catalog/product/cache/image/620x678/e9c3970ab036de70892d86c6d221abfe/6/1/61191.jpg', 10690, 'ARMANI', 'Perfume')
+insert into CATEGORIA values ('Perfumería','Fragancias de primera calidad'),('Limpieza','Muy buena calidad'),('Decoración','Te queda la casa hermosa')
 
 
-select *  from articulo
+
+insert into ARTICULO values ('Difusores ambientales', 'Envases de 125ml o 1L', 'https://ss-static-01.esmsv.com/id/117805/productos/obtenerimagen/?id=211&useDensity=false&width=1280&height=720&tipoEscala=fit', 2350, 'Aleli Esencias', 1),
+('Body splash', 'envases de 1 litro', 'https://ss-static-01.esmsv.com/id/117805/productos/obtenerimagen/?id=203&useDensity=false&width=1280&height=720&tipoEscala=fit', 10285, 'Aleli Esencias', 1),
+('Gel de ducha', 'envases de 1 litro', 'https://ss-static-01.esmsv.com/id/117805/productos/obtenerimagen/?id=157&useDensity=false&width=1280&height=720&tipoEscala=fit', 9065, 'Aleli Esencias', 1),
+('Desodorante Pisos', 'Lysoform', 'https://ss-static-01.esmsv.com/id/117805/productos/obtenerimagen/?id=195&useDensity=false&width=1280&height=720&tipoEscala=fit', 485, 'Aleli Esencias', 2),
+('Alcohol en Gel', 'Desinfectante', 'https://ss-static-01.esmsv.com/id/117805/productos/obtenerimagen/?id=183&useDensity=false&width=1280&height=720&tipoEscala=fit', 690, 'Aleli Esencias', 2)
+
+select a.Nombre, a.Descripcion, a.Precio, c.Nombre from articulo as a
+inner join categoria as c on c.id=a.IdCategoria

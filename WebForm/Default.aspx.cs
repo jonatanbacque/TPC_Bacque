@@ -12,7 +12,6 @@ namespace WebForm
     public partial class _Default : Page
     {
         ArticuloNegocio negocio = new ArticuloNegocio();
-
         public List<Articulo> listaArticulos { get; set; }
 
         public List<Articulo> aux;
@@ -24,6 +23,16 @@ namespace WebForm
             try
             {
                 //Consulto si la lista esta vacia para inicializarla
+                if (Session["listado"] != null)
+                {
+                    listaArticulos = (List<Articulo>)Session["listado"];
+                }
+                else
+                {
+                    listaArticulos = new List<Articulo>();
+                }
+
+                //Consulto si la lista esta vacia para inicializarla
                 if (Session["listaCarrito"] != null)
                 {
                     aux = (List<Articulo>)Session["listaCarrito"];
@@ -33,16 +42,22 @@ namespace WebForm
                     aux = new List<Articulo>();
                 }
 
+
                 //Si no hay busqueda, muestro lista completa
-                if (Request.QueryString["nombre"] == null)
-                {
-                    listaArticulos = negocio.listar();
-                    Session.Add("listado", listaArticulos);
-                }
-                //Muestro lista filtrada
-                else
+                listaArticulos = negocio.listar();
+                Session.Add("listado", listaArticulos);
+
+                //Filtrado por busqueda
+                if (Request.QueryString["nombre"] != null)
                 {
                     listaArticulos = negocio.Buscar(Request.QueryString["nombre"]);
+                    Session.Add("listado", listaArticulos);
+                }
+
+                //Filtrado por articulo
+                if (Request.QueryString["categ"] != null)
+                {
+                    listaArticulos = negocio.BuscarCateg(Request.QueryString["categ"]);
                     Session.Add("listado", listaArticulos);
                 }
 
