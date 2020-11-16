@@ -17,8 +17,20 @@ namespace WebForm
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            aux = (Articulo)Session["listado"];
+            try
+            {
+                aux = (Articulo)Session["articulo"];
 
+                txtNombre.Text = aux.Producto;
+                txtURLImagen.Text = aux.ImagenUrl;
+                txtPrecio.Text = aux.Precio.ToString();
+            }
+            catch (Exception ex)
+            {
+                Session.Add("errorEncontrado", ex.ToString());
+                Response.Redirect("Error.aspx");
+            }
+            Response.Redirect("Articulos.aspx");
         }
     }
 }

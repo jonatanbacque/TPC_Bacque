@@ -45,9 +45,8 @@ namespace WebForm
                 Session.Add("errorEncontrado", ex.ToString());
                 Response.Redirect("Error.aspx");
             }
-
+            
             Response.Redirect("Articulos.aspx");
-
         }
     }
 }
