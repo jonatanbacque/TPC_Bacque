@@ -41,10 +41,11 @@ namespace WebForm
 
                     if (Session["Listado"] != null)
                     {
-                        listaArticulos = (List<Articulo>)Session["listado"];
-                        Articulo seleccionado = ((List<Articulo>)Session["listado"])[id - 1];
+                        //Consulto si el articulo ya fue agregado
+                        Articulo seleccionado = negocio.listarID(id);
+
                         imgImagen.ImageUrl = seleccionado.ImagenUrl;
-                        lblNombre.Text = seleccionado.Nombre;
+                        lblNombre.Text = seleccionado.Producto;
                         lblDescripcion.Text = seleccionado.Descripcion;
                         lblPrecio.Text = seleccionado.Precio.ToString();
 

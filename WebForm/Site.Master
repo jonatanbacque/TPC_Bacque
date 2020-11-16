@@ -20,95 +20,60 @@
 
         <asp:ScriptManager ID="ScriptManager1" runat="server">
         </asp:ScriptManager>
+        <asp:UpdatePanel runat="server">
+            <ContentTemplate>
+                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                        <asp:Image class=" navbar-toggler-icon" ImageUrl="https://ss-static-01.esmsv.com/id/117805/galeriaimagenes/obtenerimagen/?width=75&height=75&id=sitio_logo&ultimaModificacion=2020-11-14+07%3A28%3A53" runat="server" />
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                        <ul class="navbar-nav">
+                            <li class="nav-item active">
+                                <a class="nav-link" href="/"><span class="sr-only">(current)</span>
+                                    <asp:Image class=" navbar-toggler-icon" ImageUrl="https://ss-static-01.esmsv.com/id/117805/galeriaimagenes/obtenerimagen/?width=75&height=75&id=sitio_logo&ultimaModificacion=2020-11-14+07%3A28%3A53" runat="server" />
 
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                <%--<span class="navbar-toggler-icon"></span>--%>
-                <asp:Image class=" navbar-toggler-icon" ImageUrl="https://ss-static-01.esmsv.com/id/117805/galeriaimagenes/obtenerimagen/?width=75&height=75&id=sitio_logo&ultimaModificacion=2020-11-14+07%3A28%3A53" runat="server" />
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                <ul class="navbar-nav">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="/"><span class="sr-only">(current)</span>
-                            <asp:Image class=" navbar-toggler-icon" ImageUrl="https://ss-static-01.esmsv.com/id/117805/galeriaimagenes/obtenerimagen/?width=75&height=75&id=sitio_logo&ultimaModificacion=2020-11-14+07%3A28%3A53" runat="server" />
-
-                        </a>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="Contacto.aspx">Contacto <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categorias</a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <asp:Button class="dropdown-item" ID="btnCategPerf" Text="Perfumería" OnClick="btnCategPerf_Click" runat="server" />
-                            <asp:Button class="dropdown-item" ID="btnCategLimp" Text="Limpieza" OnClick="btnCategLimp_Click" runat="server" /> 
-                            <asp:Button class="dropdown-item" ID="btnCategDeco" Text="Decoración" OnClick="btnCategDeco_Click" runat="server" />
-                            <a class="dropdown-item" href="/">Borrar filtros</a>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-            <ul class="navbar-nav">
-                <li class="nav-item active">
-                    <div class="container align-items-center">
-                        <asp:UpdatePanel runat="server">
-                            <ContentTemplate>
+                                </a>
+                            </li>
+                            <li class="nav-item active"></li>
+                            <li class="nav-item active">
+                                <a class="nav-link" href="Ventas.aspx">Ventas<span class="sr-only">(current)</span></a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categorias</a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                    <asp:Button class="dropdown-item" ID="btnCategPerf" Text="Perfumería" OnClick="btnCategPerf_Click" runat="server" />
+                                    <asp:Button class="dropdown-item" ID="btnCategLimp" Text="Limpieza" OnClick="btnCategLimp_Click" runat="server" />
+                                    <asp:Button class="dropdown-item" ID="btnCategDeco" Text="Decoración" OnClick="btnCategDeco_Click" runat="server" />
+                                    <a class="dropdown-item" href="/">Borrar filtros</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <ul class="navbar-nav">
+                        <li class="nav-item active">
+                            <div class="container align-items-center">
                                 <div class="row">
                                     <div id="divBuscar" class="col-sm" onkeypress="divBuscar_onkeypress" runat="server">
                                         <asp:TextBox AutoPostBack="true" class="form-control w-auto" type="search" placeholder="Ingrese su busqueda" aria-label="Search" ID="txtBuscar" runat="server"></asp:TextBox>
                                     </div>
                                     <div class="col-sm">
-                                        <asp:Button class="btn btn-outline-success my-2 my-sm-0" Text="Buscar" ID="btnBuscar" OnClick="btnBuscar_Click" runat="server"/>
+                                        <asp:Button class="btn btn-outline-success my-2 my-sm-0" Text="Buscar" ID="btnBuscar" OnClick="btnBuscar_Click" runat="server" />
                                     </div>
                                 </div>
-                            </ContentTemplate>
-                        </asp:UpdatePanel>
-                    </div>
-                </li>
-            </ul>
-            <ul class="navbar-nav">
-                <li class="nav-item active">
-                    <a class="nav-link" href="Carrito.aspx">
-                        <div class="card border-0 bg-light">
-                            <img class="card-img img-fluid" style="max-height: 20px; max-width: 20px" src="https://img.icons8.com/ios/452/shopping-cart.png" alt="Carrito">
-                            <div class="card-img-overlay">
-                                <h6 class="card-title text-center"><% =aux.Count %></h6>
                             </div>
-                        </div>
-                    </a>
-                </li>
-            </ul>
-        </nav>
-
-        <hr />
-
-        <%--        <div id="mySidenav" class="sidenav">
-            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-            <a href="#">About</a>
-            <a href="#">Services</a>
-            <a href="#">Clients</a>
-            <a href="#">Contact</a>
-        </div>                         
-
-        <span style="font-size: 30px; cursor: pointer" onclick="openNav()">Menu</span>
-
-        <script>
-            function openNav() {
-                document.getElementById("mySidenav").style.width = "250px";
-            }
-
-            function closeNav() {
-                document.getElementById("mySidenav").style.width = "0";
-            }
-        </script>
-
-        <!-- Use any element to open the sidenav -->
-        <span onclick="openNav()">open</span>
-
-        <!-- Add all page content inside this div if you want the side nav to push page content to the right (not used if you only want the sidenav to sit on top of the page -->
-        <div id="main">
-
-        </div>--%>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="Carrito.aspx">
+                                    <asp:Label class="text-muted" for="txtNombre" ID="lblCarrito" runat="server" />
+                                    <asp:Image class="img-fluid" style="max-height: 30px; max-width: 30px" src="https://img.icons8.com/ios/452/shopping-cart.png" alt="Carrito" runat="server" />
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </ContentTemplate>
+        </asp:UpdatePanel>
 
         <div class="container body-content">
             <asp:ContentPlaceHolder ID="MainContent" runat="server">
@@ -118,7 +83,10 @@
         <hr />
 
         <footer>
-            <p>&copy; <%: DateTime.Now.Year %> - TPC Bacque</p>
+            <p class="text-center">
+                <asp:Button class="btn btn-primary" Text="Contacto" ID="btnContacto" OnClick="btnContacto_Click" runat="server" />
+                &copy; <%: DateTime.Now.Year %> - TPC Bacque
+            </p>
         </footer>
     </form>
 

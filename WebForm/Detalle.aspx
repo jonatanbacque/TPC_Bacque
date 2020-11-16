@@ -4,6 +4,7 @@
     <div>
         <h2>Detalle</h2>
     </div>
+                <hr />
 
     <div class="card-deck">
         <div class="card border-primary text-center">
@@ -42,10 +43,10 @@
                 foreach (Dominio.Articulo item in listaArticulos)
                 { %>
         <div class="card border-primary text-center container-fluid" style="max-width: 300px; min-width: 200px;">
-            <img class="card-img-top img-fluid" src="<% = item.ImagenUrl %>" alt="<% = item.Nombre %>">
+            <img class="card-img-top img-fluid" src="<% = item.ImagenUrl %>" alt="<% = item.Producto %>">
             <div class="card-body"></div>
             <div class="card-footer">
-                <h5 class="card-title"><% = item.Nombre %></h5>
+                <h5 class="card-title"><% = item.Producto %></h5>
                 <div>
                     <small class="text-muted"><% = item.Descripcion %></small>
                 </div>
