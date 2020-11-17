@@ -16,7 +16,7 @@
                     </div>
                     <div class="form-group">
                         <asp:Label for="ddlCategorias" Text="Categorias" runat="server" />
-                        <asp:DropDownList  CssClass="form-control" ID="ddlCategorias" runat="server">
+                        <asp:DropDownList CssClass="form-control" ID="ddlCategorias" runat="server">
                         </asp:DropDownList>
                     </div>
                     <div class="form-group">
@@ -24,7 +24,7 @@
                         <asp:TextBox ID="txtDescripcion" type="text" class="form-control" placeholder="Ingrese descripción." runat="server" />
                     </div>
                     <div class="form-group">
-                        <asp:Label for="txtURLImagen" Text="URL de imagen" runat="server"/>
+                        <asp:Label for="txtURLImagen" Text="URL de imagen" runat="server" />
                         <asp:TextBox ID="txtURLImagen" OnTextChanged="txtURLImagen_TextChanged" AutoPostBack="true" type="text" class="form-control" placeholder="Ingrese URL de la imágen." runat="server" />
                     </div>
                     <div class="form-group">
@@ -39,6 +39,15 @@
                             </div>
                         </div>
                     </div>
+                    <div class="form-group">
+                        <div class="btn-group col-md-2">
+                            <a href="/Ventas.aspx" class="btn btn-primary">Volver</a>
+                            <asp:Button class="btn btn-primary" ID="btnGuardar" Text="Guardar cambios" OnClick="btnGuardar_Click" runat="server" />
+                        </div>
+                        <div class="form-group col-md-2">
+                            <asp:Label ID="lblGuardar" runat="server" for="btnGuardar" />
+                        </div>
+                    </div>
                 </div>
                 <div class="form-group col-md-6">
                     <div>
@@ -47,7 +56,7 @@
                     </div>
                 </div>
             </div>
-<%--            <div class="form-group">
+            <%--<div class="form-group">
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" id="gridCheck">
                     <label class="form-check-label" for="gridCheck">
@@ -55,10 +64,6 @@
                     </label>
                 </div>
             </div>--%>
-            <button type="submit" class="btn btn-primary">Sign in</button>
-
-            <div class="border-primary">
-            </div>
         </ContentTemplate>
     </asp:UpdatePanel>
 </asp:Content>

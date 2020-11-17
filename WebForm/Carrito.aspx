@@ -9,7 +9,7 @@
     </style>
 
     <div>
-        <h2>Ventas</h2>
+        <h2>Carrito</h2>
     </div>
 
     <hr />

@@ -8,7 +8,13 @@
         }
     </style>
 
-    <div>
+    <div class="form-group">
+        <div class="btn-group col-md-6">
+            <a href="/" class="btn btn-primary">Volver</a>
+            <a href="/Articulos?nuevo=1" class="btn btn-primary">Cargar nuevo articulo</a>
+        </div>
+    </div>
+
         <h2>Ventas</h2>
     </div>
 

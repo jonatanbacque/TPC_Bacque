@@ -22,18 +22,27 @@ namespace WebForm
             {
                 if (!IsPostBack)
                 {
+
+                    //Filtrado por busqueda
+                    if (Request.QueryString["nuevo"] != null)
+                    {
+                        btnGuardar.Text = "Guardar nuevo producto";
+                    }
+
+
                     if (Session["articulo"] != null)
                     {
                         aux = (Articulo)Session["articulo"];
-                        //aux = negocio.listarID(1);
 
                         txtNombre.Text = aux.Producto;
+
                         ddlCategorias.DataSource = categoriaNegocio.listar();
                         ddlCategorias.DataTextField = "Nombre";
                         ddlCategorias.DataValueField = "ID";// aux.categoria.ToString();
                         ddlCategorias.DataBind();
                         ddlCategorias.SelectedIndex = ddlCategorias.Items.IndexOf(
                             ddlCategorias.Items.FindByText(aux.categoria.ToString()));
+
                         txtDescripcion.Text = aux.Descripcion;
                         txtURLImagen.Text = aux.ImagenUrl;
                         imgImagen.ImageUrl = aux.ImagenUrl;
@@ -52,6 +61,11 @@ namespace WebForm
         protected void txtURLImagen_TextChanged(object sender, EventArgs e)
         {
             imgImagen.ImageUrl = txtURLImagen.Text;
+        }
+
+        protected void btnGuardar_Click(object sender, EventArgs e)
+        {
+            lblGuardar.Text = "Guardado";
         }
     }
 }
