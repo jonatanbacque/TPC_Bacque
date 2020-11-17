@@ -31,7 +31,6 @@
                             <li class="nav-item active">
                                 <a class="nav-link" href="/"><span class="sr-only">(current)</span>
                                     <asp:Image class=" navbar-toggler-icon" ImageUrl="https://ss-static-01.esmsv.com/id/117805/galeriaimagenes/obtenerimagen/?width=75&height=75&id=sitio_logo&ultimaModificacion=2020-11-14+07%3A28%3A53" runat="server" />
-
                                 </a>
                             </li>
                             <li class="nav-item active"></li>

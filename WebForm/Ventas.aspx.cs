@@ -29,16 +29,12 @@ namespace WebForm
             }
         }
 
-        protected void dgvArticulos_SelectedIndexChanged(object sender, EventArgs e)
-        {
-        }
-
         protected void dgvArticulos_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             try
             {
                 int id = Convert.ToInt32(e.CommandArgument);
-                Session.Add("Articulo", negocio.listarID(id));
+                Session.Add("Articulo", negocio.listarID(id+1));
             }
             catch (Exception ex)
             {

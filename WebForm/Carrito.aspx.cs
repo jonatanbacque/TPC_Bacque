@@ -30,35 +30,14 @@ namespace WebForm
                     aux = new List<Articulo>();
                 }
 
-                //if (Request.QueryString["ID"] != null)
-                //{
-                //    foreach (Articulo item in aux)
-                //    {
-                //        if (item.Id == Convert.ToInt32(Request.QueryString["ID"]))
-                //        {
-                //            auxBit = true;
-                //        }
-                //    }
-
-                //    if (!auxBit)
-                //    {
-                //        aux.Add(negocio.listarID(Convert.ToInt32(Request.QueryString["ID"])));
-                //        Session.Add("listaCarrito", aux);
-
-                //    }
-                //}
-
-                gvCarrito.DataSource = Session["listaCarrito"];
-                gvCarrito.DataBind();
+                dgvCarrito.DataSource = Session["listaCarrito"];
+                dgvCarrito.DataBind();
 
             }
             catch (Exception ex)
             {
                 Session.Add("errorEncontrado", ex.ToString());
                 Response.Redirect("Error.aspx");
-            }
-            finally
-            {
             }
         }
 
