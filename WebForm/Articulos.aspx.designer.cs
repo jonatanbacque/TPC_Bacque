@@ -24,13 +24,13 @@ namespace WebForm
         protected global::System.Web.UI.WebControls.TextBox txtNombre;
 
         /// <summary>
-        /// ddlCategorias control.
+        /// txtPresentacion control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlCategorias;
+        protected global::System.Web.UI.WebControls.TextBox txtPresentacion;
 
         /// <summary>
         /// txtDescripcion control.
@@ -40,6 +40,24 @@ namespace WebForm
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtDescripcion;
+
+        /// <summary>
+        /// txtMarca control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtMarca;
+
+        /// <summary>
+        /// ddlCategorias control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlCategorias;
 
         /// <summary>
         /// txtURLImagen control.

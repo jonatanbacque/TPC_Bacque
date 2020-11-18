@@ -14,13 +14,10 @@
             <a href="/Articulos?nuevo=1" class="btn btn-primary">Cargar nuevo articulo</a>
         </div>
     </div>
-
         <h2>Ventas</h2>
-    </div>
-
     <hr />
 
-    <asp:GridView class="table" ID="dgvArticulos" AutoGenerateColumns="False" OnRowCommand="dgvArticulos_RowCommand" runat="server">
+    <asp:GridView class="table" ID="dgvArticulos" AutoGenerateColumns="False" OnRowCommand="dgvArticulos_RowCommand" runat="server" CellPadding="0" EditIndex="1" SelectedIndex="1" HorizontalAlign="Center">
         <Columns>
             <asp:ImageField HeaderText="Imagen" ControlStyle-Height="150px" ControlStyle-Width="150px" DataImageUrlField="ImagenUrl" ItemStyle-CssClass="img-fluid" ItemStyle-HorizontalAlign="Center" ReadOnly="true" />
             <asp:ButtonField HeaderText="Elegir" ItemStyle-VerticalAlign="Middle" ButtonType="Button" Text="Editar" CommandName="Select" />

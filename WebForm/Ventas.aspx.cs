@@ -12,6 +12,8 @@ namespace WebForm
     public partial class Ventas : System.Web.UI.Page
     {
         ArticuloNegocio negocio = new ArticuloNegocio();
+
+        Articulo aux;
         protected void Page_Load(object sender, EventArgs e)
         {
             try
@@ -33,15 +35,15 @@ namespace WebForm
         {
             try
             {
-                int id = Convert.ToInt32(e.CommandArgument);
-                Session.Add("Articulo", negocio.listarID(id+1));
+                int id = Convert.ToInt32(e.CommandArgument)+1;
+                Session.Add("articuloId", id);
             }
             catch (Exception ex)
             {
                 Session.Add("errorEncontrado", ex.ToString());
                 Response.Redirect("Error.aspx");
             }
-            
+
             Response.Redirect("Articulos.aspx");
         }
     }

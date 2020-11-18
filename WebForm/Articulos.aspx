@@ -2,7 +2,7 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <div>
-        <h2>Articulo</h2>
+        <h2>Artículos</h2>
     </div>
     <hr />
 
@@ -12,20 +12,28 @@
                 <div class="form-group col-md-6">
                     <div class="form-group">
                         <asp:Label for="txtNombre" Text="Producto" runat="server" />
-                        <asp:TextBox ID="txtNombre" type="text" class="form-control" placeholder="Ingrese nombre del producto." runat="server" />
+                        <asp:TextBox ID="txtNombre" type="text" AutoPostBack="true" class="form-control" placeholder="Ingrese nombre del producto." runat="server" />
                     </div>
                     <div class="form-group">
-                        <asp:Label for="ddlCategorias" Text="Categorias" runat="server" />
-                        <asp:DropDownList CssClass="form-control" ID="ddlCategorias" runat="server">
-                        </asp:DropDownList>
+                        <asp:Label for="txtPresentacion" Text="Producto" runat="server" />
+                        <asp:TextBox ID="txtPresentacion" type="text" AutoPostBack="true" class="form-control" placeholder="Ingrese presentación." runat="server" />
                     </div>
                     <div class="form-group">
                         <asp:Label for="txtDescripcion" Text="Descripción" runat="server" />
-                        <asp:TextBox ID="txtDescripcion" type="text" class="form-control" placeholder="Ingrese descripción." runat="server" />
+                        <asp:TextBox ID="txtDescripcion" type="text" AutoPostBack="true" class="form-control" placeholder="Ingrese descripción." runat="server" />
+                    </div>
+                    <div class="form-group">
+                        <asp:Label for="txtMarca" Text="Marca" runat="server" />
+                        <asp:TextBox ID="txtMarca" type="text" AutoPostBack="true" class="form-control" placeholder="Ingrese marca." runat="server" />
+                    </div>
+                    <div class="form-group">
+                        <asp:Label for="ddlCategorias" Text="Categorias" runat="server" />
+                        <asp:DropDownList CssClass="form-control" AutoPostBack="true" ID="ddlCategorias" runat="server">
+                        </asp:DropDownList>
                     </div>
                     <div class="form-group">
                         <asp:Label for="txtURLImagen" Text="URL de imagen" runat="server" />
-                        <asp:TextBox ID="txtURLImagen" OnTextChanged="txtURLImagen_TextChanged" AutoPostBack="true" type="text" class="form-control" placeholder="Ingrese URL de la imágen." runat="server" />
+                        <asp:TextBox ID="txtURLImagen" AutoPostBack="true" OnTextChanged="txtURLImagen_TextChanged" type="text" class="form-control" placeholder="Ingrese URL de la imágen." runat="server" />
                     </div>
                     <div class="form-group">
                         <asp:Label for="txtPrecio" Text="Precio" runat="server" />

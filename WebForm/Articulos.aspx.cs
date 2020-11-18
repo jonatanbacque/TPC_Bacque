@@ -13,41 +13,47 @@ namespace WebForm
     {
         ArticuloNegocio articulosNegocio = new ArticuloNegocio();
         CategoriaNegocio categoriaNegocio = new CategoriaNegocio();
-
-        public Articulo aux = new Articulo();
-
+        //
+        Articulo aux = new Articulo
+        {
+            categoria = new Categoria()
+        };
+        //
         protected void Page_Load(object sender, EventArgs e)
         {
             try
             {
                 if (!IsPostBack)
                 {
+                    ddlCategorias.DataSource = categoriaNegocio.listar();
+                    ddlCategorias.DataTextField = "Nombre";
+                    ddlCategorias.DataValueField = "ID";// aux.categoria.ToString();
+                    ddlCategorias.DataBind();
 
                     //Filtrado por busqueda
                     if (Request.QueryString["nuevo"] != null)
                     {
                         btnGuardar.Text = "Guardar nuevo producto";
                     }
-
-
-                    if (Session["articulo"] != null)
+                    else
                     {
-                        aux = (Articulo)Session["articulo"];
+                        if (Session["articuloId"] != null)
+                        {
+                            int idlocal = (int)Session["articuloId"];
+                            aux = articulosNegocio.listarID(idlocal);
+                        }
 
                         txtNombre.Text = aux.Producto;
+                        txtPresentacion.Text = aux.Presentacion;
+                        txtDescripcion.Text = aux.Descripcion;
+                        txtPrecio.Text = aux.Precio.ToString();
+                        imgImagen.ImageUrl = aux.ImagenUrl;
+                        txtMarca.Text = aux.Marca;
 
-                        ddlCategorias.DataSource = categoriaNegocio.listar();
-                        ddlCategorias.DataTextField = "Nombre";
-                        ddlCategorias.DataValueField = "ID";// aux.categoria.ToString();
-                        ddlCategorias.DataBind();
                         ddlCategorias.SelectedIndex = ddlCategorias.Items.IndexOf(
                             ddlCategorias.Items.FindByText(aux.categoria.ToString()));
 
-                        txtDescripcion.Text = aux.Descripcion;
                         txtURLImagen.Text = aux.ImagenUrl;
-                        imgImagen.ImageUrl = aux.ImagenUrl;
-                        txtPrecio.Text = aux.Precio.ToString();
-
                     }
                 }
             }
@@ -65,7 +71,32 @@ namespace WebForm
 
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
-            lblGuardar.Text = "Guardado";
+            try
+            {
+                Articulo nuevo = new Articulo
+                {
+                    Id = (int)Session["articuloId"],
+                    Producto = txtNombre.Text,
+                    Presentacion = txtPresentacion.Text,
+                    Descripcion = txtDescripcion.Text,
+                    ImagenUrl = imgImagen.ImageUrl,
+                    Precio = Convert.ToDecimal(txtPrecio.Text),
+                    Marca = txtMarca.Text,
+
+                    categoria = new Categoria
+                    {
+                        Id = Convert.ToInt32(ddlCategorias.SelectedValue),
+                    }
+                };
+
+                articulosNegocio.modificar(nuevo);
+                lblGuardar.Text = "Guardado";
+            }
+            catch (Exception ex)
+            {
+                Session.Add("errorEncontrado", ex.ToString());
+                Response.Redirect("Error.aspx");
+            }
         }
     }
 }

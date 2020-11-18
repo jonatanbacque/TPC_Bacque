@@ -158,6 +158,7 @@ namespace Negocio
         {
             AccesoDatos conexion = new AccesoDatos();
             List<Articulo> lista = new List<Articulo>();
+
             try
             {
                 conexion.abrirConexion();
@@ -198,7 +199,94 @@ namespace Negocio
             finally
             {
                 conexion.cerrarConexion();
+            }
+        }
+        public void modificar(Articulo articulo)
+        {
+            AccesoDatos conexion = new AccesoDatos();
+            try
+            {
+                //
+                conexion.setearConsulta("Update ARTICULO Set Producto=@producto, Presentacion=@Presentacion, Descripcion=@descripcion, " +
+                                        "ImagenUrl=@imagenUrl, Precio=@precio, Marca=@marca, IdCategoria=@idCategoria Where Id=@id");
+                //
+                conexion.Comando.Parameters.Clear();
+                conexion.Comando.Parameters.AddWithValue("@producto", articulo.Producto);
+                conexion.Comando.Parameters.AddWithValue("@presentacion", articulo.Presentacion);
+                conexion.Comando.Parameters.AddWithValue("@descripcion", articulo.Descripcion);
+                conexion.Comando.Parameters.AddWithValue("@imagenURL", articulo.ImagenUrl);
+                conexion.Comando.Parameters.AddWithValue("@precio", articulo.Precio);
+                conexion.Comando.Parameters.AddWithValue("@marca", articulo.Marca);
+                conexion.Comando.Parameters.AddWithValue("@idCategoria", articulo.categoria.Id);
+                conexion.Comando.Parameters.AddWithValue("@iD", articulo.Id);
+                //
+                conexion.abrirConexion();
+                conexion.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conexion.cerrarConexion();
+            }
+        }
 
+        public void eliminar(int id)
+        {
+            AccesoDatos conexion = new AccesoDatos();
+            try
+            {
+                //
+                conexion.abrirConexion();
+                conexion.setearConsulta("Delete from ARTICULO Where Id=@id");
+                conexion.ejecutarConsulta();
+                //
+                conexion.Comando.Parameters.AddWithValue("@id", id);
+                //
+                conexion.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conexion.cerrarConexion();
+            }
+        }
+
+        public void agregar(Articulo articulo)
+        {
+            AccesoDatos conexion = new AccesoDatos();
+            try
+            {
+                conexion.setearConsulta("insert into ARTICULO (Producto, Presentacion, Descripcion, ImagenUrl, Precio, " +
+                                        "Marca, IdCategoria) values (@Producto, @Presentacion, @Descripcion, @imagenURL, @precio, @marca, @idCategoria)");
+                
+                //
+                conexion.Comando.Parameters.Clear();
+                conexion.Comando.Parameters.AddWithValue("@producto", articulo.Producto);
+                conexion.Comando.Parameters.AddWithValue("@descripcion", articulo.Descripcion);
+                conexion.Comando.Parameters.AddWithValue("@presentacion", articulo.Presentacion);
+                conexion.Comando.Parameters.AddWithValue("@descripcion", articulo.Descripcion);
+                conexion.Comando.Parameters.AddWithValue("@imagenURL", articulo.ImagenUrl);
+                conexion.Comando.Parameters.AddWithValue("@precio", articulo.Precio);
+                conexion.Comando.Parameters.AddWithValue("@marca", articulo.Marca);
+                conexion.Comando.Parameters.AddWithValue("@idCategoria", articulo.categoria.Id);
+                
+                //
+                conexion.abrirConexion();
+                conexion.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conexion.cerrarConexion();
             }
         }
     }

@@ -14,7 +14,7 @@
 
     <hr />
 
-    <asp:GridView class="table" ID="dgvCarrito" AutoGenerateColumns="False" runat="server">
+    <asp:GridView class="table" ID="dgvCarrito" AutoGenerateColumns="False" runat="server" CellPadding="0" EditIndex="0" SelectedIndex="0">
         <Columns>
             <asp:ImageField HeaderText="Imagen" ControlStyle-Height="150px" ControlStyle-Width="150px" DataImageUrlField="ImagenUrl" ItemStyle-CssClass="img-fluid" ItemStyle-HorizontalAlign="Center" ReadOnly="true" />
             <asp:ButtonField HeaderText="Eliminar" ItemStyle-VerticalAlign="Middle" ButtonType="Button" Text="Editar" CommandName="Select" />
