@@ -39,7 +39,7 @@ CREATE TABLE [dbo].[ARTICULO](
 	[Presentacion] [varchar](100) NULL,
 	[Descripcion] [varchar](200) NULL,
 	[ImagenUrl] [varchar](1000) NULL,
-	[Precio] numeric(17,3) NULL,
+	[Precio] numeric(18,2) NULL,
 	[Marca] [varchar](20) NULL,
 	[IdCategoria] [int] FOREIGN KEY REFERENCES CATEGORIA(Id) NOT NULL)
 GO
