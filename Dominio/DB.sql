@@ -89,3 +89,25 @@ insert into ARTICULO values ('Difusores ambientales', 'Envases de 125ml o 1L','F
 
 select a.Producto, a.Descripcion, a.Precio, c.Nombre from articulo as a
 inner join categoria as c on c.id=a.IdCategoria
+
+declare @idCarrito int
+declare @idArticulo int
+declare @cantidad int
+declare @descuento int
+
+set @idCarrito =13
+set @idArticulo = 1
+set @cantidad = 1
+set @descuento = 1
+
+
+IF (EXISTS (SELECT * from ELEMENTO WHERE IdCarrito=@idCarrito and IdArticulo=@idArticulo))
+BEGIN update ELEMENTO set Cantidad = (select SUM(cantidad) FROM ELEMENTO WHERE  IdCarrito=@idCarrito and IdArticulo=@idArticulo) + @cantidad
+WHERE IdCarrito=@idCarrito and IdArticulo=@idArticulo END
+ELSE 
+BEGIN INSERT into ELEMENTO(IdCarrito, IdArticulo, Cantidad, Descuento) VALUES(@idCarrito, @idArticulo, @cantidad, @descuento) END
+
+Select ca.Id as IdCarrito, ca.Importe, a.ID as IdArticulo, a.Producto, a.Precio, c.Nombre, e.cantidad, e.Descuento from Elemento as e 
+INNER JOIN ARTICULO as a on a.id = e.idArticulo 
+INNER JOIN CATEGORIA as c on c.ID = a.IdCategoria  
+INNER JOIN CARRITO as ca on ca.id = e.idCarrito
