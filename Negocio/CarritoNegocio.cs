@@ -18,6 +18,7 @@ namespace Negocio
             {
                 conexion.abrirConexion();
                 conexion.setearConsulta("Select ID, Importe from CARRITO");
+                //
                 conexion.ejecutarConsulta();
 
                 while (conexion.Lector.Read())
@@ -42,7 +43,6 @@ namespace Negocio
                 conexion.cerrarConexion();
             }
         }
-
         public Carrito listarID(int ID)
         {
             AccesoDatos conexion = new AccesoDatos();
@@ -50,7 +50,8 @@ namespace Negocio
             try
             {
                 conexion.abrirConexion();
-                conexion.setearConsulta("Select ID, Importe CARRITO WHERE ID =" + ID);
+                conexion.setearConsulta("Select ID, Importe from CARRITO WHERE ID =" + ID);
+                //
                 conexion.ejecutarConsulta();
 
                 while (conexion.Lector.Read())
@@ -73,6 +74,34 @@ namespace Negocio
 
             }
         }
+        public int UltimoCarrito()
+        {
+            AccesoDatos conexion = new AccesoDatos();
+            try
+            {
+                int ultimoCarrito = new int();
+
+                conexion.abrirConexion();
+                conexion.setearConsulta("select top(1) id from CARRITO order by id desc");
+                //
+                conexion.ejecutarConsulta();
+
+                while (conexion.Lector.Read())
+                {
+                    ultimoCarrito = conexion.Lector.GetInt32(0);
+                }
+                return ultimoCarrito;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conexion.cerrarConexion();
+
+            }
+        }
 
         public void modificar(Carrito carrito)
         {
@@ -80,13 +109,13 @@ namespace Negocio
             try
             {
                 //
+                conexion.abrirConexion();
                 conexion.setearConsulta("Update CARRITO Set Id=@id, Importe=@importe Where Id=@id");
                 //
                 conexion.Comando.Parameters.Clear();
                 conexion.Comando.Parameters.AddWithValue("@importe", carrito.Importe);
                 conexion.Comando.Parameters.AddWithValue("@id", carrito.Id);
                 //
-                conexion.abrirConexion();
                 conexion.ejecutarAccion();
             }
             catch (Exception ex)
@@ -105,11 +134,11 @@ namespace Negocio
             try
             {
                 //
+                conexion.abrirConexion();
                 conexion.setearConsulta("Delete from CARRITO Where Id=@id");
                 //
                 conexion.Comando.Parameters.AddWithValue("@id", id);
                 //
-                conexion.abrirConexion();
                 conexion.ejecutarAccion();
             }
             catch (Exception ex)
@@ -128,12 +157,12 @@ namespace Negocio
             try
             {
                 //
+                conexion.abrirConexion();
                 conexion.setearConsulta("Insert into CARRITO (Importe) VALUES (@importe)");
                 //
                 conexion.Comando.Parameters.Clear();
                 conexion.Comando.Parameters.AddWithValue("@importe", carrito.Importe);
                 //
-                conexion.abrirConexion();
                 conexion.ejecutarAccion();
             }
             catch (Exception ex)

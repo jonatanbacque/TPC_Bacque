@@ -12,8 +12,6 @@ namespace WebForm
     public partial class Listado : System.Web.UI.Page
     {
         ArticuloNegocio negocio = new ArticuloNegocio();
-
-        Articulo aux;
         protected void Page_Load(object sender, EventArgs e)
         {
             try

@@ -204,6 +204,7 @@ namespace Negocio
             try
             {
                 //
+                conexion.abrirConexion();
                 conexion.setearConsulta("Update ARTICULO Set Producto=@producto, Presentacion=@Presentacion, Descripcion=@descripcion, " +
                                         "ImagenUrl=@imagenUrl, Precio=@precio, Marca=@marca, IdCategoria=@idCategoria Where Id=@id");
                 //
@@ -217,7 +218,6 @@ namespace Negocio
                 conexion.Comando.Parameters.AddWithValue("@idCategoria", articulo.categoria.Id);
                 conexion.Comando.Parameters.AddWithValue("@iD", articulo.Id);
                 //
-                conexion.abrirConexion();
                 conexion.ejecutarAccion();
             }
             catch (Exception ex)
@@ -236,11 +236,11 @@ namespace Negocio
             try
             {
                 //
+                conexion.abrirConexion();
                 conexion.setearConsulta("Delete from ARTICULO Where Id=@id");
                 //
                 conexion.Comando.Parameters.AddWithValue("@id", id);
                 //
-                conexion.abrirConexion();
                 conexion.ejecutarAccion();
             }
             catch (Exception ex)
@@ -258,9 +258,9 @@ namespace Negocio
             AccesoDatos conexion = new AccesoDatos();
             try
             {
+                conexion.abrirConexion();
                 conexion.setearConsulta("insert into ARTICULO (Producto, Presentacion, Descripcion, ImagenUrl, Precio, " +
                                         "Marca, IdCategoria) values (@Producto, @Presentacion, @Descripcion, @imagenURL, @precio, @marca, @idCategoria)");
-                
                 //
                 conexion.Comando.Parameters.Clear();
                 conexion.Comando.Parameters.AddWithValue("@producto", articulo.Producto);
@@ -270,9 +270,7 @@ namespace Negocio
                 conexion.Comando.Parameters.AddWithValue("@precio", articulo.Precio);
                 conexion.Comando.Parameters.AddWithValue("@marca", articulo.Marca);
                 conexion.Comando.Parameters.AddWithValue("@idCategoria", articulo.categoria.Id);
-                
                 //
-                conexion.abrirConexion();
                 conexion.ejecutarAccion();
             }
             catch (Exception ex)

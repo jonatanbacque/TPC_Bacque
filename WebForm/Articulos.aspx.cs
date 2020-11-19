@@ -110,14 +110,14 @@ namespace WebForm
                 articulosNegocio.eliminar((int)Session["articuloId"]);
 
                 lblGuardar.Text = "Eliminado";
-
-                Response.Redirect("Ventas.aspx");
             }
             catch (Exception ex)
             {
                 Session.Add("errorEncontrado", ex.ToString());
                 Response.Redirect("Error.aspx");
             }
+
+            Response.Redirect("Listado.aspx");
         }
     }
 }
