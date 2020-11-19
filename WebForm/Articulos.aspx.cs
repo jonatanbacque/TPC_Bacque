@@ -14,10 +14,7 @@ namespace WebForm
         ArticuloNegocio articulosNegocio = new ArticuloNegocio();
         CategoriaNegocio categoriaNegocio = new CategoriaNegocio();
         //
-        Articulo aux = new Articulo
-        {
-            categoria = new Categoria()
-        };
+        Articulo aux;
         //
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -27,33 +24,37 @@ namespace WebForm
                 {
                     ddlCategorias.DataSource = categoriaNegocio.listar();
                     ddlCategorias.DataTextField = "Nombre";
-                    ddlCategorias.DataValueField = "ID";// aux.categoria.ToString();
+                    ddlCategorias.DataValueField = "ID";
                     ddlCategorias.DataBind();
 
-                    //Filtrado por busqueda
-                    if (Request.QueryString["nuevo"] != null)
+                    if (Session["articuloId"] != null)
                     {
-                        btnGuardar.Text = "Guardar nuevo producto";
-                    }
-                    else
-                    {
-                        if (Session["articuloId"] != null)
+                        if ((int)Session["articuloId"] != 0)
                         {
-                            int idlocal = (int)Session["articuloId"];
-                            aux = articulosNegocio.listarID(idlocal);
+                            int idLocal = (int)Session["articuloId"];
+                            aux = articulosNegocio.listarID(idLocal);
+                            btnEliminar.Visible = true;
+
+                            txtNombre.Text = aux.Producto;
+                            txtPresentacion.Text = aux.Presentacion;
+                            txtDescripcion.Text = aux.Descripcion;
+                            txtPrecio.Text = aux.Precio.ToString();
+                            imgImagen.ImageUrl = aux.ImagenUrl;
+                            txtMarca.Text = aux.Marca;
+                            txtURLImagen.Text = aux.ImagenUrl;
+
+                            ddlCategorias.SelectedIndex = ddlCategorias.Items.IndexOf(
+                                ddlCategorias.Items.FindByText(aux.categoria.ToString()));
+
                         }
-
-                        txtNombre.Text = aux.Producto;
-                        txtPresentacion.Text = aux.Presentacion;
-                        txtDescripcion.Text = aux.Descripcion;
-                        txtPrecio.Text = aux.Precio.ToString();
-                        imgImagen.ImageUrl = aux.ImagenUrl;
-                        txtMarca.Text = aux.Marca;
-
-                        ddlCategorias.SelectedIndex = ddlCategorias.Items.IndexOf(
-                            ddlCategorias.Items.FindByText(aux.categoria.ToString()));
-
-                        txtURLImagen.Text = aux.ImagenUrl;
+                        else
+                        {
+                            btnGuardar.Text = "Guardar nuevo producto";
+                            aux = new Articulo
+                            {
+                                categoria = new Categoria()
+                            };
+                        }
                     }
                 }
             }
@@ -89,8 +90,28 @@ namespace WebForm
                     }
                 };
 
-                articulosNegocio.modificar(nuevo);
+                //Decido si modifico articulo o creo uno nuevo
+                if (Session["articuloId"] != null && (int)Session["articuloId"] != 0) articulosNegocio.modificar(nuevo);
+                else articulosNegocio.agregar(nuevo);
+
                 lblGuardar.Text = "Guardado";
+            }
+            catch (Exception ex)
+            {
+                Session.Add("errorEncontrado", ex.ToString());
+                Response.Redirect("Error.aspx");
+            }
+        }
+
+        protected void btnEliminar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                articulosNegocio.eliminar((int)Session["articuloId"]);
+
+                lblGuardar.Text = "Eliminado";
+
+                Response.Redirect("Ventas.aspx");
             }
             catch (Exception ex)
             {

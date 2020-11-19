@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Articulos.aspx.cs" Inherits="WebForm.Articulos" %>
+﻿<%@ Page Title="Articulos" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Articulos.aspx.cs" Inherits="WebForm.Articulos" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <div>
@@ -49,8 +49,9 @@
                     </div>
                     <div class="form-group">
                         <div class="btn-group col-md-2">
-                            <a href="/Ventas.aspx" class="btn btn-primary">Volver</a>
+                            <a href="/Listado.aspx" class="btn btn-primary">Volver</a>
                             <asp:Button class="btn btn-primary" ID="btnGuardar" Text="Guardar cambios" OnClick="btnGuardar_Click" runat="server" />
+                            <asp:Button class="btn btn-primary" ID="btnEliminar" Visible="false" Text="Eliminar Producto" OnClick="btnEliminar_Click" runat="server" />
                         </div>
                         <div class="form-group col-md-2">
                             <asp:Label ID="lblGuardar" runat="server" for="btnGuardar" />

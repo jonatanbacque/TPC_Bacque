@@ -30,7 +30,7 @@ namespace WebForm
                     aux = new List<Articulo>();
                 }
 
-                dgvCarrito.DataSource = Session["listaCarrito"];
+                dgvCarrito.DataSource = aux;
                 dgvCarrito.DataBind();
 
             }
@@ -46,6 +46,23 @@ namespace WebForm
             aux = new List<Articulo>();
             Session.Add("listaCarrito", aux);
             Response.Redirect("Carrito.aspx");
+        }
+
+        protected void dgvCarrito_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            try
+            {
+                int indice = Convert.ToInt32(e.CommandArgument);
+                aux.RemoveRange(indice, 1);
+            }
+            catch (Exception ex)
+            {
+                Session.Add("errorEncontrado", ex.ToString());
+                Response.Redirect("Error.aspx");
+            }
+
+            dgvCarrito.DataSource = aux;
+            dgvCarrito.DataBind();
         }
     }
 }

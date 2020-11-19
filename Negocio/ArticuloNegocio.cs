@@ -89,9 +89,6 @@ namespace Negocio
                             Descripcion = conexion.Lector.GetString(9),
                         }
                     };
-
-                    lista.Add(articulo);
-
                 }
                 return articulo;
             }
@@ -239,12 +236,11 @@ namespace Negocio
             try
             {
                 //
-                conexion.abrirConexion();
                 conexion.setearConsulta("Delete from ARTICULO Where Id=@id");
-                conexion.ejecutarConsulta();
                 //
                 conexion.Comando.Parameters.AddWithValue("@id", id);
                 //
+                conexion.abrirConexion();
                 conexion.ejecutarAccion();
             }
             catch (Exception ex)
@@ -268,7 +264,6 @@ namespace Negocio
                 //
                 conexion.Comando.Parameters.Clear();
                 conexion.Comando.Parameters.AddWithValue("@producto", articulo.Producto);
-                conexion.Comando.Parameters.AddWithValue("@descripcion", articulo.Descripcion);
                 conexion.Comando.Parameters.AddWithValue("@presentacion", articulo.Presentacion);
                 conexion.Comando.Parameters.AddWithValue("@descripcion", articulo.Descripcion);
                 conexion.Comando.Parameters.AddWithValue("@imagenURL", articulo.ImagenUrl);

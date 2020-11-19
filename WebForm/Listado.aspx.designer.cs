@@ -11,25 +11,25 @@ namespace WebForm
 {
 
 
-    public partial class Carrito
+    public partial class Listado
     {
 
         /// <summary>
-        /// Control dgvCarrito.
+        /// Control btnNuevo.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView dgvCarrito;
+        protected global::System.Web.UI.WebControls.Button btnNuevo;
 
         /// <summary>
-        /// Control btnCarritoVaciar.
+        /// Control dgvArticulos.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnCarritoVaciar;
+        protected global::System.Web.UI.WebControls.GridView dgvArticulos;
     }
 }

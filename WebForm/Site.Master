@@ -22,20 +22,20 @@
         </asp:ScriptManager>
         <asp:UpdatePanel runat="server">
             <ContentTemplate>
-                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                        <asp:Image class=" navbar-toggler-icon" ImageUrl="https://ss-static-01.esmsv.com/id/117805/galeriaimagenes/obtenerimagen/?width=75&height=75&id=sitio_logo&ultimaModificacion=2020-11-14+07%3A28%3A53" runat="server" />
+                        <asp:Image class="navbar-toggler-icon" ImageUrl="https://ss-static-01.esmsv.com/id/117805/galeriaimagenes/obtenerimagen/?width=75&height=75&id=sitio_logo&ultimaModificacion=2020-11-14+07%3A28%3A53" runat="server" />
                     </button>
                     <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                        <ul class="navbar-nav">
-                            <li class="nav-item active">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item active ">
                                 <a class="nav-link" href="/"><span class="sr-only">(current)</span>
                                     <asp:Image class=" navbar-toggler-icon" ImageUrl="https://ss-static-01.esmsv.com/id/117805/galeriaimagenes/obtenerimagen/?width=75&height=75&id=sitio_logo&ultimaModificacion=2020-11-14+07%3A28%3A53" runat="server" />
                                 </a>
                             </li>
                             <li class="nav-item active"></li>
                             <li class="nav-item active">
-                                <a class="nav-link" href="Ventas.aspx">Ventas<span class="sr-only">(current)</span></a>
+                                <a class="nav-link" href="Listado.aspx">Listado de Productos<span class="sr-only">(current)</span></a>
                             </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categorias</a>
@@ -65,8 +65,8 @@
                     <ul class="navbar-nav">
                         <li class="nav-item active">
                             <a class="nav-link" href="Carrito.aspx">
-                                    <asp:Label class="text-muted" for="txtNombre" ID="lblCarrito" runat="server" />
-                                    <asp:Image class="img-fluid" style="max-height: 30px; max-width: 30px" src="https://img.icons8.com/ios/452/shopping-cart.png" alt="Carrito" runat="server" />
+                                <asp:Image class="img-fluid" Style="max-height: 30px; max-width: 30px" src="https://www.sportopticas.com/img/iconos/icono-carrito.png" alt="Carrito" runat="server" />
+                                <asp:Label class="navbar-text text-light font-weight-bold" for="txtNombre" ID="lblCarrito" runat="server" />
                             </a>
                         </li>
                     </ul>
