@@ -11,12 +11,15 @@ namespace WebForm
 {
     public partial class _Default : Page
     {
-        ArticuloNegocio negocio = new ArticuloNegocio();
+        public ArticuloNegocio articuloNegocio = new ArticuloNegocio();
+        public ElementoNegocio elementoNegocio = new ElementoNegocio();
+        public CarritoNegocio carritoNegocio = new CarritoNegocio();
         public List<Articulo> listaArticulos { get; set; }
-
         public List<Articulo> aux;
+        public Elemento elemento = new Elemento();
+        public Carrito carrito;
 
-        public bool auxBit = new bool();
+        bool auxBit = new bool();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -44,41 +47,42 @@ namespace WebForm
 
 
                 //Si no hay busqueda, muestro lista completa
-                listaArticulos = negocio.listar();
+                listaArticulos = articuloNegocio.listar();
                 Session.Add("listado", listaArticulos);
 
                 //Filtrado por busqueda
                 if (Request.QueryString["nombre"] != null)
                 {
-                    listaArticulos = negocio.Buscar(Request.QueryString["nombre"]);
+                    listaArticulos = articuloNegocio.Buscar(Request.QueryString["nombre"]);
                     Session.Add("listado", listaArticulos);
                 }
 
                 //Filtrado por articulo
                 if (Request.QueryString["categ"] != null)
                 {
-                    listaArticulos = negocio.BuscarCateg(Request.QueryString["categ"]);
+                    listaArticulos = articuloNegocio.BuscarCateg(Request.QueryString["categ"]);
                     Session.Add("listado", listaArticulos);
                 }
 
                 //Cargo el carrito
                 if (Request.QueryString["ID"] != null)
                 {
-                    //Consulto si el articulo ya fue agregado
-                    foreach (Articulo item in aux)
+                    int id;
+                    if (Convert.ToInt32(Session["carrito"]) != 0)
                     {
-                        if (item.Id == Convert.ToInt32(Request.QueryString["ID"]))
-                        {
-                            auxBit = true;
-                        }
+                        //ya existe un carrito asi que lo cargo en la variable local para saber el ID
+                        id = Convert.ToInt32(Session["carrito"]);
                     }
+                    else
+                    {
+                        carritoNegocio.agregar(carrito);
+                        id = carritoNegocio.UltimoCarrito();
+                    };
 
-                    //Cargo el articulo en la lista
-                    if (!auxBit)
-                    {
-                        aux.Add(negocio.listarID(Convert.ToInt32(Request.QueryString["ID"])));
-                        Session.Add("listaCarrito", aux);
-                    }
+                    elementoNegocio.agregarArticulo(id, Convert.ToInt32(Request.QueryString["ID"]), 1, 1);
+
+                    Session.Remove("listaCarrito");
+                    Session.Add("listaCarrito", elementoNegocio.listarID(id));
                 }
             }
             catch (Exception ex)

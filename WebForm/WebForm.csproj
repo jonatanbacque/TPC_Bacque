@@ -106,7 +106,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Articulos.aspx" />
-    <Content Include="Carrito.aspx" />
+    <Content Include="CarritoCompra.aspx" />
     <Content Include="Compra.aspx" />
     <Content Include="Contacto.aspx" />
     <Content Include="Content\bootstrap-theme.css" />
@@ -175,12 +175,12 @@
     <Compile Include="Articulos.aspx.designer.cs">
       <DependentUpon>Articulos.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Carrito.aspx.cs">
-      <DependentUpon>Carrito.aspx</DependentUpon>
+    <Compile Include="CarritoCompra.aspx.cs">
+      <DependentUpon>CarritoCompra.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Carrito.aspx.designer.cs">
-      <DependentUpon>Carrito.aspx</DependentUpon>
+    <Compile Include="CarritoCompra.aspx.designer.cs">
+      <DependentUpon>CarritoCompra.aspx</DependentUpon>
     </Compile>
     <Compile Include="Compra.aspx.cs">
       <DependentUpon>Compra.aspx</DependentUpon>

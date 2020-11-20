@@ -151,7 +151,7 @@ namespace Negocio
             }
         }
 
-        public void agregar(Articulo articulo)
+        public void agregar(Carrito carrito)
         {
             AccesoDatos conexion = new AccesoDatos();
             try

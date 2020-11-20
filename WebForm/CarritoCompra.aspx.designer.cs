@@ -11,7 +11,7 @@ namespace WebForm
 {
 
 
-    public partial class Carrito
+    public partial class CarritoCompra
     {
 
         /// <summary>

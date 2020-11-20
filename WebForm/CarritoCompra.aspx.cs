@@ -9,7 +9,7 @@ using Negocio;
 
 namespace WebForm
 {
-    public partial class Carrito : System.Web.UI.Page
+    public partial class CarritoCompra : System.Web.UI.Page
     {
         ArticuloNegocio negocio = new ArticuloNegocio();
 

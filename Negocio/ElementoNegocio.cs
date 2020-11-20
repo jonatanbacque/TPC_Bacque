@@ -55,13 +55,14 @@ namespace Negocio
                             }
                         },
 
-                        Cantidad=conexion.Lector.GetInt32(12),
-                        Descuento=conexion.Lector.GetDecimal(13)
+                        Cantidad = conexion.Lector.GetInt32(12),
+                        Descuento = conexion.Lector.GetDecimal(13)
                     };
 
                     lista.Add(elemento);
 
-                } return lista;
+                }
+                return lista;
             }
             catch (Exception ex)
             {
@@ -73,9 +74,10 @@ namespace Negocio
             }
         }
 
-        public Elemento listarID(int ID)
+        public List<Elemento> listarID(int ID)
         {
             AccesoDatos conexion = new AccesoDatos();
+            List<Elemento> lista = new List<Elemento>();
             try
             {
                 conexion.abrirConexion();
@@ -118,9 +120,12 @@ namespace Negocio
 
                         Cantidad = conexion.Lector.GetInt32(12),
                         Descuento = conexion.Lector.GetDecimal(13)
+
                     };
+
+                    lista.Add(elemento);
                 }
-                return elemento;
+                return lista;
             }
             catch (Exception ex)
             {
@@ -187,7 +192,7 @@ namespace Negocio
             }
         }
 
-        public void agregarArticulo(Elemento elemento)
+        public void agregarArticulo(int idCarrito, int idArticulo, int cantidad, decimal descuento)
         {
             AccesoDatos conexion = new AccesoDatos();
             try
@@ -195,15 +200,15 @@ namespace Negocio
                 //
                 conexion.setearConsulta("IF (EXISTS (SELECT * from ELEMENTO WHERE IdCarrito=@idCarrito and IdArticulo=@idArticulo)) " +
                     "BEGIN update ELEMENTO set Cantidad = (select SUM(cantidad) FROM ELEMENTO " +
-                    "WHERE  IdCarrito = @idCarrito and IdArticulo = @idArticulo) + @cantidad " +
+                    "WHERE IdCarrito = @idCarrito and IdArticulo = @idArticulo) + @cantidad " +
                     "WHERE IdCarrito = @idCarrito and IdArticulo = @idArticulo END " +
                     "ELSE BEGIN INSERT into ELEMENTO(IdCarrito, IdArticulo, Cantidad, Descuento) VALUES(@idCarrito, @idArticulo, @cantidad, @descuento) END");
                 //
                 conexion.Comando.Parameters.Clear();
-                conexion.Comando.Parameters.AddWithValue("@idCarrito", elemento.carrito);
-                conexion.Comando.Parameters.AddWithValue("@idArticulo", elemento.articulo);
-                conexion.Comando.Parameters.AddWithValue("@cantidad", elemento.Cantidad);
-                conexion.Comando.Parameters.AddWithValue("@descuento", elemento.Descuento);
+                conexion.Comando.Parameters.AddWithValue("@idCarrito", idCarrito);
+                conexion.Comando.Parameters.AddWithValue("@idArticulo", idArticulo);
+                conexion.Comando.Parameters.AddWithValue("@cantidad", cantidad);
+                conexion.Comando.Parameters.AddWithValue("@descuento", descuento);
                 //
                 conexion.abrirConexion();
                 conexion.ejecutarAccion();
