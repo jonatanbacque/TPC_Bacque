@@ -11,28 +11,43 @@ namespace WebForm
 {
     public partial class CarritoCompra : System.Web.UI.Page
     {
-        ArticuloNegocio negocio = new ArticuloNegocio();
+        CarritoNegocio carritoNegocio = new CarritoNegocio();
+        ElementoNegocio elementoNegocio = new ElementoNegocio();
 
-        public List<Articulo> aux;
+        List<ListaCarrito> listaCarrito = new List<ListaCarrito>();
 
-        public bool auxBit = new bool();
+        public List<Elemento> aux;
 
         protected void Page_Load(object sender, EventArgs e)
         {
             try
             {
-                if (Session["listaCarrito"] != null)
+                if (Session["listaElementos"] != null)
                 {
-                    aux = (List<Articulo>)Session["listaCarrito"];
+                    aux = (List<Elemento>)Session["listaElementos"];
+                    //
+                    foreach (Elemento item in aux)
+                    {
+                        ListaCarrito listaAux = new ListaCarrito
+                        {
+                            ID = item.articulo.Id,
+                            Producto = item.articulo.Producto,
+                            Descripcion = item.articulo.Descripcion,
+                            ImagenUrl = item.articulo.ImagenUrl,
+                            Precio = item.articulo.Precio,
+                            Cantidad = item.Cantidad
+                        };
+                        listaCarrito.Add(listaAux);
+                    }
+                    //
+                    dgvCarrito.DataSource = listaCarrito;
+                    dgvCarrito.DataBind();
                 }
+                //
                 else
                 {
-                    aux = new List<Articulo>();
+                    aux = new List<Elemento>();
                 }
-
-                dgvCarrito.DataSource = aux;
-                dgvCarrito.DataBind();
-
             }
             catch (Exception ex)
             {
@@ -41,28 +56,46 @@ namespace WebForm
             }
         }
 
-        protected void btnCarritoVaciar_Click(object sender, EventArgs e)
-        {
-            aux = new List<Articulo>();
-            Session.Add("listaCarrito", aux);
-            Response.Redirect("Carrito.aspx");
-        }
-
+        //Borrar articulo de la lista del carrito
         protected void dgvCarrito_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             try
             {
-                int indice = Convert.ToInt32(e.CommandArgument);
-                aux.RemoveRange(indice, 1);
+                //Con el índice tenés que agarrar el dgv.rows en el índice ese punto columns, la que quieras punto id y obtener el valor posta.
+                elementoNegocio.eliminarArticulo(Convert.ToInt32(Session["carrito"]), Convert.ToInt32(dgvCarrito.Rows[Convert.ToInt32(e.CommandArgument)].Cells[3].Text));
+                //
+                Session.Remove("listaElementos");
+                Session.Add("listaElementos", elementoNegocio.listarID(Convert.ToInt32(Session["carrito"])));
             }
             catch (Exception ex)
             {
                 Session.Add("errorEncontrado", ex.ToString());
                 Response.Redirect("Error.aspx");
             }
+            //
+            Response.Redirect("CarritoCompra.aspx");
 
-            dgvCarrito.DataSource = aux;
-            dgvCarrito.DataBind();
         }
+
+        protected void btnCarritoVaciar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                elementoNegocio.eliminarCarrito(Convert.ToInt32(Session["carrito"]));
+                carritoNegocio.eliminar(Convert.ToInt32(Session["carrito"]));
+                aux = new List<Elemento>();
+                Session.Add("listaElementos", aux);
+                Session.Remove("carrito");
+
+            }
+            catch (Exception ex)
+            {
+                Session.Add("errorEncontrado", ex.ToString());
+                Response.Redirect("Error.aspx");
+            }
+            //
+            Response.Redirect("CarritoCompra.aspx");
+        }
+
     }
 }

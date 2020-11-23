@@ -10,19 +10,31 @@ namespace WebForm
 {
     public partial class SiteMaster : MasterPage
     {
-        public List<Articulo> listaArticulos { get; set; }
+        public List<Elemento> listaArticulos;
 
-        public List<Articulo> aux = new List<Articulo>();
+        public List<Elemento> aux = new List<Elemento>();
+
+        public Usuario usuario = new Usuario();
+
+        public string usuarioActual;
         protected void Page_Load(object sender, EventArgs e)
         {
             try
             {
-                if (Session["listaCarrito"] != null)
+                usuarioActual = "Iniciar Sesión";
+
+                if (Session["listaElementos"] != null)
                 {
-                    aux = (List<Articulo>)Session["listaCarrito"];
+                    aux = (List<Elemento>)Session["listaElementos"];
                 }
 
                 lblCarrito.Text = aux.Count().ToString();
+
+                if (Session["usuario"] != null)
+                {
+                    usuario = (Usuario)Session["usuario"];
+                    usuarioActual = "Usuario: " + usuario.Nombre;
+                }
             }
             catch (Exception ex)
             {
@@ -54,6 +66,18 @@ namespace WebForm
         protected void btnContacto_Click(object sender, EventArgs e)
         {
             Response.Redirect("Contacto.aspx");
+        }
+
+        protected void btnCerrarSesion_Click(object sender, EventArgs e)
+        {
+            Session.Remove("usuario");
+            Response.Redirect("/");
+        }
+
+        protected void btnIniciarSesion_Click(object sender, EventArgs e)
+        {
+            Session.Remove("usuario");
+            Response.Redirect("IniciarSesion.aspx");
         }
     }
 }

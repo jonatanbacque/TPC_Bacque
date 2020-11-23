@@ -1,11 +1,5 @@
 ﻿<%@ Page Title="Listado de Productos" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Listado.aspx.cs" Inherits="WebForm.Listado" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-    <%--stilo css para ocultar columna en grid view--%>
-    <style>
-        .oculto {
-            display: none;
-        }
-    </style>
 
     <h2>Listado de Productos</h2>
 

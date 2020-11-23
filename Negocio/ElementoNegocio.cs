@@ -28,8 +28,8 @@ namespace Negocio
 
                 while (conexion.Lector.Read())
                 {
-                    elemento = new Elemento
-                    {
+                    elemento = new Elemento()
+                    { 
                         carrito = new Carrito
                         {
                             Id = conexion.Lector.GetInt32(0),
@@ -138,7 +138,7 @@ namespace Negocio
             }
         }
 
-        public void eliminar(int idCarrito)
+        public void eliminarCarrito(int idCarrito)
         {
             AccesoDatos conexion = new AccesoDatos();
             try
@@ -161,23 +161,16 @@ namespace Negocio
             }
         }
 
-        public void quitarArticulo(Elemento elemento)
+        public void eliminarArticulo(int idCarrito, int idArticulo)
         {
             AccesoDatos conexion = new AccesoDatos();
             try
             {
                 //
-                conexion.setearConsulta("IF (EXISTS (SELECT * from ELEMENTO WHERE IdCarrito=@idCarrito and IdArticulo=@idArticulo)) " +
-                    "BEGIN update ELEMENTO set Cantidad = (select SUM(cantidad) FROM ELEMENTO " +
-                    "WHERE  IdCarrito = @idCarrito and IdArticulo = @idArticulo) - @cantidad " +
-                    "WHERE IdCarrito = @idCarrito and IdArticulo = @idArticulo and @cantidad > 0 END " +
-                    "ELSE BEGIN INSERT into ELEMENTO(IdCarrito, IdArticulo, Cantidad, Descuento) VALUES(@idCarrito, @idArticulo, @cantidad, @descuento) END");
+                conexion.setearConsulta("Delete from ELEMENTO Where IdArticulo=@idArticulo and IdCarrito=@idCarrito");
                 //
-                conexion.Comando.Parameters.Clear();
-                conexion.Comando.Parameters.AddWithValue("@idCarrito", elemento.carrito);
-                conexion.Comando.Parameters.AddWithValue("@idArticulo", elemento.articulo);
-                conexion.Comando.Parameters.AddWithValue("@cantidad", elemento.Cantidad);
-                conexion.Comando.Parameters.AddWithValue("@descuento", elemento.Descuento);
+                conexion.Comando.Parameters.AddWithValue("@idCarrito", idCarrito);
+                conexion.Comando.Parameters.AddWithValue("@idArticulo", idArticulo);
                 //
                 conexion.abrirConexion();
                 conexion.ejecutarAccion();
@@ -192,7 +185,7 @@ namespace Negocio
             }
         }
 
-        public void agregarArticulo(int idCarrito, int idArticulo, int cantidad, decimal descuento)
+        public void agregarArticulo(Elemento elemento)
         {
             AccesoDatos conexion = new AccesoDatos();
             try
@@ -205,10 +198,10 @@ namespace Negocio
                     "ELSE BEGIN INSERT into ELEMENTO(IdCarrito, IdArticulo, Cantidad, Descuento) VALUES(@idCarrito, @idArticulo, @cantidad, @descuento) END");
                 //
                 conexion.Comando.Parameters.Clear();
-                conexion.Comando.Parameters.AddWithValue("@idCarrito", idCarrito);
-                conexion.Comando.Parameters.AddWithValue("@idArticulo", idArticulo);
-                conexion.Comando.Parameters.AddWithValue("@cantidad", cantidad);
-                conexion.Comando.Parameters.AddWithValue("@descuento", descuento);
+                conexion.Comando.Parameters.AddWithValue("@idCarrito", elemento.carrito.Id);
+                conexion.Comando.Parameters.AddWithValue("@idArticulo", elemento.articulo.Id);
+                conexion.Comando.Parameters.AddWithValue("@cantidad", elemento.Cantidad);
+                conexion.Comando.Parameters.AddWithValue("@descuento", elemento.Descuento);
                 //
                 conexion.abrirConexion();
                 conexion.ejecutarAccion();

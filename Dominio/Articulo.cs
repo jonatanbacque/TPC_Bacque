@@ -8,6 +8,20 @@ namespace Dominio
 {
     public class Articulo
     {
+        public Articulo(int id, string producto, string presentacion, string descripcion, string imagenUrl, decimal precio, string marca, Categoria categoria)
+        {
+            Id = id;
+            Producto = producto;
+            Presentacion = presentacion;
+            Descripcion = descripcion;
+            ImagenUrl = imagenUrl;
+            Precio = precio;
+            Marca = marca;
+            this.categoria = categoria;
+        }
+
+        public Articulo() { }
+
         public int Id { get; set; }
         public string Producto { get; set; }
         public string Presentacion { get; set; }

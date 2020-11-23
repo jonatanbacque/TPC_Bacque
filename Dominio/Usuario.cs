@@ -8,9 +8,20 @@ namespace Dominio
 {
     public class Usuario
     {
+        public Usuario(int id, Persona persona, string nombre, string password, int nivel)
+        {
+            Id = id;
+            this.persona = persona;
+            Nombre = nombre;
+            Password = password;
+            Nivel = nivel;
+        }
+
+        public Usuario() { }
+
         public int Id { get; set; }
         public Persona persona { get; set; }
-        public string Email { get; set; }
+        public string Nombre { get; set; }
         public string Password { get; set; }
         public int Nivel { get; set; }
 

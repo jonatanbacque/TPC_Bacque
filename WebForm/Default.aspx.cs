@@ -14,13 +14,8 @@ namespace WebForm
         public ArticuloNegocio articuloNegocio = new ArticuloNegocio();
         public ElementoNegocio elementoNegocio = new ElementoNegocio();
         public CarritoNegocio carritoNegocio = new CarritoNegocio();
-        public List<Articulo> listaArticulos { get; set; }
-        public List<Articulo> aux;
-        public Elemento elemento = new Elemento();
-        public Carrito carrito;
-
-        bool auxBit = new bool();
-
+        public List<Articulo> listaArticulos;
+        public List<Elemento> listaElementos;
         protected void Page_Load(object sender, EventArgs e)
         {
             try
@@ -36,13 +31,13 @@ namespace WebForm
                 }
 
                 //Consulto si la lista esta vacia para inicializarla
-                if (Session["listaCarrito"] != null)
+                if (Session["listaElementos"] != null)
                 {
-                    aux = (List<Articulo>)Session["listaCarrito"];
+                    listaElementos = (List<Elemento>)Session["listaElementos"];
                 }
                 else
                 {
-                    aux = new List<Articulo>();
+                    listaElementos = new List<Elemento>();
                 }
 
 
@@ -67,22 +62,33 @@ namespace WebForm
                 //Cargo el carrito
                 if (Request.QueryString["ID"] != null)
                 {
-                    int id;
+                    Elemento elemento = new Elemento
+                    {
+                        carrito = new Carrito(),
+                        articulo = new Articulo()
+                    };
+                    //
                     if (Convert.ToInt32(Session["carrito"]) != 0)
                     {
                         //ya existe un carrito asi que lo cargo en la variable local para saber el ID
-                        id = Convert.ToInt32(Session["carrito"]);
+                        elemento.carrito.Id = Convert.ToInt32(Session["carrito"]);
                     }
                     else
                     {
-                        carritoNegocio.agregar(carrito);
-                        id = carritoNegocio.UltimoCarrito();
+                        //Guardo nuevo ID de carrito y agrego articulo  
+                        carritoNegocio.agregar(elemento.carrito);
+                        elemento.carrito.Id = carritoNegocio.UltimoCarrito();
+                        Session.Add("carrito", elemento.carrito.Id);
                     };
 
-                    elementoNegocio.agregarArticulo(id, Convert.ToInt32(Request.QueryString["ID"]), 1, 1);
+                    elemento.articulo.Id = Convert.ToInt32(Request.QueryString["ID"]);
+                    elemento.Cantidad = 1;
+                    elemento.Descuento = 1;
 
-                    Session.Remove("listaCarrito");
-                    Session.Add("listaCarrito", elementoNegocio.listarID(id));
+                    elementoNegocio.agregarArticulo(elemento);
+
+                    Session.Remove("listaElementos");
+                    Session.Add("listaElementos", elementoNegocio.listarID(elemento.carrito.Id));
                 }
             }
             catch (Exception ex)

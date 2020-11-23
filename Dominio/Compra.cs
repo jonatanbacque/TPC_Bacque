@@ -8,6 +8,18 @@ namespace Dominio
 {
     public class Compra
     {
+        public Compra(int id, Usuario usuario, Carrito carrito, Envio envio, string metodoPago, DateTime fechaCompra, decimal importeFinal)
+        {
+            Id = id;
+            this.usuario = usuario;
+            this.carrito = carrito;
+            this.envio = envio;
+            MetodoPago = metodoPago;
+            FechaCompra = fechaCompra;
+            ImporteFinal = importeFinal;
+        }
+        public Compra() { }
+
         public int Id { get; set; }
         public Usuario usuario { get; set; }
         public Carrito carrito { get; set; }

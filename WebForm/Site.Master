@@ -15,6 +15,23 @@
 </head>
 <body>
 
+    <style>
+        .required:after {
+            content: " *";
+            color: red;
+        }
+
+        .center_div {
+            margin: 0 auto;
+            width: 80% /*value of your choice which suits your alignment */
+        }
+
+        /*estilo css para ocultar columna en grid view*/
+        .oculto {
+            display: none;
+        }
+    </style>
+
     <form runat="server">
 
 
@@ -33,7 +50,6 @@
                                     <asp:Image class=" navbar-toggler-icon" ImageUrl="https://ss-static-01.esmsv.com/id/117805/galeriaimagenes/obtenerimagen/?width=75&height=75&id=sitio_logo&ultimaModificacion=2020-11-14+07%3A28%3A53" runat="server" />
                                 </a>
                             </li>
-                            <li class="nav-item active"></li>
                             <li class="nav-item active">
                                 <a class="nav-link" href="Listado.aspx">Listado de Productos<span class="sr-only">(current)</span></a>
                             </li>
@@ -49,11 +65,21 @@
                         </ul>
                     </div>
                     <ul class="navbar-nav">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="ddlUsuario" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%=usuarioActual.ToString()%></a>
+                            <div class="dropdown-menu" aria-labelledby="ddlUsuario">
+                                <asp:Button class="dropdown-item" ID="btnIniciarSesion" Text="Iniciar Sesión" OnClick="btnIniciarSesion_Click" runat="server" />
+                                <asp:Button class="dropdown-item" ID="btnCerrarSesion" Text="Cerrar Sesión" OnClick="btnCerrarSesion_Click" runat="server" />
+                            </div>
+                        </li>
+                        <%--                        <li class="nav-item active text-right"> nav-link dropdown-toggle
+                            <asp:Label ID="lblUsuario" CssClass="navbar-text text-light" runat="server" />
+                        </li>--%>
                         <li class="nav-item active">
                             <div class="container align-items-center">
                                 <div class="row">
                                     <div id="divBuscar" class="col-sm" onkeypress="divBuscar_onkeypress" runat="server">
-                                        <asp:TextBox AutoPostBack="true" class="form-control w-auto" type="search" placeholder="Ingrese su busqueda" aria-label="Search" ID="txtBuscar" runat="server"></asp:TextBox>
+                                        <asp:TextBox AutoPostBack="true" class="form-control w-auto" type="search" placeholder="Ingrese su busqueda" aria-label="Search" ID="txtBuscar" runat="server" />
                                     </div>
                                     <div class="col-sm">
                                         <asp:Button class="btn btn-outline-success my-2 my-sm-0" Text="Buscar" ID="btnBuscar" OnClick="btnBuscar_Click" runat="server" />
@@ -64,7 +90,7 @@
                     </ul>
                     <ul class="navbar-nav">
                         <li class="nav-item active">
-                            <a class="nav-link" href="Carrito.aspx">
+                            <a class="nav-link" href="CarritoCompra.aspx">
                                 <asp:Image class="img-fluid" Style="max-height: 30px; max-width: 30px" src="https://www.sportopticas.com/img/iconos/icono-carrito.png" alt="Carrito" runat="server" />
                                 <asp:Label class="navbar-text text-light font-weight-bold" for="txtNombre" ID="lblCarrito" runat="server" />
                             </a>
@@ -74,6 +100,7 @@
             </ContentTemplate>
         </asp:UpdatePanel>
 
+        <br />
         <div class="container body-content">
             <asp:ContentPlaceHolder ID="MainContent" runat="server">
             </asp:ContentPlaceHolder>

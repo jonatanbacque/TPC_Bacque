@@ -8,12 +8,27 @@ namespace Dominio
 {
     public class Persona
 	{
-		public int Id { get; set; }
-		public int DNI { get; set; }
+        public Persona() { }
+
+        public Persona(int id, string nombre, string apellido, string direccion, int dNI, string email, int telefono, int condicion)
+        {
+            Id = id;
+            Nombre = nombre;
+            Apellido = apellido;
+            Direccion = direccion;
+            DNI = dNI;
+            Email = email;
+            Telefono = telefono;
+            Condicion = condicion;
+        }
+
+        public int Id { get; set; }
 		public string Nombre { get; set; }
 		public string Apellido { get; set; }
 		public string Direccion { get; set; }
-		public string Genero { get; set; }
-		public int Condicion { get; set; }
+        public int DNI { get; set; }
+        public string Email { get; set; }
+        public int Telefono { get; set; }
+        public int Condicion { get; set; }
     }
 }
