@@ -11,8 +11,6 @@ namespace WebForm
     public partial class Compra : System.Web.UI.Page
     {
         public List<Elemento> listaElementos;
-
-        Usuario usuario;
         protected void Page_Load(object sender, EventArgs e)
         {
             try
@@ -25,8 +23,6 @@ namespace WebForm
                 {
                     listaElementos = new List<Elemento>();
                 }
-
-
             }
             catch (Exception ex)
             {
@@ -40,7 +36,6 @@ namespace WebForm
                 {
                     Response.Redirect("IniciarSesion.aspx?ID=" + Session["carrito"].ToString());
                 }
-                else Response.Redirect("IniciarSesion.aspx");
             }
         }
     }

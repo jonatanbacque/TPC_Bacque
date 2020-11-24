@@ -155,3 +155,10 @@ INSERT into Usuario(IdPersona, Nombre, Password, Nivel) VALUES(1, 'jorgito', 'kl
 Select u.ID, p.ID, p.Nombre, p.Apellido, p.DNI, p.Direccion, p.Email, p.Telefono, p.condicion , u.nombre, u.password, u.nivel from USUARIO as u
 INNER JOIN PERSONA as p on p.id=u.idPersona
 Where  p.condicion =1
+
+INSERT into METODOENVIO(Nombre, Detalles) VALUES ('Retiro a domicilio','Coordinar finalizada la compra con el vendedor'),
+('Envio por Correo','Coordinar finalizada la compra con el vendedor'),
+('Envio por Encomienda','Coordinar finalizada la compra con el vendedor'),
+('Envio por Moto','Coordinar finalizada la compra con el vendedor')
+
+select * from METODOENVIO
