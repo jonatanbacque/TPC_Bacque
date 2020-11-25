@@ -35,7 +35,7 @@
                     <div class="btn-group" role="group" aria-label="Basic example">
                         <a href="/" class="btn btn-primary">Seguir Comprando</a>
                         <asp:Button class="btn btn-primary" ID="btnCarritoVaciar" Text="Vaciar Carrito" OnClick="btnCarritoVaciar_Click" runat="server" />
-                        <a href="/Compra.aspx" class="btn btn-primary">Finalizar Compra</a>
+                        <asp:Button class="btn btn-primary" ID="btnComprar" Text="Comprar" OnClick="btnComprar_Click" Visible="false" runat="server" />
                     </div>
                 </div>
                 <div class="form-group">

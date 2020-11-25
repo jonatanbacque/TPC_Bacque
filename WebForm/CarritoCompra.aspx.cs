@@ -42,6 +42,8 @@ namespace WebForm
                     //
                     dgvCarrito.DataSource = listaCarrito;
                     dgvCarrito.DataBind();
+
+                    btnComprar.Visible = true;
                 }
                 //
                 else
@@ -97,5 +99,10 @@ namespace WebForm
             Response.Redirect("CarritoCompra.aspx");
         }
 
+        protected void btnComprar_Click(object sender, EventArgs e)
+        {
+            //
+            Response.Redirect("Compra.aspx");
+        }
     }
 }

@@ -19,7 +19,15 @@ namespace WebForm
         bool a;
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            try
+            {
+                txtDNI.Style.Add("overflow", "hidden");
+            }
+            catch (Exception ex)
+            {
+                Session.Add("errorEncontrado", ex.ToString());
+                Response.Redirect("Error.aspx");
+            }
         }
 
         protected void btnCrear_Click(object sender, EventArgs e)

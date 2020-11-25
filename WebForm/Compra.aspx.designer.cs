@@ -15,49 +15,22 @@ namespace WebForm
     {
 
         /// <summary>
-        /// Control txtNombre.
+        /// Control ddlMetodoEnvio.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtNombre;
+        protected global::System.Web.UI.WebControls.DropDownList ddlMetodoEnvio;
 
         /// <summary>
-        /// Control txtPresentacion.
+        /// Control txtFechaEntrega.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPresentacion;
-
-        /// <summary>
-        /// Control txtDescripcion.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtDescripcion;
-
-        /// <summary>
-        /// Control txtMarca.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtMarca;
-
-        /// <summary>
-        /// Control ddlCategorias.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlCategorias;
+        protected global::System.Web.UI.WebControls.TextBox txtFechaEntrega;
 
         /// <summary>
         /// Control txtPrecio.

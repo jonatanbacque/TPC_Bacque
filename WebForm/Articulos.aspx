@@ -12,19 +12,19 @@
                 <div class="form-group col-md-6">
                     <div class="form-group">
                         <asp:Label for="txtNombre" Text="Producto" runat="server" />
-                        <asp:TextBox ID="txtNombre" type="text" AutoPostBack="true" class="form-control" placeholder="Ingrese nombre del producto." runat="server" />
+                        <asp:TextBox ID="txtNombre" AutoPostBack="true" class="form-control" placeholder="Ingrese nombre del producto." runat="server" />
                     </div>
                     <div class="form-group">
                         <asp:Label for="txtPresentacion" Text="Producto" runat="server" />
-                        <asp:TextBox ID="txtPresentacion" type="text" AutoPostBack="true" class="form-control" placeholder="Ingrese presentación." runat="server" />
+                        <asp:TextBox ID="txtPresentacion" AutoPostBack="true" class="form-control" placeholder="Ingrese presentación." runat="server" />
                     </div>
                     <div class="form-group">
                         <asp:Label for="txtDescripcion" Text="Descripción" runat="server" />
-                        <asp:TextBox ID="txtDescripcion" type="text" AutoPostBack="true" class="form-control" placeholder="Ingrese descripción." runat="server" />
+                        <asp:TextBox ID="txtDescripcion" AutoPostBack="true" class="form-control" placeholder="Ingrese descripción." runat="server" />
                     </div>
                     <div class="form-group">
                         <asp:Label for="txtMarca" Text="Marca" runat="server" />
-                        <asp:TextBox ID="txtMarca" type="text" AutoPostBack="true" class="form-control" placeholder="Ingrese marca." runat="server" />
+                        <asp:TextBox ID="txtMarca" AutoPostBack="true" class="form-control" placeholder="Ingrese marca." runat="server" />
                     </div>
                     <div class="form-group">
                         <asp:Label for="ddlCategorias" Text="Categorias" runat="server" />
@@ -33,7 +33,7 @@
                     </div>
                     <div class="form-group">
                         <asp:Label for="txtURLImagen" Text="URL de imagen" runat="server" />
-                        <asp:TextBox ID="txtURLImagen" AutoPostBack="true" OnTextChanged="txtURLImagen_TextChanged" type="text" class="form-control" placeholder="Ingrese URL de la imágen." runat="server" />
+                        <asp:TextBox ID="txtURLImagen" AutoPostBack="true" OnTextChanged="txtURLImagen_TextChanged" TextMode="Url"  CssClass="form-control" placeholder="Ingrese URL de la imágen." runat="server" />
                     </div>
                     <div class="form-group">
                         <asp:Label for="txtPrecio" Text="Precio" runat="server" />
@@ -41,7 +41,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text">$</span>
                             </div>
-                            <asp:TextBox ID="txtPrecio" type="text" class="form-control" placeholder="Ingrese precio del producto." runat="server" aria-label="Amount (to the nearest dollar)" />
+                            <asp:TextBox ID="txtPrecio" TextMode="Number" class="form-control" placeholder="Ingrese precio del producto." runat="server" aria-label="Amount (to the nearest dollar)" />
                             <div class="input-group-append">
                                 <span class="input-group-text">.00</span>
                             </div>

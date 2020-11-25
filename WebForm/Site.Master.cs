@@ -28,7 +28,7 @@ namespace WebForm
                     aux = (List<Elemento>)Session["listaElementos"];
                 }
 
-                lblCarrito.Text = aux.Count().ToString();
+                lblCarrito.Text = " " + aux.Count().ToString();
 
                 if (Session["usuario"] != null)
                 {
@@ -78,6 +78,11 @@ namespace WebForm
         {
             Session.Remove("usuario");
             Response.Redirect("IniciarSesion.aspx");
+        }
+
+        protected void btnCarrito_Click(object sender, EventArgs e)
+        {
+            if (aux.Count() > 0) Response.Redirect("CarritoCompra.aspx");
         }
     }
 }

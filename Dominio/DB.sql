@@ -65,7 +65,7 @@ GO
 CREATE TABLE [dbo].[METODOENVIO](
 	[Id] [int] IDENTITY(1,1) PRIMARY KEY NOT NULL,
 	[Nombre] [varchar](200) NULL,
-	[Detalles] [varchar](200) NULL
+	[Detalle] [varchar](200) NULL
 	)
 GO
 
@@ -156,7 +156,7 @@ Select u.ID, p.ID, p.Nombre, p.Apellido, p.DNI, p.Direccion, p.Email, p.Telefono
 INNER JOIN PERSONA as p on p.id=u.idPersona
 Where  p.condicion =1
 
-INSERT into METODOENVIO(Nombre, Detalles) VALUES ('Retiro a domicilio','Coordinar finalizada la compra con el vendedor'),
+INSERT into METODOENVIO(Nombre, Detalle) VALUES ('Retiro en Sucursal','Coordinar finalizada la compra con el vendedor'),
 ('Envio por Correo','Coordinar finalizada la compra con el vendedor'),
 ('Envio por Encomienda','Coordinar finalizada la compra con el vendedor'),
 ('Envio por Moto','Coordinar finalizada la compra con el vendedor')

@@ -26,38 +26,38 @@ namespace WebForm
                     ddlCategorias.DataTextField = "Nombre";
                     ddlCategorias.DataValueField = "ID";
                     ddlCategorias.DataBind();
-
-                    if (Session["articuloId"] != null)
+                }
+                if (Session["articuloId"] != null)
+                {
+                    if ((int)Session["articuloId"] != 0)
                     {
-                        if ((int)Session["articuloId"] != 0)
+                        int idLocal = (int)Session["articuloId"];
+                        aux = articulosNegocio.listarID(idLocal);
+                        btnEliminar.Visible = true;
+
+                        txtNombre.Text = aux.Producto;
+                        txtPresentacion.Text = aux.Presentacion;
+                        txtDescripcion.Text = aux.Descripcion;
+                        txtPrecio.Text = aux.Precio.ToString();
+                        imgImagen.ImageUrl = aux.ImagenUrl;
+                        txtMarca.Text = aux.Marca;
+                        txtURLImagen.Text = aux.ImagenUrl;
+
+                        ddlCategorias.SelectedIndex = ddlCategorias.Items.IndexOf(
+                            ddlCategorias.Items.FindByText(aux.categoria.ToString()));
+
+                    }
+                    else
+                    {
+                        btnGuardar.Text = "Guardar nuevo producto";
+                        aux = new Articulo
                         {
-                            int idLocal = (int)Session["articuloId"];
-                            aux = articulosNegocio.listarID(idLocal);
-                            btnEliminar.Visible = true;
-
-                            txtNombre.Text = aux.Producto;
-                            txtPresentacion.Text = aux.Presentacion;
-                            txtDescripcion.Text = aux.Descripcion;
-                            txtPrecio.Text = aux.Precio.ToString();
-                            imgImagen.ImageUrl = aux.ImagenUrl;
-                            txtMarca.Text = aux.Marca;
-                            txtURLImagen.Text = aux.ImagenUrl;
-
-                            ddlCategorias.SelectedIndex = ddlCategorias.Items.IndexOf(
-                                ddlCategorias.Items.FindByText(aux.categoria.ToString()));
-
-                        }
-                        else
-                        {
-                            btnGuardar.Text = "Guardar nuevo producto";
-                            aux = new Articulo
-                            {
-                                categoria = new Categoria()
-                            };
-                        }
+                            categoria = new Categoria()
+                        };
                     }
                 }
             }
+
             catch (Exception ex)
             {
                 Session.Add("errorEncontrado", ex.ToString());

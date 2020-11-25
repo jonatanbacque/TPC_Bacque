@@ -33,16 +33,7 @@ namespace WebForm
         {
             try
             {
-                int aux = 1;
-                int idLocal = new int();
-
-                foreach (Articulo item in negocio.listar())
-                {
-                    if (aux == Convert.ToInt32(e.CommandArgument) + 1) idLocal = item.Id;
-                    aux++;
-                }
-
-                Session.Add("articuloId", idLocal);
+                Session.Add("articuloId", Convert.ToInt32(dgvArticulos.Rows[Convert.ToInt32(e.CommandArgument)].Cells[2].Text));
             }
             catch (Exception ex)
             {
@@ -67,11 +58,5 @@ namespace WebForm
 
             Response.Redirect("Articulos.aspx");
         }
-
-        protected void GridView1_RowCommand(object sender, GridViewCommandEventArgs e)
-        {
-
-        }
-
     }
 }
