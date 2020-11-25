@@ -110,7 +110,7 @@ namespace Negocio
             {
                 //
                 conexion.abrirConexion();
-                conexion.setearConsulta("Update CARRITO Set Id=@id, Importe=@importe Where Id=@id");
+                conexion.setearConsulta("Update CARRITO Set Importe=@importe Where Id=@id");
                 //
                 conexion.Comando.Parameters.Clear();
                 conexion.Comando.Parameters.AddWithValue("@importe", carrito.Importe);

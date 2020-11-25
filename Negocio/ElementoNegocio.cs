@@ -20,7 +20,7 @@ namespace Negocio
             {
                 conexion.abrirConexion();
                 conexion.setearConsulta("Select ca.Id, ca.Importe, a.ID, a.Producto, a.Presentacion, a.Descripcion, " +
-                    "a.ImagenUrl, a.Precio, a.Marca, c.ID, c.Nombre, c.Descripcion, e.cantidad, e.Descuento from Elemento as e " +
+                    "a.ImagenUrl, a.Precio, a.Marca, c.ID, c.Nombre, c.Descripcion, e.cantidad from Elemento as e " +
                     "INNER JOIN ARTICULO as a on a.id = e.idArticulo " +
                     "INNER JOIN CATEGORIA as c on c.ID = a.IdCategoria " +
                     "INNER JOIN CARRITO as ca on ca.id = e.idCarrito");
@@ -55,8 +55,7 @@ namespace Negocio
                             }
                         },
 
-                        Cantidad = conexion.Lector.GetInt32(12),
-                        Descuento = conexion.Lector.GetDecimal(13)
+                        Cantidad = conexion.Lector.GetInt32(12)
                     };
 
                     lista.Add(elemento);
@@ -82,7 +81,7 @@ namespace Negocio
             {
                 conexion.abrirConexion();
                 conexion.setearConsulta("Select ca.Id, ca.Importe, a.ID, a.Producto, a.Presentacion, a.Descripcion, " +
-                    "a.ImagenUrl, a.Precio, a.Marca, c.ID, c.Nombre, c.Descripcion, e.cantidad, e.Descuento from Elemento as e " +
+                    "a.ImagenUrl, a.Precio, a.Marca, c.ID, c.Nombre, c.Descripcion, e.cantidad from Elemento as e " +
                     "INNER JOIN ARTICULO as a on a.id = e.idArticulo " +
                     "INNER JOIN CATEGORIA as c on c.ID = a.IdCategoria " +
                     "INNER JOIN CARRITO as ca on ca.id = e.idCarrito " +
@@ -118,8 +117,7 @@ namespace Negocio
                             }
                         },
 
-                        Cantidad = conexion.Lector.GetInt32(12),
-                        Descuento = conexion.Lector.GetDecimal(13)
+                        Cantidad = conexion.Lector.GetInt32(12)
 
                     };
 
@@ -195,13 +193,12 @@ namespace Negocio
                     "BEGIN update ELEMENTO set Cantidad = (select SUM(cantidad) FROM ELEMENTO " +
                     "WHERE IdCarrito = @idCarrito and IdArticulo = @idArticulo) + @cantidad " +
                     "WHERE IdCarrito = @idCarrito and IdArticulo = @idArticulo END " +
-                    "ELSE BEGIN INSERT into ELEMENTO(IdCarrito, IdArticulo, Cantidad, Descuento) VALUES(@idCarrito, @idArticulo, @cantidad, @descuento) END");
+                    "ELSE BEGIN INSERT into ELEMENTO(IdCarrito, IdArticulo, Cantidad) VALUES(@idCarrito, @idArticulo, @cantidad) END");
                 //
                 conexion.Comando.Parameters.Clear();
                 conexion.Comando.Parameters.AddWithValue("@idCarrito", elemento.carrito.Id);
                 conexion.Comando.Parameters.AddWithValue("@idArticulo", elemento.articulo.Id);
                 conexion.Comando.Parameters.AddWithValue("@cantidad", elemento.Cantidad);
-                conexion.Comando.Parameters.AddWithValue("@descuento", elemento.Descuento);
                 //
                 conexion.abrirConexion();
                 conexion.ejecutarAccion();

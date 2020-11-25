@@ -18,8 +18,12 @@
                         </asp:DropDownList>
                     </div>
                     <div class="form-group">
-                        <asp:Label for="txtFechaEntrega" Text="Fecha de entrega" runat="server" />
-                        <asp:TextBox ID="txtFechaEntrega" TextMode="DateTime" Enabled="false" class="form-control" runat="server" />
+                        <asp:Label ID="lblDomicilioEntrega" for="txtDomicilioEntrega" Visible="false" Text="Domicilio de entrega" runat="server" />
+                        <asp:TextBox ID="txtDomicilioEntrega" CssClass="form-control" Visible="false" runat="server" />
+                    </div>
+                    <div class="form-group">
+                        <asp:Label ID="lblFechaEntrega" for="txtFechaEntrega" Visible="false" Text="Fecha de entrega" runat="server" />
+                        <asp:TextBox ID="txtFechaEntrega" CssClass="form-control" Visible="false" runat="server" />
                     </div>
                     <div class="form-group">
                         <asp:Label for="txtPrecio" Text="Precio" runat="server" />
@@ -27,9 +31,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text">$</span>
                             </div>
-                            <asp:TextBox ID="txtPrecio" TextMode="Number" Enabled="false" class="form-control" runat="server" aria-label="Amount (to the nearest dollar)" />
-                            <div class="input-group-append">
-                                <span class="input-group-text">.00</span>
+                            <asp:TextBox ID="txtPrecio" CssClass="form-control" runat="server" />
                             </div>
                         </div>
                     </div>

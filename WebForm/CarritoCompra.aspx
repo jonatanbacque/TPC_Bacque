@@ -39,7 +39,8 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="form-control">Total: $<%=this.aux.Sum(s => s.articulo.Precio)%></label></div>
+                    <asp:Label ID="lblImporte" CssClass="form-control" Text="text" runat="server" />
+                </div>
             </div>
         </ContentTemplate>
     </asp:UpdatePanel>

@@ -6,20 +6,22 @@ using System.Threading.Tasks;
 
 namespace Dominio
 {
-    public class Carrito
-    {
-        public Carrito()
+    public class EstadoEnvio
+    {        public EstadoEnvio(int id, string nombre, string detalle)
         {
-            Id = 0;
-            Importe = 0;
+            Id = id;
+            Nombre = nombre;
+            Detalle = detalle;
         }
+        public EstadoEnvio() { }
 
         public int Id { get; set; }
-        public decimal Importe { get; set; }
+        public string Nombre { get; set; }
+        public string Detalle { get; set; }
 
         public override string ToString()//Al requerir un string de la clase articulo devuelve el nombre
         {
-            return Importe.ToString();
+            return Nombre;
         }
     }
 }

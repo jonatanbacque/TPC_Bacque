@@ -49,15 +49,14 @@ GO
 
 CREATE TABLE [dbo].[CARRITO](
 	[Id] [int] IDENTITY(1,1) PRIMARY KEY NOT NULL,
-	[Importe] numeric(17,2) NULL
+	[Importe] numeric(18,2) NULL
 	)
 GO
 
 CREATE TABLE [dbo].[ELEMENTO](
 	[IdCarrito] [int] FOREIGN KEY REFERENCES CARRITO(Id) NOT NULL,
 	[IdArticulo] [int] FOREIGN KEY REFERENCES ARTICULO(Id) NOT NULL,
-	[Cantidad] [int] NULL,
-	[Descuento] numeric(17,2) NULL,	
+	[Cantidad] [int] NULL
     PRIMARY KEY (IdCarrito, IdArticulo)
 	)
 GO
@@ -69,22 +68,34 @@ CREATE TABLE [dbo].[METODOENVIO](
 	)
 GO
 
-CREATE TABLE [dbo].[ENVIO](
+CREATE TABLE [dbo].[ESTADOENVIO](
 	[Id] [int] IDENTITY(1,1) PRIMARY KEY NOT NULL,
-	[IdMetodo] [int] FOREIGN KEY REFERENCES METODOENVIO(Id) NOT NULL,
-	[Estado] [varchar](200) NULL,
-	[FechaEntrega] [date] NULL,
-	[Precio] numeric(17,2) NULL
+	[Nombre] [varchar](200) NULL,
+	[Detalle] [varchar](200) NULL
 	)
 GO
 
+CREATE TABLE [dbo].[ENVIO](
+	[Id] [int] IDENTITY(1,1) PRIMARY KEY NOT NULL,
+	[IdMetodo] [int] FOREIGN KEY REFERENCES METODOENVIO(Id) NOT NULL,
+	[IdEstado] [int] FOREIGN KEY REFERENCES ESTADOENVIO(Id) NOT NULL,
+	[FechaEntrega] [date] NULL
+	)
+GO
+
+CREATE TABLE [dbo].[METODOPAGO](
+	[Id] [int] IDENTITY(1,1) PRIMARY KEY NOT NULL,
+	[Nombre] [varchar](200) NULL,
+	[Detalle] [varchar](200) NULL
+	)
+GO
 
 CREATE TABLE [dbo].[COMPRA](
 	[Id] [int] IDENTITY(1,1) PRIMARY KEY NOT NULL,
 	[IdUsuario] [int] FOREIGN KEY REFERENCES USUARIO(Id) NOT NULL,
 	[IdCarrito] [int] FOREIGN KEY REFERENCES CARRITO(Id) NOT NULL,
 	[IdEnvio] [int] FOREIGN KEY REFERENCES ENVIO(Id) NOT NULL,
-	[MetodoPago] [varchar](200) NULL,
+	[IdMetodoPago] [int] FOREIGN KEY REFERENCES METODOPAGO(Id) NOT NULL,
 	[FechaCompra] [date] NULL,
 	[ImporteFinal] numeric(17,2) NULL
 	)
@@ -102,7 +113,7 @@ insert into ARTICULO values ('Difusores ambientales', 'Envases de 125ml o 1L','F
 ('Desodorante Pisos', 'envases de 1 litro', 'Fragancias disponibles: Lysoform', 'https://ss-static-01.esmsv.com/id/117805/productos/obtenerimagen/?id=195&useDensity=false&width=1280&height=720&tipoEscala=fit', 720, 'Aleli Esencias', 2),
 ('Alcohol en Gel','envases de 5 litro' , 'Elimina el 99,9% de virus y bacterias.', 'https://ss-static-01.esmsv.com/id/117805/productos/obtenerimagen/?id=183&useDensity=false&width=1280&height=720&tipoEscala=fit', 1200, 'Aleli Esencias', 2)
 
-insert into CARRITO values (25.5)
+insert into CARRITO values(0)
 
 select a.Producto, a.Descripcion, a.Precio, c.Nombre from articulo as a
 inner join categoria as c on c.id=a.IdCategoria
@@ -110,22 +121,20 @@ inner join categoria as c on c.id=a.IdCategoria
 declare @idCarrito int
 declare @idArticulo int
 declare @cantidad int
-declare @descuento int
 
 set @idCarrito = 1
 set @idArticulo = 1
 set @cantidad = 1
-set @descuento = 1
 
 IF (EXISTS (SELECT * from ELEMENTO WHERE IdCarrito=@idCarrito and IdArticulo=@idArticulo))
 BEGIN update ELEMENTO set Cantidad = (select SUM(cantidad) FROM ELEMENTO WHERE  IdCarrito=@idCarrito and IdArticulo=@idArticulo) + @cantidad
 WHERE IdCarrito=@idCarrito and IdArticulo=@idArticulo END
 ELSE 
-BEGIN INSERT into ELEMENTO(IdCarrito, IdArticulo, Cantidad, Descuento) VALUES(@idCarrito, @idArticulo, @cantidad, @descuento) END
+BEGIN INSERT into ELEMENTO(IdCarrito, IdArticulo, Cantidad) VALUES(@idCarrito, @idArticulo, @cantidad) END
 
 select * from CARRITO
 
-Select ca.Id as IdCarrito, ca.Importe, a.ID as IdArticulo, a.Producto, a.Precio, c.Nombre, e.cantidad, e.Descuento from Elemento as e 
+Select ca.Id as IdCarrito, ca.Importe, a.ID as IdArticulo, a.Producto, a.Precio, c.Nombre, e.cantidad from Elemento as e 
 INNER JOIN ARTICULO as a on a.id = e.idArticulo 
 INNER JOIN CATEGORIA as c on c.ID = a.IdCategoria  
 INNER JOIN CARRITO as ca on ca.id = e.idCarrito
@@ -156,9 +165,15 @@ Select u.ID, p.ID, p.Nombre, p.Apellido, p.DNI, p.Direccion, p.Email, p.Telefono
 INNER JOIN PERSONA as p on p.id=u.idPersona
 Where  p.condicion =1
 
-INSERT into METODOENVIO(Nombre, Detalle) VALUES ('Retiro en Sucursal','Coordinar finalizada la compra con el vendedor'),
+INSERT into METODOENVIO(Nombre, Detalle) VALUES ('Elegir Metodo de Envío',''),
+('Retiro en Sucursal','Coordinar finalizada la compra con el vendedor'),
 ('Envio por Correo','Coordinar finalizada la compra con el vendedor'),
 ('Envio por Encomienda','Coordinar finalizada la compra con el vendedor'),
 ('Envio por Moto','Coordinar finalizada la compra con el vendedor')
 
 select * from METODOENVIO
+
+Select ca.Id, ca.Importe, a.ID, a.Producto, a.Presentacion, a.Descripcion, a.ImagenUrl, a.Precio, a.Marca, c.ID, c.Nombre, c.Descripcion, e.cantidad from Elemento as e
+INNER JOIN ARTICULO as a on a.id = e.idArticulo
+INNER JOIN CATEGORIA as c on c.ID = a.IdCategoria
+INNER JOIN CARRITO as ca on ca.id = e.idCarrito

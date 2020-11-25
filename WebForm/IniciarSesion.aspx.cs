@@ -21,7 +21,6 @@ namespace WebForm
         {
             try
             {
-                txtDNI.Style.Add("overflow", "hidden");
             }
             catch (Exception ex)
             {

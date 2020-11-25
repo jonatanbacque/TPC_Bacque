@@ -46,51 +46,50 @@ namespace WebForm
 
                         elemento.articulo.Id = Convert.ToInt32(Request.QueryString["ID"]);
                         elemento.Cantidad = 1;
-                        elemento.Descuento = 1;
 
                         elementoNegocio.agregarArticulo(elemento);
 
                         Session.Remove("listaElementos");
                         Session.Add("listaElementos", elementoNegocio.listarID(elemento.carrito.Id));
                     }
-                    //Consulto si la lista esta vacia para inicializarla
-                    if (Session["listado"] != null)
-                    {
-                        listaArticulos = (List<Articulo>)Session["listado"];
-                    }
-                    else
-                    {
-                        listaArticulos = new List<Articulo>();
-                    }
+                }
+                //Consulto si la lista esta vacia para inicializarla
+                if (Session["listado"] != null)
+                {
+                    listaArticulos = (List<Articulo>)Session["listado"];
+                }
+                else
+                {
+                    listaArticulos = new List<Articulo>();
+                }
 
-                    //Consulto si la lista esta vacia para inicializarla
-                    if (Session["listaElementos"] != null)
-                    {
-                        listaElementos = (List<Elemento>)Session["listaElementos"];
-                    }
-                    else
-                    {
-                        listaElementos = new List<Elemento>();
-                    }
+                //Consulto si la lista esta vacia para inicializarla
+                if (Session["listaElementos"] != null)
+                {
+                    listaElementos = (List<Elemento>)Session["listaElementos"];
+                }
+                else
+                {
+                    listaElementos = new List<Elemento>();
+                }
 
 
-                    //Si no hay busqueda, muestro lista completa
-                    listaArticulos = articuloNegocio.listar();
+                //Si no hay busqueda, muestro lista completa
+                listaArticulos = articuloNegocio.listar();
+                Session.Add("listado", listaArticulos);
+
+                //Filtrado por busqueda
+                if (Request.QueryString["nombre"] != null)
+                {
+                    listaArticulos = articuloNegocio.Buscar(Request.QueryString["nombre"]);
                     Session.Add("listado", listaArticulos);
+                }
 
-                    //Filtrado por busqueda
-                    if (Request.QueryString["nombre"] != null)
-                    {
-                        listaArticulos = articuloNegocio.Buscar(Request.QueryString["nombre"]);
-                        Session.Add("listado", listaArticulos);
-                    }
-
-                    //Filtrado por articulo
-                    if (Request.QueryString["categ"] != null)
-                    {
-                        listaArticulos = articuloNegocio.BuscarCateg(Request.QueryString["categ"]);
-                        Session.Add("listado", listaArticulos);
-                    }
+                //Filtrado por articulo
+                if (Request.QueryString["categ"] != null)
+                {
+                    listaArticulos = articuloNegocio.BuscarCateg(Request.QueryString["categ"]);
+                    Session.Add("listado", listaArticulos);
                 }
             }
             catch (Exception ex)

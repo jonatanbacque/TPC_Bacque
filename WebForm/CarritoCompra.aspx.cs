@@ -15,6 +15,7 @@ namespace WebForm
         ElementoNegocio elementoNegocio = new ElementoNegocio();
 
         List<ListaCarrito> listaCarrito = new List<ListaCarrito>();
+        Carrito carrito;
 
         public List<Elemento> aux;
 
@@ -26,6 +27,7 @@ namespace WebForm
                 {
                     aux = (List<Elemento>)Session["listaElementos"];
                     //
+                    decimal importeFinal = 0;
                     foreach (Elemento item in aux)
                     {
                         ListaCarrito listaAux = new ListaCarrito
@@ -38,10 +40,21 @@ namespace WebForm
                             Cantidad = item.Cantidad
                         };
                         listaCarrito.Add(listaAux);
+
+                        importeFinal += item.articulo.Precio;
                     }
                     //
                     dgvCarrito.DataSource = listaCarrito;
                     dgvCarrito.DataBind();
+                    //Cargo importe final en el carrito
+                    carrito = new Carrito
+                    {
+                        Id = Convert.ToInt32(Session["carrito"]),
+                        Importe = importeFinal
+                    };
+                    carritoNegocio.modificar(carrito);
+
+                    lblImporte.Text = "$ "+ importeFinal.ToString();
 
                     btnComprar.Visible = true;
                 }

@@ -13,7 +13,6 @@ namespace Dominio
             this.carrito = carrito ?? throw new ArgumentNullException(nameof(carrito));
             this.articulo = articulo ?? throw new ArgumentNullException(nameof(articulo));
             Cantidad = cantidad;
-            Descuento = descuento;
         }
 
         public Elemento() { }
@@ -21,7 +20,6 @@ namespace Dominio
         public Carrito carrito { get; set; }
         public Articulo articulo { get; set; }
         public int Cantidad { get; set; }
-        public decimal Descuento { get; set; }
 
     }
 }
