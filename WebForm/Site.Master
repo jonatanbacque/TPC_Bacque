@@ -76,23 +76,23 @@
                     </div>
                 </li>
                 <li class="nav-item active">
+                    <div class="container align-items-center">
+                        <div class="row">
 
-                    <asp:UpdatePanel runat="server">
-                        <ContentTemplate>
-
-                            <div class="container align-items-center">
-                                <div class="row">
+                            <asp:UpdatePanel runat="server">
+                                <ContentTemplate>
                                     <div id="divBuscar" class="col-sm" runat="server">
                                         <asp:TextBox AutoPostBack="true" class="form-control w-auto" type="search" placeholder="Ingrese su busqueda" aria-label="Search" ID="txtBuscar" runat="server" />
                                     </div>
-                                    <div class="col-sm">
-                                        <asp:Button class="btn btn-outline-success my-2 my-sm-0" Text="Buscar" ID="btnBuscar" OnClick="btnBuscar_Click" runat="server" />
-                                    </div>
-                                </div>
-                            </div>
+                                </ContentTemplate>
+                            </asp:UpdatePanel>
 
-                        </ContentTemplate>
-                    </asp:UpdatePanel>
+                            <div class="col-sm">
+                                <asp:Button class="btn btn-outline-success my-2 my-sm-0" Text="Buscar" ID="btnBuscar" OnClick="btnBuscar_Click" runat="server" />
+                            </div>
+                        </div>
+                    </div>
+
 
                 </li>
             </ul>

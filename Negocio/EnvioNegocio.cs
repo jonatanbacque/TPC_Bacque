@@ -56,7 +56,7 @@ namespace Negocio
             }
         }
 
-        public List<Elemento> listarID(int ID)
+        public Envio listarID (int ID)
         {
             AccesoDatos conexion = new AccesoDatos();
             List<Envio> lista = new List<Envio>();
@@ -86,11 +86,8 @@ namespace Negocio
                         },
                         FechaEntrega = conexion.Lector.GetDateTime(4)
                     };
-
-                    lista.Add(envio);
-
                 }
-                return lista;
+                return envio;
             }
             catch (Exception ex)
             {

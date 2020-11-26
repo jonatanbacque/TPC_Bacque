@@ -14,7 +14,6 @@ namespace WebForm
         CarritoNegocio carritoNegocio = new CarritoNegocio();
         ElementoNegocio elementoNegocio = new ElementoNegocio();
         MetodoEnvioNegocio metodoEnvioNegocio = new MetodoEnvioNegocio();
-        envio
         public List<Elemento> listaElementos;
         protected void Page_Load(object sender, EventArgs e)
         {
