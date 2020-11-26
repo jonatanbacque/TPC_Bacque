@@ -165,6 +165,14 @@ Select u.ID, p.ID, p.Nombre, p.Apellido, p.DNI, p.Direccion, p.Email, p.Telefono
 INNER JOIN PERSONA as p on p.id=u.idPersona
 Where  p.condicion =1
 
+INSERT into ESTADOENVIO(Nombre, Detalle) VALUES ('En preparación',''),
+('En camino',''),
+('Listo para Retirar',''),
+('Despachado en el correo',''),
+('Despachado en la terminal','')
+
+select * from ESTADOENVIO
+
 INSERT into METODOENVIO(Nombre, Detalle) VALUES ('Elegir Metodo de Envío',''),
 ('Retiro en Sucursal','Coordinar finalizada la compra con el vendedor'),
 ('Envio por Correo','Coordinar finalizada la compra con el vendedor'),
@@ -177,3 +185,9 @@ Select ca.Id, ca.Importe, a.ID, a.Producto, a.Presentacion, a.Descripcion, a.Ima
 INNER JOIN ARTICULO as a on a.id = e.idArticulo
 INNER JOIN CATEGORIA as c on c.ID = a.IdCategoria
 INNER JOIN CARRITO as ca on ca.id = e.idCarrito
+
+INSERT into ENVIO(IdMetodo, IdEstado, FechaEntrega) VALUES (2,1,'25-12-2020')
+
+select m.Nombre, e.nombre, en.FechaEntrega from ENVIO as en
+INNER JOIN ESTADOENVIO as e on e.id = en.IdEstado
+INNER JOIN METODOENVIO as m on m.id = en.IdMetodo

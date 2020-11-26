@@ -54,9 +54,9 @@ namespace WebForm
                     };
                     carritoNegocio.modificar(carrito);
 
-                    lblImporte.Text = "$ "+ importeFinal.ToString();
-
                     btnComprar.Visible = true;
+
+                    lblImporte.Text = "$ "+ importeFinal.ToString();
                 }
                 //
                 else
@@ -98,8 +98,7 @@ namespace WebForm
             {
                 elementoNegocio.eliminarCarrito(Convert.ToInt32(Session["carrito"]));
                 carritoNegocio.eliminar(Convert.ToInt32(Session["carrito"]));
-                aux = new List<Elemento>();
-                Session.Add("listaElementos", aux);
+                Session.Remove("listaElementos");
                 Session.Remove("carrito");
 
             }
@@ -109,13 +108,13 @@ namespace WebForm
                 Response.Redirect("Error.aspx");
             }
             //
-            Response.Redirect("CarritoCompra.aspx");
+            Response.Redirect("/");
         }
 
         protected void btnComprar_Click(object sender, EventArgs e)
         {
             //
-            Response.Redirect("Compra.aspx");
+            Response.Redirect("Envio.aspx");
         }
     }
 }
