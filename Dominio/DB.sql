@@ -83,7 +83,8 @@ GO
 CREATE TABLE [dbo].[ENVIO](
 	[Id] [int] IDENTITY(1,1) PRIMARY KEY NOT NULL,
 	[IdMetodo] [int] FOREIGN KEY REFERENCES METODOENVIO(Id) NOT NULL,
-	[IdEstado] [int] FOREIGN KEY REFERENCES ESTADOENVIO(Id) NOT NULL
+	[IdEstado] [int] FOREIGN KEY REFERENCES ESTADOENVIO(Id) NOT NULL,
+	[FechaEntrega] [date] NULL,
 	)
 GO
 
@@ -101,7 +102,7 @@ CREATE TABLE [dbo].[COMPRA](
 	[IdUsuario] [int] FOREIGN KEY REFERENCES USUARIO(Id) NOT NULL,
 	[IdCarrito] [int] FOREIGN KEY REFERENCES CARRITO(Id) NOT NULL,
 	[IdEnvio] [int] FOREIGN KEY REFERENCES ENVIO(Id) NOT NULL,
-	[IdMetodoPago] [int] FOREIGN KEY REFERENCES METODOPAGO(Id) NOT NULL,
+	[IdMetodo] [int] FOREIGN KEY REFERENCES METODOPAGO(Id) NOT NULL,
 	[FechaCompra] [date] NULL,
 	[ImporteFinal] numeric(17,2) NULL
 	)
@@ -209,3 +210,5 @@ INSERT into METODOPAGO(Nombre, Detalle, Precio, Condicion) VALUES ('Elegir Metod
 ('Efectivo','Sólo retirando en Sucursal', 1.0,1),
 ('Tarjeta','Debera utilizar mercado pago', 1.1,1),
 ('Transferencia','CBU 00000000003333333333', 1.0,1)
+
+select * from COMPRA

@@ -19,5 +19,6 @@ namespace Dominio
         public int Id { get; set; }
         public MetodoEnvio metodoEnvio { get; set; }
         public EstadoEnvio estadoEnvio { get; set; }
+        public DateTime fechaEntrega { get; set; }
     }
 }

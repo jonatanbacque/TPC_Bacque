@@ -11,8 +11,16 @@ namespace WebForm
 {
     public partial class CompraMetodo : System.Web.UI.Page
     {
+        UsuarioNegocio usuarioNegocio = new UsuarioNegocio();
         CarritoNegocio carritoNegocio = new CarritoNegocio();
-        MetodoEnvioNegocio metodoEnvioNegocio = new MetodoEnvioNegocio();
+        MetodoPagoNegocio metodoPagoNegocio = new MetodoPagoNegocio();
+        EnvioNegocio envioNegocio = new EnvioNegocio();
+        CompraNegocio compraNegocio = new CompraNegocio();
+        ElementoNegocio elementoNegocio = new ElementoNegocio();
+
+        Compra compra;
+
+        decimal importeFinal;
 
         public List<Elemento> listaElementos;
         protected void Page_Load(object sender, EventArgs e)
@@ -22,10 +30,10 @@ namespace WebForm
                 //
                 if (!IsPostBack)
                 {
-                    ddlMetodoEnvio.DataSource = metodoEnvioNegocio.listar();
-                    ddlMetodoEnvio.DataTextField = "Nombre";
-                    ddlMetodoEnvio.DataValueField = "ID";
-                    ddlMetodoEnvio.DataBind();
+                    ddlMetodoPago.DataSource = metodoPagoNegocio.listar();
+                    ddlMetodoPago.DataTextField = "Nombre";
+                    ddlMetodoPago.DataValueField = "ID";
+                    ddlMetodoPago.DataBind();
                 }
                 //
                 if (Session["listaElementos"] != null)
@@ -36,20 +44,11 @@ namespace WebForm
                 {
                     listaElementos = new List<Elemento>();
                 }
-                //Cargo doimicilio del usuario
-                if (Session["usuario"] != null)
-                {
-                    Usuario aux = (Usuario)Session["usuario"];
-                    txtDomicilioEntrega.Text = aux.persona.Direccion;
-                }
                 //
                 if (Session["carrito"] != null)
                 {
-                    //Cargo importe final
-                    txtPrecio.Text = carritoNegocio.listarID(Convert.ToInt32(Session["carrito"])).Importe + ddlMetodoEnvio.SelectedValue;
                 }
 
-                txtPrecio.ReadOnly = true;
             }
             catch (Exception ex)
             {
@@ -65,43 +64,76 @@ namespace WebForm
                 }
             }
         }
-        protected void ddlMetodoEnvio_TextChanged(object sender, EventArgs e)
+
+        protected void ddlMetodoPago_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
             {
-                txtFechaEntrega.ReadOnly = false;
+                //Cargo nombre
+                txtNombre.Text = ((Usuario)Session["usuario"]).ToString();
+                txtEnvio.Text = ((Usuario)Session["usuario"]).persona.Direccion;
+                //Cargo importe final
+                decimal preciocarrito = carritoNegocio.listarID(Convert.ToInt32(Session["carrito"])).Importe;
+                decimal precioenvio = envioNegocio.listarID(Convert.ToInt32(Session["envio"])).metodoEnvio.Precio;
+                decimal interes = metodoPagoNegocio.listarID(ddlMetodoPago.SelectedIndex+1).Precio;
 
-                lblFechaEntrega.Visible = true;
-                txtFechaEntrega.Visible = true;
+                importeFinal = (preciocarrito + precioenvio) * interes;
+                txtPrecio.Text = importeFinal.ToString();
 
-                txtDomicilioEntrega.Visible = true;
-                lblDomicilioEntrega.Visible = true;
-
-                switch (Convert.ToInt32(ddlMetodoEnvio.SelectedValue) - 1)
-                {
-                    case 1:
-                        lblFechaEntrega.Visible = false;
-                        txtFechaEntrega.Visible = false;
-                        lblDomicilioEntrega.Visible = false;
-                        txtDomicilioEntrega.Visible = false;
-                        break;
-                    case 2:
-                        txtFechaEntrega.Text = DateTime.Now.AddDays(7).ToString("d");
-                        break;
-                    case 3:
-                        txtFechaEntrega.Text = DateTime.Now.AddDays(12).ToString("d");
-                        break;
-                    case 4:
-                        txtFechaEntrega.Text = DateTime.Now.AddDays(3).ToString("d");
-                        break;
-                }
-                txtFechaEntrega.ReadOnly = true;
+                if (ddlMetodoPago.SelectedIndex != 0) btnFinalizar.Enabled = true;
             }
             catch (Exception ex)
             {
                 Session.Add("errorEncontrado", ex.ToString());
                 Response.Redirect("Error.aspx");
             }
+        }
+
+        protected void btnCancelar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                elementoNegocio.eliminarCarrito(Convert.ToInt32(Session["carrito"]));
+                carritoNegocio.eliminar(Convert.ToInt32(Session["carrito"]));
+                envioNegocio.eliminar(Convert.ToInt32(Session["envio"]));
+
+                Session.Remove("listaElementos");
+                Session.Remove("carrito");
+                Session.Remove("envio");
+            }
+            catch (Exception ex)
+            {
+                Session.Add("errorEncontrado", ex.ToString());
+                Response.Redirect("Error.aspx");
+            }
+            //
+            Response.Redirect("/");
+        }
+
+        protected void btnFinalizar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                compra = new Compra
+                {
+                    usuario = usuarioNegocio.listarID(((Usuario)(Session["usuario"])).Id),
+                    carrito = carritoNegocio.listarID(Convert.ToInt32(Session["carrito"])),
+                    envio = envioNegocio.listarID(Convert.ToInt32(Session["envio"])),
+                    metodoPago = metodoPagoNegocio.listarID(ddlMetodoPago.SelectedIndex + 1),
+                    FechaCompra = DateTime.Now.Date,
+                    ImporteFinal = importeFinal,
+                };
+
+                compraNegocio.agregar(compra);
+            }
+            catch (Exception ex)
+            {
+                Session.Add("errorEncontrado", ex.ToString());
+                Response.Redirect("Error.aspx");
+            }
+            //
+            Response.Redirect("CompraListado.aspx");
+
         }
     }
 }

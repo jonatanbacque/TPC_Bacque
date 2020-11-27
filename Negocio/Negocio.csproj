@@ -45,10 +45,12 @@
     <Compile Include="ArticuloNegocio.cs" />
     <Compile Include="CarritoNegocio.cs" />
     <Compile Include="CategoriaNegocio.cs" />
+    <Compile Include="CompraNegocio.cs" />
     <Compile Include="ElementoNegocio.cs" />
     <Compile Include="EnvioNegocio.cs" />
     <Compile Include="EstadoEnvioNegocio.cs" />
     <Compile Include="ListaCarrito.cs" />
+    <Compile Include="ListaCompra.cs" />
     <Compile Include="MetodoEnvioNegocio.cs" />
     <Compile Include="MetodoPagoNegocio.cs" />
     <Compile Include="PersonaNegocio.cs" />

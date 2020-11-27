@@ -73,6 +73,8 @@ namespace WebForm
         {
             try
             {
+                btnContinuar.Enabled = false;
+
                 txtFechaEntrega.ReadOnly = false;
 
                 lblFechaEntrega.Visible = true;
@@ -85,6 +87,8 @@ namespace WebForm
                     (Convert.ToInt32(ddlMetodoEnvio.SelectedValue)).Demora).ToString("d");
 
                 txtFechaEntrega.ReadOnly = true;
+
+                if (ddlMetodoEnvio.SelectedIndex != 0) btnContinuar.Enabled = true;
             }
             catch (Exception ex)
             {
@@ -121,11 +125,17 @@ namespace WebForm
                     metodoEnvio = new MetodoEnvio
                     {
                         Id = Convert.ToInt32(ddlMetodoEnvio.SelectedValue)
-                    }
+                    },
+                    estadoEnvio = new EstadoEnvio
+                    {
+                        Id = 1
+                    },
+                    fechaEntrega = DateTime.Now.AddDays(metodoEnvioNegocio.listarID
+                    (Convert.ToInt32(ddlMetodoEnvio.SelectedValue)).Demora),
                 };
 
                 envioNegocio.agregar(envio);
-                Session.Add("envio", envioNegocio.listarID(envioNegocio.ultimo()));
+                Session.Add("envio", envioNegocio.ultimo());
             }
             catch (Exception ex)
             {
@@ -133,9 +143,7 @@ namespace WebForm
                 Response.Redirect("Error.aspx");
             }
             //
-            if (Convert.ToInt32(ddlMetodoEnvio.SelectedValue) == 0) lblContinuar.Text = "Elegir método de envío";
-            else Response.Redirect("CompraMetodo.aspx");
-
+            Response.Redirect("CompraMetodo.aspx");
         }
     }
 }

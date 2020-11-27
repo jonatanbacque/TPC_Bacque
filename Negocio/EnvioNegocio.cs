@@ -18,7 +18,8 @@ namespace Negocio
             try
             {
                 conexion.abrirConexion();
-                conexion.setearConsulta("select en.id, m.id, m.Nombre, m.detalle, m.demora, m.precio, e.id, e.nombre, e.detalle from ENVIO as en " +
+                conexion.setearConsulta("select en.id, m.id, m.Nombre, m.detalle, m.demora, m.precio, " +
+                    "e.id, e.nombre, e.detalle en.fechaEntrega from ENVIO as en " +
                     "INNER JOIN METODOENVIO as m on m.id = en.IdMetodo " +
                     "INNER JOIN ESTADOENVIO as e on e.id = en.IdEstado");
                 conexion.ejecutarConsulta();
@@ -41,7 +42,8 @@ namespace Negocio
                             Id = conexion.Lector.GetInt32(6),
                             Nombre = conexion.Lector.GetString(7),
                             Detalle = conexion.Lector.GetString(8)
-                        }
+                        },
+                        fechaEntrega = conexion.Lector.GetDateTime(9)
                     };
 
                     lista.Add(envio);
@@ -66,7 +68,8 @@ namespace Negocio
             try
             {
                 conexion.abrirConexion();
-                conexion.setearConsulta("select en.id, m.id, m.Nombre, m.detalle, m.demora, m.precio, e.id, e.nombre, e.detalle from ENVIO as en " +
+                conexion.setearConsulta("select en.id, m.id, m.Nombre, m.detalle, m.demora, m.precio, " +
+                    "e.id, e.nombre, e.detalle, en.fechaEntrega from ENVIO as en " +
                     "INNER JOIN METODOENVIO as m on m.id = en.IdMetodo " +
                     "INNER JOIN ESTADOENVIO as e on e.id = en.IdEstado " +
                     "WHERE en.id = " + ID.ToString());
@@ -90,7 +93,8 @@ namespace Negocio
                             Id = conexion.Lector.GetInt32(6),
                             Nombre = conexion.Lector.GetString(7),
                             Detalle = conexion.Lector.GetString(8)
-                        }
+                        },
+                        fechaEntrega = conexion.Lector.GetDateTime(9)
                     };
                 }
                 return envio;
@@ -162,12 +166,13 @@ namespace Negocio
             {
                 //
                 conexion.abrirConexion();
-                conexion.setearConsulta("Update ENVIO Set IdMetodo=@idMetodo, IdEstado=@idEstado " +
-                    "Where Id=@id");
+                conexion.setearConsulta("Update ENVIO Set IdMetodo=@idMetodo, IdEstado=@idEstado, " +
+                    "FechaEntrega=@fechaEntrega Where Id=@id");
                 //
                 conexion.Comando.Parameters.Clear();
                 conexion.Comando.Parameters.AddWithValue("@idMetodo", envio.metodoEnvio.Id);
                 conexion.Comando.Parameters.AddWithValue("@idEstado", envio.estadoEnvio.Id);
+                conexion.Comando.Parameters.AddWithValue("@fechaEntrega", envio.fechaEntrega);
                 conexion.Comando.Parameters.AddWithValue("@id", envio.Id);
                 //
                 conexion.ejecutarAccion();
@@ -187,10 +192,12 @@ namespace Negocio
             try
             {
                 //
-                conexion.setearConsulta("INSERT into ENVIO(IdMetodo, IdEstado) VALUES(@idMetodo, 1)");
+                conexion.setearConsulta("INSERT into ENVIO(IdMetodo, IdEstado, FechaEntrega) VALUES(@idMetodo, 1, @fechaEntrega)");
                 //
                 conexion.Comando.Parameters.Clear();
                 conexion.Comando.Parameters.AddWithValue("@idMetodo", envio.metodoEnvio.Id);
+                conexion.Comando.Parameters.AddWithValue("@IdEstado", envio.estadoEnvio.Id);
+                conexion.Comando.Parameters.AddWithValue("@fechaEntrega", envio.fechaEntrega);
                 //
                 conexion.abrirConexion();
                 conexion.ejecutarAccion();

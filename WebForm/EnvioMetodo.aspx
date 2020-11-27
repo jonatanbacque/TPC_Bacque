@@ -34,7 +34,7 @@
                     <div class="form-group">
                         <div class="btn-group" role="group" aria-label="Basic example">
                             <asp:Button class="btn btn-primary" ID="btnCancelar" Text="Cancelar compra" OnClick="btnCancelar_Click" runat="server" />
-                            <asp:Button class="btn btn-primary" ID="btnContinuar" Text="Continuar" OnClick="btnContinuar_Click" runat="server" />
+                            <asp:Button class="btn btn-primary" ID="btnContinuar" Text="Continuar" Enabled ="false" OnClick="btnContinuar_Click" runat="server" />
                         </div>
                     </div>
                     <div class="form-group">

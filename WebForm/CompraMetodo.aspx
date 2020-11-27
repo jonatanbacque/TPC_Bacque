@@ -10,17 +10,17 @@
             <div class="form-row">
                 <div class="form-group col-md-4">
                     <div class="form-group">
-                        <asp:Label for="ddlMetodoEnvio" Text="Metodo de Envío" runat="server" />
-                        <asp:DropDownList CssClass="form-control" AutoPostBack="true" ID="ddlMetodoEnvio" OnTextChanged="ddlMetodoEnvio_TextChanged" runat="server">
+                        <asp:Label for="ddlMetodoPago" Text="Metodo de Pago" runat="server" />
+                        <asp:DropDownList CssClass="form-control" AutoPostBack="true" ID="ddlMetodoPago" OnSelectedIndexChanged="ddlMetodoPago_SelectedIndexChanged" runat="server">
                         </asp:DropDownList>
                     </div>
                     <div class="form-group">
-                        <asp:Label ID="lblDomicilioEntrega" for="txtDomicilioEntrega" Visible="false" Text="Domicilio de entrega" runat="server" />
-                        <asp:TextBox ID="txtDomicilioEntrega" CssClass="form-control" Visible="false" runat="server" />
+                        <asp:Label for="txtNombre" Text="Nombre para Facturacion" runat="server" />
+                        <asp:TextBox ID="txtNombre" CssClass="form-control" ReadOnly="false" runat="server" />
                     </div>
                     <div class="form-group">
-                        <asp:Label ID="lblFechaEntrega" for="txtFechaEntrega" Visible="false" Text="Fecha de entrega" runat="server" />
-                        <asp:TextBox ID="txtFechaEntrega" CssClass="form-control" Visible="false" runat="server" />
+                        <asp:Label for="txtEnvio" Text="Domicilio de Entrega" runat="server" />
+                        <asp:TextBox ID="txtEnvio" CssClass="form-control" ReadOnly="false" runat="server" />
                     </div>
                     <div class="form-group">
                         <asp:Label for="txtPrecio" Text="Importe Final" runat="server" />
@@ -31,10 +31,15 @@
                             <asp:TextBox ID="txtPrecio" CssClass="form-control" runat="server" />
                         </div>
                     </div>
+                    <div class="form-group">
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                            <asp:Button class="btn btn-primary" ID="btnCancelar" Text="Cancelar compra" OnClick="btnCancelar_Click" runat="server" />
+                            <asp:Button class="btn btn-primary" ID="btnFinalizar" Text="Finalizar compra" Enabled="false" OnClick="btnFinalizar_Click" runat="server" />
+                        </div>
+                    </div>
                 </div>
 
                 <div class="form-group col-md-8">
-
                     <div class="card-deck">
                         <% foreach (Dominio.Elemento item in listaElementos)
                             { %>
