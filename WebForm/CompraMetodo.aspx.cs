@@ -121,7 +121,7 @@ namespace WebForm
                     envio = envioNegocio.listarID(Convert.ToInt32(Session["envio"])),
                     metodoPago = metodoPagoNegocio.listarID(ddlMetodoPago.SelectedIndex + 1),
                     FechaCompra = DateTime.Now.Date,
-                    ImporteFinal = importeFinal,
+                    ImporteFinal = importeFinal
                 };
 
                 compraNegocio.agregar(compra);

@@ -67,7 +67,10 @@ namespace Negocio
             try
             {
                 conexion.abrirConexion();
-                conexion.setearConsulta("Select Id, IdUsuario, IdCarrito, IdEnvio, IdMetodo, FechaCompra, ImporteFinal from COMPRA " +
+                conexion.setearConsulta("Select c.Id, c.IdUsuario, c.IdCarrito, e.Id, es.Id, es.Nombre, e.FechaEntrega, c.IdMetodo, c.FechaCompra, " +
+                    "c.ImporteFinal from COMPRA as c " +
+                    "INNER JOIN ENVIO as e on e.id = c.IdEnvio " +
+                    "INNER JOIN ESTADOENVIO as es on es.ID = e.IdEstado " +
                     "where IdUsuario = " + id.ToString());
                 conexion.ejecutarConsulta();
 
@@ -86,14 +89,20 @@ namespace Negocio
                         },
                         envio = new Envio
                         {
-                            Id = conexion.Lector.GetInt32(3)
+                            Id = conexion.Lector.GetInt32(3),
+                            estadoEnvio = new EstadoEnvio
+                            {
+                                Id = conexion.Lector.GetInt32(4),
+                                Nombre = conexion.Lector.GetString(5)
+                            },
+                            fechaEntrega= conexion.Lector.GetDateTime(6)
                         },
                         metodoPago = new MetodoPago
                         {
-                            Id = conexion.Lector.GetInt32(4)
+                            Id = conexion.Lector.GetInt32(7)
                         },
-                        FechaCompra = conexion.Lector.GetDateTime(5),
-                        ImporteFinal = conexion.Lector.GetDecimal(6)
+                        FechaCompra = conexion.Lector.GetDateTime(8),
+                        ImporteFinal = conexion.Lector.GetDecimal(9)
                     };
 
                     lista.Add(compra);
