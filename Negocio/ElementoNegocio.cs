@@ -20,7 +20,7 @@ namespace Negocio
             {
                 conexion.abrirConexion();
                 conexion.setearConsulta("Select ca.Id, ca.Importe, a.ID, a.Producto, a.Presentacion, a.Descripcion, " +
-                    "a.ImagenUrl, a.Precio, a.Marca, c.ID, c.Nombre, c.Descripcion, e.cantidad from Elemento as e " +
+                    "a.ImagenUrl, a.Precio, a.Marca, c.ID, c.Nombre, c.Detalle, e.cantidad from Elemento as e " +
                     "INNER JOIN ARTICULO as a on a.id = e.idArticulo " +
                     "INNER JOIN CATEGORIA as c on c.ID = a.IdCategoria " +
                     "INNER JOIN CARRITO as ca on ca.id = e.idCarrito");
@@ -51,7 +51,7 @@ namespace Negocio
                             {
                                 Id = conexion.Lector.GetInt32(9),
                                 Nombre = conexion.Lector.GetString(10),
-                                Descripcion = conexion.Lector.GetString(11),
+                                Detalle = conexion.Lector.GetString(11),
                             }
                         },
 
@@ -81,7 +81,7 @@ namespace Negocio
             {
                 conexion.abrirConexion();
                 conexion.setearConsulta("Select ca.Id, ca.Importe, a.ID, a.Producto, a.Presentacion, a.Descripcion, " +
-                    "a.ImagenUrl, a.Precio, a.Marca, c.ID, c.Nombre, c.Descripcion, e.cantidad from Elemento as e " +
+                    "a.ImagenUrl, a.Precio, a.Marca, c.ID, c.Nombre, c.Detalle, e.cantidad from Elemento as e " +
                     "INNER JOIN ARTICULO as a on a.id = e.idArticulo " +
                     "INNER JOIN CATEGORIA as c on c.ID = a.IdCategoria " +
                     "INNER JOIN CARRITO as ca on ca.id = e.idCarrito " +
@@ -113,7 +113,7 @@ namespace Negocio
                             {
                                 Id = conexion.Lector.GetInt32(9),
                                 Nombre = conexion.Lector.GetString(10),
-                                Descripcion = conexion.Lector.GetString(11),
+                                Detalle = conexion.Lector.GetString(11),
                             }
                         },
 

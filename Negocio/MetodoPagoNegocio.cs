@@ -8,33 +8,32 @@ using Negocio;
 
 namespace Negocio
 {
-    public class MetodoEnvioNegocio
+    public class MetodoPagoNegocio
     {
         AccesoDatos conexion = new AccesoDatos();
-        List<MetodoEnvio> lista = new List<MetodoEnvio>();
+        List<MetodoPago> lista = new List<MetodoPago>();
 
-        MetodoEnvio metodoEnvio;
-        public List<MetodoEnvio> listar()
+        MetodoPago metodoPago;
+        public List<MetodoPago> listar()
         {
 
             try
             {
                 conexion.abrirConexion();
-                conexion.setearConsulta("Select ID, Nombre, Detalle, Demora, Precio from METODOENVIO WHERE Condicion = 1");
+                conexion.setearConsulta("Select ID, Nombre, Detalle, Precio from METODOPAGO WHERE Condicion = 1");
                 conexion.ejecutarConsulta();
 
                 while (conexion.Lector.Read())
                 {
-                    metodoEnvio = new MetodoEnvio
+                    metodoPago = new MetodoPago
                     {
                         Id = conexion.Lector.GetInt32(0),
                         Nombre = conexion.Lector.GetString(1),
                         Detalle = conexion.Lector.GetString(2),
-                        Demora = conexion.Lector.GetInt32(3),
-                        Precio = conexion.Lector.GetDecimal(4)
+                        Precio = conexion.Lector.GetDecimal(3)
                     };
 
-                    lista.Add(metodoEnvio);
+                    lista.Add(metodoPago);
 
                 }
                 return lista;
@@ -49,29 +48,28 @@ namespace Negocio
             }
         }
 
-        public MetodoEnvio listarID(int id)
+        public MetodoPago listarID(int id)
         {
 
             try
             {
                 conexion.abrirConexion();
-                conexion.setearConsulta("Select ID, Nombre, Detalle, Demora, Precio from METODOENVIO " +
+                conexion.setearConsulta("Select ID, Nombre, Detalle, Precio from METODOPAGO " +
                     "WHERE Condicion = 1 and ID =" + id.ToString());
                 conexion.ejecutarConsulta();
 
                 while (conexion.Lector.Read())
                 {
-                    metodoEnvio = new MetodoEnvio
+                    metodoPago = new MetodoPago
                     {
                         Id = conexion.Lector.GetInt32(0),
                         Nombre = conexion.Lector.GetString(1),
                         Detalle = conexion.Lector.GetString(2),
-                        Demora = conexion.Lector.GetInt32(3),
-                        Precio = conexion.Lector.GetDecimal(4)
+                        Precio = conexion.Lector.GetDecimal(3)
                     };
 
                 }
-                return metodoEnvio;
+                return metodoPago;
             }
             catch (Exception ex)
             {
@@ -83,22 +81,21 @@ namespace Negocio
             }
         }
 
-        public void modificar(MetodoEnvio metodoEnvio)
+        public void modificar(MetodoPago metodoPago)
         {
             AccesoDatos conexion = new AccesoDatos();
             try
             {
                 //
                 conexion.abrirConexion();
-                conexion.setearConsulta("Update METODOENVIO Set Nombre=@nombre, Detalle=@Detalle, Demora=@demora, " +
+                conexion.setearConsulta("Update METODOPAGO Set Nombre=@nombre, Detalle=@Detalle, " +
                                         "Precio=@precio Where Id=@id");
                 //
                 conexion.Comando.Parameters.Clear();
-                conexion.Comando.Parameters.AddWithValue("@nombre", metodoEnvio.Nombre);
-                conexion.Comando.Parameters.AddWithValue("@detalle", metodoEnvio.Detalle);
-                conexion.Comando.Parameters.AddWithValue("@demora", metodoEnvio.Demora);
-                conexion.Comando.Parameters.AddWithValue("@precio", metodoEnvio.Precio);
-                conexion.Comando.Parameters.AddWithValue("@id", metodoEnvio.Id);
+                conexion.Comando.Parameters.AddWithValue("@nombre", metodoPago.Nombre);
+                conexion.Comando.Parameters.AddWithValue("@detalle", metodoPago.Detalle);
+                conexion.Comando.Parameters.AddWithValue("@precio", metodoPago.Precio);
+                conexion.Comando.Parameters.AddWithValue("@id", metodoPago.Id);
                 //
                 conexion.ejecutarAccion();
             }
@@ -119,7 +116,7 @@ namespace Negocio
             {
                 //
                 conexion.abrirConexion();
-                conexion.setearConsulta("Update METODOENVIO Set Condicion=0 Where Id=@id");
+                conexion.setearConsulta("Update METODOPAGO Set Condicion=0 Where Id=@id");
                 //
                 conexion.Comando.Parameters.AddWithValue("@id", id);
                 //
@@ -135,20 +132,19 @@ namespace Negocio
             }
         }
 
-        public void agregar(MetodoEnvio metodoEnvio)
+        public void agregar(MetodoPago metodoPago)
         {
             AccesoDatos conexion = new AccesoDatos();
             try
             {
                 conexion.abrirConexion();
-                conexion.setearConsulta("INSERT INTO METODOENVIO (Nombre, Detalle, Demora, Precio, Condicion) " +
+                conexion.setearConsulta("INSERT INTO METODOPAGO (Nombre, Detalle, Precio, Condicion) " +
                     "VALUES (@nombre, @detalle, @demora, @precio, 1)");
                 //
                 conexion.Comando.Parameters.Clear();
-                conexion.Comando.Parameters.AddWithValue("@nombre", metodoEnvio.Nombre);
-                conexion.Comando.Parameters.AddWithValue("@detalle", metodoEnvio.Detalle);
-                conexion.Comando.Parameters.AddWithValue("@demora", metodoEnvio.Demora);
-                conexion.Comando.Parameters.AddWithValue("@precio", metodoEnvio.Precio);
+                conexion.Comando.Parameters.AddWithValue("@nombre", metodoPago.Nombre);
+                conexion.Comando.Parameters.AddWithValue("@detalle", metodoPago.Detalle);
+                conexion.Comando.Parameters.AddWithValue("@precio", metodoPago.Precio);
                 //
                 conexion.ejecutarAccion();
             }

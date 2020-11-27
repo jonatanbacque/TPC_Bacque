@@ -8,17 +8,24 @@ namespace Dominio
 {
     public class MetodoEnvio
     {
-        public MetodoEnvio(int id, string nombre, string detalle)
+        public MetodoEnvio() { }
+
+        public MetodoEnvio(int id, string nombre, string detalle, int demora, decimal precio, int condicion)
         {
             Id = id;
             Nombre = nombre;
             Detalle = detalle;
+            Demora = demora;
+            Precio = precio;
+            Condicion = condicion;
         }
-        public MetodoEnvio() { }
 
         public int Id { get; set; }
         public string Nombre { get; set; }
         public string Detalle { get; set; }
+        public int Demora { get; set; }
+        public decimal Precio { get; set; }
+        public int Condicion { get; set; }
 
         public override string ToString()//Al requerir un string de la clase articulo devuelve el nombre
         {

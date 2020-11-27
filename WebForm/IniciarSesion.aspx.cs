@@ -91,7 +91,7 @@ namespace WebForm
                 //Precargo ID del carrito si esaba comprando
                 if (Request.QueryString["ID"] != null)
                 {
-                    Response.Redirect("Envio.aspx");
+                    Response.Redirect("EnvioMetodo.aspx");
                 }
 
                 Response.Redirect("Default.aspx");
@@ -129,7 +129,7 @@ namespace WebForm
                 //Precargo ID del carrito si esaba comprando
                 if (Request.QueryString["ID"] != null)
                 {
-                    Response.Redirect("Envio.aspx");
+                    Response.Redirect("EnvioMetodo.aspx");
                 }
 
                 Response.Redirect("Default.aspx");

@@ -1,39 +1,44 @@
 ﻿<%@ Page Title="Inicio" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="WebForm._Default" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
-    <div>
-        <h2>Catalogo de productos</h2>
-    </div>
-
+    <h2>Catalogo de Compras</h2>
     <hr />
 
-    <asp:UpdatePanel runat="server">
-        <ContentTemplate>
-            <div class="card-deck">
-                <% foreach (Dominio.Articulo item in listaArticulos)
-                   { %>
-                <div class="card border-primary text-center container-fluid" style="max-width: 300px; min-width: 200px;">
-                    <img class="card-img-top img-fluid" src="<% = item.ImagenUrl %>" alt="<% = item.Producto %>">
-                    <div class="card-body"></div>
-                    <div class="card-footer">
-                        <h5 class="card-title"><% = item.Producto %></h5>
-                        <div>
-                            <small class="text-muted"><% = item.Descripcion %></small>
-                        </div>
-                        <div>
-                            <small class="text-muted">Precio: $ <% = item.Precio %></small>
-                        </div>
-                        <hr />
-                        <div class="btn-group" role="group" aria-label="Basic example">
-                            <a href="Detalle.aspx?ID=<% =item.Id.ToString() %>" class="btn btn-primary">Detalle</a>
+    <asp:Button ID="btnCarrito" class="btn btn-primary" Text="Ir al carrito" Visible="false" OnClick="btnCarrito_Click" runat="server" />
+    </div>
+    <%if (Convert.ToInt32(Session["carrito"]) != 0)
+        {%><hr />
+    <%}%>
 
-                            <a href="?ID=<% =item.Id.ToString() %>" class="btn btn-primary">Agregar al Carrito</a>
+    <div class="form-group center_div">
+        <asp:UpdatePanel runat="server">
+            <ContentTemplate>
+                <div class="card-deck">
+                    <% foreach (Dominio.Articulo item in listaArticulos)
+                        { %>
+                    <div class="card border-primary text-center container-fluid" style="max-width: 280px; min-width: 280px;">
+                        <img class="card-img-top img-fluid" src="<% = item.ImagenUrl %>" alt="<% = item.Producto %>">
+                        <div class="card-body"></div>
+                        <div class="card-footer">
+                            <h5 class="card-title"><% = item.Producto %></h5>
+                            <div>
+                                <small class="text-muted"><% = item.Descripcion %></small>
+                            </div>
+                            <div>
+                                <small class="text-muted">Precio: $ <% = item.Precio %></small>
+                            </div>
+                            <hr />
+                            <div class="btn-group" role="group" aria-label="Basic example">
+                                <a href="Detalle.aspx?ID=<% =item.Id.ToString() %>" class="btn btn-primary">Detalle</a>
+
+                                <a href="?ID=<% =item.Id.ToString() %>" class="btn btn-primary">Agregar al Carrito</a>
+                            </div>
                         </div>
                     </div>
+                    <% } %>
                 </div>
-                <% } %>
-            </div>
-        </ContentTemplate>
-    </asp:UpdatePanel>
+            </ContentTemplate>
+        </asp:UpdatePanel>
+    </div>
 
 </asp:Content>

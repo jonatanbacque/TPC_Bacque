@@ -9,11 +9,11 @@ using Negocio;
 
 namespace WebForm
 {
-    public partial class Envio : System.Web.UI.Page
+    public partial class CompraMetodo : System.Web.UI.Page
     {
         CarritoNegocio carritoNegocio = new CarritoNegocio();
-        ElementoNegocio elementoNegocio = new ElementoNegocio();
         MetodoEnvioNegocio metodoEnvioNegocio = new MetodoEnvioNegocio();
+
         public List<Elemento> listaElementos;
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -46,7 +46,7 @@ namespace WebForm
                 if (Session["carrito"] != null)
                 {
                     //Cargo importe final
-                    txtPrecio.Text = carritoNegocio.listarID(Convert.ToInt32(Session["carrito"])).ToString();
+                    txtPrecio.Text = carritoNegocio.listarID(Convert.ToInt32(Session["carrito"])).Importe + ddlMetodoEnvio.SelectedValue;
                 }
 
                 txtPrecio.ReadOnly = true;
@@ -77,7 +77,7 @@ namespace WebForm
                 txtDomicilioEntrega.Visible = true;
                 lblDomicilioEntrega.Visible = true;
 
-                switch (Convert.ToInt32(ddlMetodoEnvio.SelectedValue))
+                switch (Convert.ToInt32(ddlMetodoEnvio.SelectedValue) - 1)
                 {
                     case 1:
                         lblFechaEntrega.Visible = false;
@@ -102,42 +102,6 @@ namespace WebForm
                 Session.Add("errorEncontrado", ex.ToString());
                 Response.Redirect("Error.aspx");
             }
-        }
-
-        protected void btnCancelar_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                elementoNegocio.eliminarCarrito(Convert.ToInt32(Session["carrito"]));
-                carritoNegocio.eliminar(Convert.ToInt32(Session["carrito"]));
-                Session.Remove("listaElementos");
-                Session.Remove("carrito");
-
-            }
-            catch (Exception ex)
-            {
-                Session.Add("errorEncontrado", ex.ToString());
-                Response.Redirect("Error.aspx");
-            }
-            //
-            Response.Redirect("/");
-        }
-
-        protected void btnContinuar_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                
-            }
-            catch (Exception ex)
-            {
-                Session.Add("errorEncontrado", ex.ToString());
-                Response.Redirect("Error.aspx");
-            }
-            //
-            if (Convert.ToInt32(ddlMetodoEnvio.SelectedValue) == 0) lblContinuar.Text = "Elegir método de envío";
-            else Response.Redirect("Compra.aspx");
-
         }
     }
 }

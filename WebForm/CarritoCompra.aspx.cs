@@ -114,7 +114,7 @@ namespace WebForm
         protected void btnComprar_Click(object sender, EventArgs e)
         {
             //
-            Response.Redirect("Envio.aspx");
+            Response.Redirect("EnvioMetodo.aspx");
         }
     }
 }

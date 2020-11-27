@@ -18,7 +18,7 @@ namespace Negocio
             try
             {
                 conexion.abrirConexion();
-                conexion.setearConsulta("select en.id, m.id, m.Nombre, e.id, e.nombre, en.FechaEntrega from ENVIO as en " +
+                conexion.setearConsulta("select en.id, m.id, m.Nombre, m.detalle, m.demora, m.precio, e.id, e.nombre, e.detalle from ENVIO as en " +
                     "INNER JOIN METODOENVIO as m on m.id = en.IdMetodo " +
                     "INNER JOIN ESTADOENVIO as e on e.id = en.IdEstado");
                 conexion.ejecutarConsulta();
@@ -31,14 +31,17 @@ namespace Negocio
                         metodoEnvio = new MetodoEnvio
                         {
                             Id = conexion.Lector.GetInt32(1),
-                            Nombre = conexion.Lector.GetString(2)
+                            Nombre = conexion.Lector.GetString(2),
+                            Detalle = conexion.Lector.GetString(3),
+                            Demora = conexion.Lector.GetInt32(4),
+                            Precio = conexion.Lector.GetDecimal(5),
                         },
                         estadoEnvio = new EstadoEnvio
                         {
-                            Id = conexion.Lector.GetInt32(3),
-                            Nombre = conexion.Lector.GetString(4)
-                        },
-                        FechaEntrega = conexion.Lector.GetDateTime(4)
+                            Id = conexion.Lector.GetInt32(6),
+                            Nombre = conexion.Lector.GetString(7),
+                            Detalle = conexion.Lector.GetString(8)
+                        }
                     };
 
                     lista.Add(envio);
@@ -56,14 +59,14 @@ namespace Negocio
             }
         }
 
-        public Envio listarID (int ID)
+        public Envio listarID(int ID)
         {
             AccesoDatos conexion = new AccesoDatos();
             List<Envio> lista = new List<Envio>();
             try
             {
                 conexion.abrirConexion();
-                conexion.setearConsulta("select en.id, m.id, m.Nombre, e.id, e.nombre, en.FechaEntrega from ENVIO as en " +
+                conexion.setearConsulta("select en.id, m.id, m.Nombre, m.detalle, m.demora, m.precio, e.id, e.nombre, e.detalle from ENVIO as en " +
                     "INNER JOIN METODOENVIO as m on m.id = en.IdMetodo " +
                     "INNER JOIN ESTADOENVIO as e on e.id = en.IdEstado " +
                     "WHERE en.id = " + ID.ToString());
@@ -77,14 +80,17 @@ namespace Negocio
                         metodoEnvio = new MetodoEnvio
                         {
                             Id = conexion.Lector.GetInt32(1),
-                            Nombre = conexion.Lector.GetString(2)
+                            Nombre = conexion.Lector.GetString(2),
+                            Detalle = conexion.Lector.GetString(3),
+                            Demora = conexion.Lector.GetInt32(4),
+                            Precio = conexion.Lector.GetDecimal(5),
                         },
                         estadoEnvio = new EstadoEnvio
                         {
-                            Id = conexion.Lector.GetInt32(3),
-                            Nombre = conexion.Lector.GetString(4)
-                        },
-                        FechaEntrega = conexion.Lector.GetDateTime(4)
+                            Id = conexion.Lector.GetInt32(6),
+                            Nombre = conexion.Lector.GetString(7),
+                            Detalle = conexion.Lector.GetString(8)
+                        }
                     };
                 }
                 return envio;
@@ -98,16 +104,44 @@ namespace Negocio
                 conexion.cerrarConexion();
             }
         }
+        public int ultimo()
+        {
+            AccesoDatos conexion = new AccesoDatos();
+            try
+            {
+                int ultimo = 0;
 
-        public void eliminarCarrito(int idCarrito)
+                conexion.abrirConexion();
+                conexion.setearConsulta("select top(1) id from ENVIO order by id desc");
+                //
+                conexion.ejecutarConsulta();
+
+                while (conexion.Lector.Read())
+                {
+                    ultimo = conexion.Lector.GetInt32(0);
+                }
+                return ultimo;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conexion.cerrarConexion();
+
+            }
+        }
+
+        public void eliminar(int id)
         {
             AccesoDatos conexion = new AccesoDatos();
             try
             {
                 //
-                conexion.setearConsulta("Delete from ELEMENTO Where IdCarrito=@idCarrito");
+                conexion.setearConsulta("Delete from ENVIO Where Id=@id");
                 //
-                conexion.Comando.Parameters.AddWithValue("@idCarrito", idCarrito);
+                conexion.Comando.Parameters.AddWithValue("@id", id);
                 //
                 conexion.abrirConexion();
                 conexion.ejecutarAccion();
@@ -121,47 +155,42 @@ namespace Negocio
                 conexion.cerrarConexion();
             }
         }
-
-        public void eliminarArticulo(int idCarrito, int idArticulo)
+        public void modificar(Envio envio)
         {
             AccesoDatos conexion = new AccesoDatos();
             try
             {
-                //
-                conexion.setearConsulta("Delete from ELEMENTO Where IdArticulo=@idArticulo and IdCarrito=@idCarrito");
-                //
-                conexion.Comando.Parameters.AddWithValue("@idCarrito", idCarrito);
-                conexion.Comando.Parameters.AddWithValue("@idArticulo", idArticulo);
                 //
                 conexion.abrirConexion();
-                conexion.ejecutarAccion();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                conexion.cerrarConexion();
-            }
-        }
-
-        public void agregarArticulo(Elemento elemento)
-        {
-            AccesoDatos conexion = new AccesoDatos();
-            try
-            {
-                //
-                conexion.setearConsulta("IF (EXISTS (SELECT * from ELEMENTO WHERE IdCarrito=@idCarrito and IdArticulo=@idArticulo)) " +
-                    "BEGIN update ELEMENTO set Cantidad = (select SUM(cantidad) FROM ELEMENTO " +
-                    "WHERE IdCarrito = @idCarrito and IdArticulo = @idArticulo) + @cantidad " +
-                    "WHERE IdCarrito = @idCarrito and IdArticulo = @idArticulo END " +
-                    "ELSE BEGIN INSERT into ELEMENTO(IdCarrito, IdArticulo, Cantidad) VALUES(@idCarrito, @idArticulo, @cantidad) END");
+                conexion.setearConsulta("Update ENVIO Set IdMetodo=@idMetodo, IdEstado=@idEstado " +
+                    "Where Id=@id");
                 //
                 conexion.Comando.Parameters.Clear();
-                conexion.Comando.Parameters.AddWithValue("@idCarrito", elemento.carrito.Id);
-                conexion.Comando.Parameters.AddWithValue("@idArticulo", elemento.articulo.Id);
-                conexion.Comando.Parameters.AddWithValue("@cantidad", elemento.Cantidad);
+                conexion.Comando.Parameters.AddWithValue("@idMetodo", envio.metodoEnvio.Id);
+                conexion.Comando.Parameters.AddWithValue("@idEstado", envio.estadoEnvio.Id);
+                conexion.Comando.Parameters.AddWithValue("@id", envio.Id);
+                //
+                conexion.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conexion.cerrarConexion();
+            }
+        }
+        public void agregar(Envio envio)
+        {
+            AccesoDatos conexion = new AccesoDatos();
+            try
+            {
+                //
+                conexion.setearConsulta("INSERT into ENVIO(IdMetodo, IdEstado) VALUES(@idMetodo, 1)");
+                //
+                conexion.Comando.Parameters.Clear();
+                conexion.Comando.Parameters.AddWithValue("@idMetodo", envio.metodoEnvio.Id);
                 //
                 conexion.abrirConexion();
                 conexion.ejecutarAccion();

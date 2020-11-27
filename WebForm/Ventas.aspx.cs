@@ -13,5 +13,15 @@ namespace WebForm
         {
 
         }
+
+        protected void btnListado_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Listado.aspx");
+        }
+
+        protected void btnEdicion_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("VentasEditar.aspx");
+        }
     }
 }

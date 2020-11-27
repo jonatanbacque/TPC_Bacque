@@ -19,7 +19,7 @@ namespace Negocio
             {
                 conexion.abrirConexion();
                 conexion.setearConsulta("Select a.ID, a.Producto, a.Presentacion, a.Descripcion, a.ImagenUrl, a.Precio, a.Marca, c.ID, " +
-                                        "c.Nombre, c.Descripcion from ARTICULO as a INNER JOIN CATEGORIA as c on c.ID = a.IdCategoria");
+                                        "c.Nombre, c.Detalle from ARTICULO as a INNER JOIN CATEGORIA as c on c.ID = a.IdCategoria");
                 conexion.ejecutarConsulta();
 
                 while (conexion.Lector.Read())
@@ -38,7 +38,7 @@ namespace Negocio
                         {
                             Id = conexion.Lector.GetInt32(7),
                             Nombre = conexion.Lector.GetString(8),
-                            Descripcion = conexion.Lector.GetString(9),
+                            Detalle = conexion.Lector.GetString(9),
                         }
                     };
 
@@ -66,7 +66,7 @@ namespace Negocio
             {
                 conexion.abrirConexion();
                 conexion.setearConsulta("Select a.ID, a.Producto, a.Presentacion, a.Descripcion, a.ImagenUrl, a.Precio, a.Marca, c.ID, " +
-                                        "c.Nombre, c.Descripcion from ARTICULO as a INNER JOIN CATEGORIA as c on c.ID = a.IdCategoria " +
+                                        "c.Nombre, c.Detalle from ARTICULO as a INNER JOIN CATEGORIA as c on c.ID = a.IdCategoria " +
                                         "WHERE a.ID =" + ID);
                 conexion.ejecutarConsulta();
 
@@ -86,7 +86,7 @@ namespace Negocio
                         {
                             Id = conexion.Lector.GetInt32(7),
                             Nombre = conexion.Lector.GetString(8),
-                            Descripcion = conexion.Lector.GetString(9),
+                            Detalle = conexion.Lector.GetString(9),
                         }
                     };
                 }
@@ -111,7 +111,7 @@ namespace Negocio
             {
                 conexion.abrirConexion();
                 conexion.setearConsulta("Select a.ID, a.Producto, a.Presentacion, a.Descripcion, a.ImagenUrl, a.Precio, a.Marca, c.ID, " +
-                                        "c.Nombre, c.Descripcion from ARTICULO as a INNER JOIN CATEGORIA as c on c.ID = a.IdCategoria " +
+                                        "c.Nombre, c.Detalle from ARTICULO as a INNER JOIN CATEGORIA as c on c.ID = a.IdCategoria " +
                                         "WHERE a.Producto LIKE '%" + nombre + "%'");
                 conexion.ejecutarConsulta();
 
@@ -131,7 +131,7 @@ namespace Negocio
                         {
                             Id = conexion.Lector.GetInt32(7),
                             Nombre = conexion.Lector.GetString(8),
-                            Descripcion = conexion.Lector.GetString(9),
+                            Detalle = conexion.Lector.GetString(9),
                         }
                     };
 
@@ -160,7 +160,8 @@ namespace Negocio
             {
                 conexion.abrirConexion();
                 conexion.setearConsulta("Select a.ID, a.Producto, a.Presentacion, a.Descripcion, a.ImagenUrl, a.Precio, a.Marca, c.ID, " +
-                                        "c.Nombre, c.Descripcion from ARTICULO as a INNER JOIN CATEGORIA as c on c.ID = a.IdCategoria " +
+                                        "c.Nombre, c.Detalle from ARTICULO as a " +
+                                        "INNER JOIN CATEGORIA as c on c.ID = a.IdCategoria " +
                                         "WHERE c.nombre LIKE '%" + nombre + "%'");
                 conexion.ejecutarConsulta();
 
@@ -180,7 +181,7 @@ namespace Negocio
                         {
                             Id = conexion.Lector.GetInt32(7),
                             Nombre = conexion.Lector.GetString(8),
-                            Descripcion = conexion.Lector.GetString(9),
+                            Detalle = conexion.Lector.GetString(9),
                         }
                     };
 

@@ -73,6 +73,8 @@ namespace WebForm
                     listaElementos = new List<Elemento>();
                 }
 
+                //Muestro boton de carrito si existe
+                if (Convert.ToInt32(Session["carrito"]) != 0) btnCarrito.Visible = true;
 
                 //Si no hay busqueda, muestro lista completa
                 listaArticulos = articuloNegocio.listar();
@@ -97,6 +99,11 @@ namespace WebForm
                 Session.Add("errorEncontrado", ex.ToString());
                 Response.Redirect("Error.aspx");
             }
+        }
+
+        protected void btnCarrito_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("CarritoCompra.aspx");
         }
     }
 }

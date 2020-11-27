@@ -10,7 +10,8 @@ go
 CREATE TABLE [dbo].[CATEGORIA](
 	[Id] [int] IDENTITY(1,1) PRIMARY KEY NOT NULL,
 	[Nombre] [varchar](200) NULL,
-	[Descripcion] [varchar](600) NULL
+	[Detalle] [varchar](600) NULL,
+	[Condicion] [int] NULL
 	)
 GO
 
@@ -64,29 +65,34 @@ GO
 CREATE TABLE [dbo].[METODOENVIO](
 	[Id] [int] IDENTITY(1,1) PRIMARY KEY NOT NULL,
 	[Nombre] [varchar](200) NULL,
-	[Detalle] [varchar](200) NULL
+	[Detalle] [varchar](200) NULL,
+	[Demora] [int] NULL,
+	[Precio] numeric(18,2) NULL,
+	[Condicion] [int] NULL
 	)
 GO
 
 CREATE TABLE [dbo].[ESTADOENVIO](
 	[Id] [int] IDENTITY(1,1) PRIMARY KEY NOT NULL,
 	[Nombre] [varchar](200) NULL,
-	[Detalle] [varchar](200) NULL
+	[Detalle] [varchar](200) NULL,
+	[Condicion] [int] NULL
 	)
 GO
 
 CREATE TABLE [dbo].[ENVIO](
 	[Id] [int] IDENTITY(1,1) PRIMARY KEY NOT NULL,
 	[IdMetodo] [int] FOREIGN KEY REFERENCES METODOENVIO(Id) NOT NULL,
-	[IdEstado] [int] FOREIGN KEY REFERENCES ESTADOENVIO(Id) NOT NULL,
-	[FechaEntrega] [date] NULL
+	[IdEstado] [int] FOREIGN KEY REFERENCES ESTADOENVIO(Id) NOT NULL
 	)
 GO
 
 CREATE TABLE [dbo].[METODOPAGO](
 	[Id] [int] IDENTITY(1,1) PRIMARY KEY NOT NULL,
 	[Nombre] [varchar](200) NULL,
-	[Detalle] [varchar](200) NULL
+	[Detalle] [varchar](200) NULL,
+	[Precio] numeric(18,2) NULL,
+	[Condicion] [int] NULL
 	)
 GO
 
@@ -103,15 +109,18 @@ GO
 
 
 
-insert into CATEGORIA values ('Perfumería','Fragancias de primera calidad'),('Limpieza','Muy buena calidad'),('Decoración','Te queda la casa hermosa')
+insert into CATEGORIA values ('Elegir Categoria','',1),
+('Perfumería','Fragancias de primera calidad',1),
+('Limpieza','Muy buena calidad',1),
+('Decoración','Te queda la casa hermosa',1)
 
 
 
-insert into ARTICULO values ('Difusores ambientales', 'Envases de 125ml o 1L','Fragancias disponibles: Coco, Rosas, Sandalo y Bebe', 'https://ss-static-01.esmsv.com/id/117805/productos/obtenerimagen/?id=211&useDensity=false&width=1280&height=720&tipoEscala=fit', 645, 'Aleli Esencias', 1),
-('Body splash', 'envases de 1 litro','Fragancias disponibles: Coco, Rosas, Sandalo y Bebe', 'https://ss-static-01.esmsv.com/id/117805/productos/obtenerimagen/?id=203&useDensity=false&width=1280&height=720&tipoEscala=fit', 750, 'Aleli Esencias', 1),
-('Gel de ducha', 'envases de 1 litro','Fragancias disponibles: Coco, Rosas, Sandalo y Bebe', 'https://ss-static-01.esmsv.com/id/117805/productos/obtenerimagen/?id=157&useDensity=false&width=1280&height=720&tipoEscala=fit', 280, 'Aleli Esencias', 1),
-('Desodorante Pisos', 'envases de 1 litro', 'Fragancias disponibles: Lysoform', 'https://ss-static-01.esmsv.com/id/117805/productos/obtenerimagen/?id=195&useDensity=false&width=1280&height=720&tipoEscala=fit', 720, 'Aleli Esencias', 2),
-('Alcohol en Gel','envases de 5 litro' , 'Elimina el 99,9% de virus y bacterias.', 'https://ss-static-01.esmsv.com/id/117805/productos/obtenerimagen/?id=183&useDensity=false&width=1280&height=720&tipoEscala=fit', 1200, 'Aleli Esencias', 2)
+insert into ARTICULO values ('Difusores ambientales', 'Envases de 125ml o 1L','Fragancias disponibles: Coco, Rosas, Sandalo y Bebe', 'https://ss-static-01.esmsv.com/id/117805/productos/obtenerimagen/?id=211&useDensity=false&width=1280&height=720&tipoEscala=fit', 645, 'Aleli Esencias', 2),
+('Body splash', 'envases de 1 litro','Fragancias disponibles: Coco, Rosas, Sandalo y Bebe', 'https://ss-static-01.esmsv.com/id/117805/productos/obtenerimagen/?id=203&useDensity=false&width=1280&height=720&tipoEscala=fit', 750, 'Aleli Esencias', 2),
+('Gel de ducha', 'envases de 1 litro','Fragancias disponibles: Coco, Rosas, Sandalo y Bebe', 'https://ss-static-01.esmsv.com/id/117805/productos/obtenerimagen/?id=157&useDensity=false&width=1280&height=720&tipoEscala=fit', 280, 'Aleli Esencias', 2),
+('Desodorante Pisos', 'envases de 1 litro', 'Fragancias disponibles: Lysoform', 'https://ss-static-01.esmsv.com/id/117805/productos/obtenerimagen/?id=195&useDensity=false&width=1280&height=720&tipoEscala=fit', 720, 'Aleli Esencias', 3),
+('Alcohol en Gel','envases de 5 litro' , 'Elimina el 99,9% de virus y bacterias.', 'https://ss-static-01.esmsv.com/id/117805/productos/obtenerimagen/?id=183&useDensity=false&width=1280&height=720&tipoEscala=fit', 1200, 'Aleli Esencias', 3)
 
 insert into CARRITO values(0)
 
@@ -165,29 +174,38 @@ Select u.ID, p.ID, p.Nombre, p.Apellido, p.DNI, p.Direccion, p.Email, p.Telefono
 INNER JOIN PERSONA as p on p.id=u.idPersona
 Where  p.condicion =1
 
-INSERT into ESTADOENVIO(Nombre, Detalle) VALUES ('En preparación',''),
-('En camino',''),
-('Listo para Retirar',''),
-('Despachado en el correo',''),
-('Despachado en la terminal','')
+INSERT into ESTADOENVIO(Nombre, Detalle, Condicion) VALUES ('Elegir Estado de Envío','',1),
+('En preparación','',1),
+('En camino','',1),
+('Listo para Retirar','',1),
+('Despachado en el correo','',1),
+('Despachado en la terminal','',1)
 
 select * from ESTADOENVIO
 
-INSERT into METODOENVIO(Nombre, Detalle) VALUES ('Elegir Metodo de Envío',''),
-('Retiro en Sucursal','Coordinar finalizada la compra con el vendedor'),
-('Envio por Correo','Coordinar finalizada la compra con el vendedor'),
-('Envio por Encomienda','Coordinar finalizada la compra con el vendedor'),
-('Envio por Moto','Coordinar finalizada la compra con el vendedor')
+INSERT into METODOENVIO(Nombre, Detalle, Demora, Precio, Condicion) VALUES ('Elegir Metodo de Envío','', 0, 0.0,1),
+('Retiro en Sucursal','Coordinar finalizada la compra con el vendedor', 2, 0.0,1),
+('Envio por Correo','Coordinar finalizada la compra con el vendedor', 5, 400.0,1),
+('Envio por Encomienda','Coordinar finalizada la compra con el vendedor', 12, 600.0,1),
+('Envio por Moto','Coordinar finalizada la compra con el vendedor', 2, 150.0,1)
 
 select * from METODOENVIO
 
-Select ca.Id, ca.Importe, a.ID, a.Producto, a.Presentacion, a.Descripcion, a.ImagenUrl, a.Precio, a.Marca, c.ID, c.Nombre, c.Descripcion, e.cantidad from Elemento as e
+Select ca.Id, ca.Importe, a.ID, a.Producto, a.Presentacion, a.Descripcion, a.ImagenUrl, a.Precio, a.Marca, c.ID, c.Nombre, c.Detalle, e.cantidad from Elemento as e
 INNER JOIN ARTICULO as a on a.id = e.idArticulo
 INNER JOIN CATEGORIA as c on c.ID = a.IdCategoria
 INNER JOIN CARRITO as ca on ca.id = e.idCarrito
 
-INSERT into ENVIO(IdMetodo, IdEstado, FechaEntrega) VALUES (2,1,'25-12-2020')
+INSERT into ENVIO(IdMetodo, IdEstado) VALUES (2,1)
 
-select m.Nombre, e.nombre, en.FechaEntrega from ENVIO as en
+select m.Nombre, m.Detalle, m.Demora, m.Precio, e.nombre from ENVIO as en
 INNER JOIN ESTADOENVIO as e on e.id = en.IdEstado
 INNER JOIN METODOENVIO as m on m.id = en.IdMetodo
+
+
+Select ID, Nombre, Detalle, Demora, Precio from METODOENVIO WHERE Condicion = 1
+
+INSERT into METODOPAGO(Nombre, Detalle, Precio, Condicion) VALUES ('Elegir Metodo de Pago','', 0.0,1),
+('Efectivo','Sólo retirando en Sucursal', 1.0,1),
+('Tarjeta','Debera utilizar mercado pago', 1.1,1),
+('Transferencia','CBU 00000000003333333333', 1.0,1)

@@ -1,8 +1,8 @@
-﻿<%@ Page Title="Finalizando compra" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Compra.aspx.cs" Inherits="WebForm.Compra" %>
+﻿<%@ Page Title="Comprando" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="EnvioMetodo.aspx.cs" Inherits="WebForm.EnvioMetodo" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <div>
-        <h2>Finalizando Compra</h2>
+        <h2>Editar envío</h2>
     </div>
     <hr />
     <asp:UpdatePanel runat="server">
@@ -11,7 +11,7 @@
                 <div class="form-group col-md-4">
                     <div class="form-group">
                         <asp:Label for="ddlMetodoEnvio" Text="Metodo de Envío" runat="server" />
-                        <asp:DropDownList CssClass="form-control" AutoPostBack="true" ID="ddlMetodoEnvio" OnTextChanged="ddlMetodoEnvio_TextChanged" runat="server">
+                        <asp:DropDownList CssClass="form-control" AutoPostBack="true" ID="ddlMetodoEnvio" OnSelectedIndexChanged="ddlMetodoEnvio_SelectedIndexChanged" runat="server">
                         </asp:DropDownList>
                     </div>
                     <div class="form-group">
@@ -29,8 +29,16 @@
                                 <span class="input-group-text">$</span>
                             </div>
                             <asp:TextBox ID="txtPrecio" CssClass="form-control" runat="server" />
-                            </div>
                         </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                            <asp:Button class="btn btn-primary" ID="btnCancelar" Text="Cancelar compra" OnClick="btnCancelar_Click" runat="server" />
+                            <asp:Button class="btn btn-primary" ID="btnContinuar" Text="Continuar" OnClick="btnContinuar_Click" runat="server" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <asp:Label ID="lblContinuar" CssClass="form-control" runat="server" />
                     </div>
                 </div>
 

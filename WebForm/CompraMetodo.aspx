@@ -1,8 +1,8 @@
-﻿<%@ Page Title="Comprando" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Envio.aspx.cs" Inherits="WebForm.Envio" %>
+﻿<%@ Page Title="Finalizando compra" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="CompraMetodo.aspx.cs" Inherits="WebForm.CompraMetodo" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <div>
-        <h2>Editar envío</h2>
+        <h2>Finalizando Compra</h2>
     </div>
     <hr />
     <asp:UpdatePanel runat="server">
@@ -23,22 +23,13 @@
                         <asp:TextBox ID="txtFechaEntrega" CssClass="form-control" Visible="false" runat="server" />
                     </div>
                     <div class="form-group">
-                        <asp:Label for="txtPrecio" Text="Precio" runat="server" />
+                        <asp:Label for="txtPrecio" Text="Importe Final" runat="server" />
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">$</span>
                             </div>
                             <asp:TextBox ID="txtPrecio" CssClass="form-control" runat="server" />
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="btn-group" role="group" aria-label="Basic example">
-                            <asp:Button class="btn btn-primary" ID="btnCancelar" Text="Cancelar compra" OnClick="btnCancelar_Click" runat="server" />
-                            <asp:Button class="btn btn-primary" ID="btnContinuar" Text="Continuar" OnClick="btnContinuar_Click" runat="server" />
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <asp:Label ID="lblContinuar" CssClass="form-control" runat="server" />
                     </div>
                 </div>
 
