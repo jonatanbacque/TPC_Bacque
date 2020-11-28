@@ -27,7 +27,7 @@ namespace WebForm
             decimal importeFinal = 0;
             try
             {
-                if (Session["carrito"] != null)
+                if (Session["usuario"] != null)
                 {
                     foreach (Compra item in compraNegocio.listarXusuario(((Usuario)(Session["usuario"])).Id))
                     {
@@ -35,11 +35,13 @@ namespace WebForm
                         {
                             ID = item.Id,
                             Estado = item.envio.estadoEnvio.Nombre,
+                            FechaCompra = item.FechaCompra,
                             FechaEntrega = item.envio.fechaEntrega,
                             Precio = item.ImporteFinal,
                         };
 
                         listaCompra.Add(listaAux);
+
                     }
                     //
                     dgvCompra.DataSource = listaCompra;

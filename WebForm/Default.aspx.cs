@@ -39,8 +39,8 @@ namespace WebForm
                         else
                         {
                             //Guardo nuevo ID de carrito y agrego articulo  
-                            carritoNegocio.agregar(elemento.carrito);
                             elemento.carrito.Id = carritoNegocio.UltimoCarrito();
+                            carritoNegocio.agregar(elemento.carrito);
                             Session.Add("carrito", elemento.carrito.Id);
                         };
 

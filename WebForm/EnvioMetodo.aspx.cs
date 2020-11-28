@@ -83,7 +83,7 @@ namespace WebForm
                 txtDomicilioEntrega.Visible = true;
                 lblDomicilioEntrega.Visible = true;
 
-                txtFechaEntrega.Text = DateTime.Now.AddDays(metodoEnvioNegocio.listarID
+                txtFechaEntrega.Text = DateTime.Today.AddDays(metodoEnvioNegocio.listarID
                     (Convert.ToInt32(ddlMetodoEnvio.SelectedValue)).Demora).ToString("d");
 
                 txtFechaEntrega.ReadOnly = true;
@@ -128,9 +128,9 @@ namespace WebForm
                     },
                     estadoEnvio = new EstadoEnvio
                     {
-                        Id = 1
+                        Id = 2
                     },
-                    fechaEntrega = DateTime.Now.AddDays(metodoEnvioNegocio.listarID
+                    fechaEntrega = DateTime.Today.AddDays(metodoEnvioNegocio.listarID
                     (Convert.ToInt32(ddlMetodoEnvio.SelectedValue)).Demora),
                 };
 

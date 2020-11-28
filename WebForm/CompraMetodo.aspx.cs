@@ -75,7 +75,7 @@ namespace WebForm
                 //Cargo importe final
                 decimal preciocarrito = carritoNegocio.listarID(Convert.ToInt32(Session["carrito"])).Importe;
                 decimal precioenvio = envioNegocio.listarID(Convert.ToInt32(Session["envio"])).metodoEnvio.Precio;
-                decimal interes = metodoPagoNegocio.listarID(ddlMetodoPago.SelectedIndex+1).Precio;
+                decimal interes = metodoPagoNegocio.listarID(ddlMetodoPago.SelectedIndex + 1).Precio;
 
                 importeFinal = (preciocarrito + precioenvio) * interes;
                 txtPrecio.Text = importeFinal.ToString();
@@ -112,15 +112,23 @@ namespace WebForm
 
         protected void btnFinalizar_Click(object sender, EventArgs e)
         {
+            decimal a = importeFinal;
             try
             {
+                //Cargo importe final
+                decimal preciocarrito = carritoNegocio.listarID(Convert.ToInt32(Session["carrito"])).Importe;
+                decimal precioenvio = envioNegocio.listarID(Convert.ToInt32(Session["envio"])).metodoEnvio.Precio;
+                decimal interes = metodoPagoNegocio.listarID(ddlMetodoPago.SelectedIndex + 1).Precio;
+
+                importeFinal = (preciocarrito + precioenvio) * interes;
+
                 compra = new Compra
                 {
                     usuario = usuarioNegocio.listarID(((Usuario)(Session["usuario"])).Id),
                     carrito = carritoNegocio.listarID(Convert.ToInt32(Session["carrito"])),
                     envio = envioNegocio.listarID(Convert.ToInt32(Session["envio"])),
                     metodoPago = metodoPagoNegocio.listarID(ddlMetodoPago.SelectedIndex + 1),
-                    FechaCompra = DateTime.Now.Date,
+                    FechaCompra = DateTime.Now,
                     ImporteFinal = importeFinal
                 };
 

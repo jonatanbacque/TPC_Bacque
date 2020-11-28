@@ -13,56 +13,53 @@ namespace WebForm
     {
         CarritoNegocio carritoNegocio = new CarritoNegocio();
         ElementoNegocio elementoNegocio = new ElementoNegocio();
-
-        List<ListaCarrito> listaCarrito = new List<ListaCarrito>();
         Carrito carrito;
 
-        public List<Elemento> aux;
+        void cargarDgv(List<Elemento> lista)
+        {
+            List<ListaCarrito> listaCarrito = new List<ListaCarrito>();
+            decimal importeFinal = 0;
+
+            foreach (Elemento item in lista)
+            {
+                ListaCarrito listaAux = new ListaCarrito
+                {
+                    ID = item.articulo.Id,
+                    Producto = item.articulo.Producto,
+                    Descripcion = item.articulo.Descripcion,
+                    ImagenUrl = item.articulo.ImagenUrl,
+                    Precio = item.articulo.Precio,
+                    Cantidad = item.Cantidad
+                };
+                listaCarrito.Add(listaAux);
+
+                importeFinal += item.articulo.Precio * item.Cantidad;
+            }
+            //
+            dgvCarrito.DataSource = listaCarrito;
+            dgvCarrito.DataBind();
+
+            if (Session["carrito"] != null)
+            {
+                //Cargo importe final en el carrito
+                carrito = new Carrito
+                {
+                    Id = Convert.ToInt32(Session["carrito"]),
+                    Importe = importeFinal
+                };
+            }
+            //
+            carritoNegocio.modificar(carrito);
+            btnComprar.Visible = true;
+            //
+            lblImporte.Text = "$ " + importeFinal.ToString();
+        }
 
         protected void Page_Load(object sender, EventArgs e)
         {
             try
             {
-                if (Session["listaElementos"] != null)
-                {
-                    aux = (List<Elemento>)Session["listaElementos"];
-                    //
-                    decimal importeFinal = 0;
-                    foreach (Elemento item in aux)
-                    {
-                        ListaCarrito listaAux = new ListaCarrito
-                        {
-                            ID = item.articulo.Id,
-                            Producto = item.articulo.Producto,
-                            Descripcion = item.articulo.Descripcion,
-                            ImagenUrl = item.articulo.ImagenUrl,
-                            Precio = item.articulo.Precio,
-                            Cantidad = item.Cantidad
-                        };
-                        listaCarrito.Add(listaAux);
-
-                        importeFinal += item.articulo.Precio;
-                    }
-                    //
-                    dgvCarrito.DataSource = listaCarrito;
-                    dgvCarrito.DataBind();
-                    //Cargo importe final en el carrito
-                    carrito = new Carrito
-                    {
-                        Id = Convert.ToInt32(Session["carrito"]),
-                        Importe = importeFinal
-                    };
-                    carritoNegocio.modificar(carrito);
-
-                    btnComprar.Visible = true;
-
-                    lblImporte.Text = "$ "+ importeFinal.ToString();
-                }
-                //
-                else
-                {
-                    aux = new List<Elemento>();
-                }
+                if (Session["listaElementos"] != null) cargarDgv((List<Elemento>)Session["listaElementos"]);
             }
             catch (Exception ex)
             {
@@ -77,10 +74,13 @@ namespace WebForm
             try
             {
                 //Con el índice tenés que agarrar el dgv.rows en el índice ese punto columns, la que quieras punto id y obtener el valor posta.
-                elementoNegocio.eliminarArticulo(Convert.ToInt32(Session["carrito"]), Convert.ToInt32(dgvCarrito.Rows[Convert.ToInt32(e.CommandArgument)].Cells[3].Text));
+                elementoNegocio.eliminarArticulo(Convert.ToInt32(Session["carrito"]),
+                    Convert.ToInt32(dgvCarrito.Rows[Convert.ToInt32(e.CommandArgument)].Cells[3].Text));
                 //
-                Session.Remove("listaElementos");
+                //Session.Remove("listaElementos");
                 Session.Add("listaElementos", elementoNegocio.listarID(Convert.ToInt32(Session["carrito"])));
+                //
+                cargarDgv((List<Elemento>)Session["listaElementos"]);
             }
             catch (Exception ex)
             {
@@ -88,8 +88,7 @@ namespace WebForm
                 Response.Redirect("Error.aspx");
             }
             //
-            Response.Redirect("CarritoCompra.aspx");
-
+            //Response.Redirect("CarritoCompra.aspx");
         }
 
         protected void btnCarritoVaciar_Click(object sender, EventArgs e)

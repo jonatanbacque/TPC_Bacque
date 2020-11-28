@@ -139,7 +139,7 @@ namespace Negocio
             {
                 conexion.abrirConexion();
                 conexion.setearConsulta("INSERT INTO METODOPAGO (Nombre, Detalle, Precio, Condicion) " +
-                    "VALUES (@nombre, @detalle, @demora, @precio, 1)");
+                    "VALUES (@nombre, @detalle, @precio, 1)");
                 //
                 conexion.Comando.Parameters.Clear();
                 conexion.Comando.Parameters.AddWithValue("@nombre", metodoPago.Nombre);

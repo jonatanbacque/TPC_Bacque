@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="Compras" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="CompraListado.aspx.cs" Inherits="WebForm.CompraListado" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <h2>Listado de Compras</h2>
     <hr />
@@ -8,13 +9,32 @@
         <asp:Button ID="btn" class="btn btn-primary" Text="" runat="server" />
     </div>
     <hr />
-        <asp:GridView class="table table-striped table-dark border-dark" DataKeyNames="ID" ID="dgvCompra" AutoGenerateColumns="False" OnRowCommand="dgvCompra_RowCommand" runat="server" HorizontalAlign="Center">
+    <asp:GridView class="table table-striped table-dark border-dark" DataKeyNames="ID" ID="dgvCompra" AutoGenerateColumns="False" OnRowCommand="dgvCompra_RowCommand" runat="server" HorizontalAlign="Center">
         <Columns>
-            <asp:ButtonField HeaderText="Cancelar" ItemStyle-VerticalAlign="Middle" ButtonType="Button" Text="Eliminar" CommandName="Select" />
-            <asp:BoundField HeaderText="ID" DataField="ID" ItemStyle-CssClass="oculto" HeaderStyle-CssClass="oculto" ReadOnly="true" />
-            <asp:BoundField HeaderText="Estado" ItemStyle-VerticalAlign="Middle" DataField="Estado" ReadOnly="true" />
-            <asp:BoundField HeaderText="Fecha Entrega" ItemStyle-VerticalAlign="Middle" DataField="FechaEntrega" ReadOnly="true" />
-            <asp:BoundField HeaderText="Precio" ItemStyle-VerticalAlign="Middle" ItemStyle-HorizontalAlign="Center" DataField="Precio" ReadOnly="true" />
+            <asp:ButtonField HeaderText="Cancelar" ButtonType="Button" Text="Eliminar" CommandName="Select">
+                <HeaderStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+                <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle"/>
+            </asp:ButtonField>
+            <asp:BoundField HeaderText="ID" DataField="ID" ReadOnly="true">
+                <HeaderStyle CssClass="oculto"/>
+                <ItemStyle CssClass="oculto"/>
+            </asp:BoundField>
+            <asp:BoundField HeaderText="Estado" DataField="Estado" ReadOnly="true">
+                <HeaderStyle HorizontalAlign="Center" VerticalAlign="Middle"/>
+                <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle"/>
+            </asp:BoundField>
+            <asp:BoundField HeaderText="Fecha Compra" DataField="FechaCompra" DataFormatString="{0:g}" ReadOnly="true">
+                <FooterStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+                <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle"/>
+            </asp:BoundField>
+            <asp:BoundField HeaderText="Fecha Entrega" DataField="FechaEntrega" DataFormatString="{0:d}" ReadOnly="true">
+                <FooterStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+                <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle"/>
+            </asp:BoundField>
+            <asp:BoundField HeaderText="Precio" DataField="Precio" DataFormatString="$ {0}" ReadOnly="true">
+                <HeaderStyle HorizontalAlign="Center" VerticalAlign="Middle"/>
+                <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle"/>
+            </asp:BoundField>
         </Columns>
     </asp:GridView>
 </asp:Content>

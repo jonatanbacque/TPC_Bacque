@@ -22,11 +22,11 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <asp:Label ID="lblImporte" CssClass="form-control" runat="server" />
+                    <asp:Label ID="lblImporte" AutoPostBack="true" CssClass="form-control" runat="server" />
                 </div>
             </div>
             <hr />
-            <asp:GridView class="table" ID="dgvCarrito" AutoPostBack="true" AutoGenerateColumns="False" runat="server" OnRowCommand="dgvCarrito_RowCommand" CellPadding="0" EditIndex="0" SelectedIndex="0">
+            <asp:GridView class="table table-striped table-dark border-dark" AutoPostBack="true" ID="dgvCarrito" AutoGenerateColumns="False" runat="server" OnRowCommand="dgvCarrito_RowCommand">
                 <Columns>
                     <asp:ImageField HeaderText="Imagen" ControlStyle-Height="150px" ControlStyle-Width="150px" DataImageUrlField="ImagenUrl" ItemStyle-CssClass="img-fluid" ItemStyle-HorizontalAlign="Center" ReadOnly="true" />
                     <asp:BoundField HeaderText="Cantidad" ItemStyle-VerticalAlign="Middle" DataField="Cantidad" ReadOnly="true" />
@@ -34,7 +34,7 @@
                     <asp:BoundField HeaderText="ID" ItemStyle-CssClass="oculto" HeaderStyle-CssClass="oculto" DataField="ID" ReadOnly="true" />
                     <asp:BoundField HeaderText="Producto" ItemStyle-VerticalAlign="Middle" DataField="Producto" ReadOnly="true" />
                     <asp:BoundField HeaderText="Descripción" ItemStyle-VerticalAlign="Middle" DataField="Descripcion" ReadOnly="true" />
-                    <asp:BoundField HeaderText="Precio" ItemStyle-VerticalAlign="Middle" DataField="Precio" ReadOnly="true" />
+                    <asp:BoundField HeaderText="Precio" ItemStyle-VerticalAlign="Middle" DataFormatString="$ {0}" DataField="Precio" ReadOnly="true" />
                 </Columns>
             </asp:GridView>
         </ContentTemplate>

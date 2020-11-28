@@ -84,7 +84,7 @@ CREATE TABLE [dbo].[ENVIO](
 	[Id] [int] IDENTITY(1,1) PRIMARY KEY NOT NULL,
 	[IdMetodo] [int] FOREIGN KEY REFERENCES METODOENVIO(Id) NOT NULL,
 	[IdEstado] [int] FOREIGN KEY REFERENCES ESTADOENVIO(Id) NOT NULL,
-	[FechaEntrega] [date] NULL,
+	[FechaEntrega] [datetime] NULL,
 	)
 GO
 
@@ -103,7 +103,7 @@ CREATE TABLE [dbo].[COMPRA](
 	[IdCarrito] [int] FOREIGN KEY REFERENCES CARRITO(Id) NOT NULL,
 	[IdEnvio] [int] FOREIGN KEY REFERENCES ENVIO(Id) NOT NULL,
 	[IdMetodo] [int] FOREIGN KEY REFERENCES METODOPAGO(Id) NOT NULL,
-	[FechaCompra] [date] NULL,
+	[FechaCompra] [datetime] NULL,
 	[ImporteFinal] numeric(17,2) NULL
 	)
 GO
@@ -211,4 +211,6 @@ INSERT into METODOPAGO(Nombre, Detalle, Precio, Condicion) VALUES ('Elegir Metod
 ('Tarjeta','Debera utilizar mercado pago', 1.1,1),
 ('Transferencia','CBU 00000000003333333333', 1.0,1)
 
-select * from COMPRA
+select es.nombre from COMPRA as c
+INNER JOIN ENVIO as e on e.id=c.IdEnvio
+INNER JOIN ESTADOENVIO as es on es.id=e.IdMetodo
