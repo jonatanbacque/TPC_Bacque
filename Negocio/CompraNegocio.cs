@@ -60,6 +60,61 @@ namespace Negocio
                 conexion.cerrarConexion();
             }
         }
+        public List<Compra> listarActivas()
+        {
+            AccesoDatos conexion = new AccesoDatos();
+            List<Compra> lista = new List<Compra>();
+            try
+            {
+                conexion.abrirConexion();
+                conexion.setearConsulta("Select c.Id, c.idUsuario, p.Nombre, p.Apellido, p.Direccion, ee.Nombre, m.Nombre, c.FechaCompra, c.ImporteFinal from COMPRA as c " +
+                    "INNER JOIN ENVIO as e on e.id = c.idenvio " +
+                    "INNER JOIN ESTADOENVIO as ee on ee.id = e.idestado " +
+                    "INNER JOIN METODOENVIO as m on m.Id = e.IdMetodo " +
+                    "INNER JOIN USUARIO as u on u.id = c.IdUsuario " +
+                    "INNER JOIN PERSONA as p on p.id = u.IdPersona " +
+                    "WHERE ee.id <> 0");
+                conexion.ejecutarConsulta();
+
+                while (conexion.Lector.Read())
+                {
+                    compra = new Compra()
+                    {
+                        Id = conexion.Lector.GetInt32(0),
+                        usuario = new Usuario
+                        {
+                            Id = conexion.Lector.GetInt32(1)
+                        },
+                        carrito = new Carrito
+                        {
+                            Id = conexion.Lector.GetInt32(2)
+                        },
+                        envio = new Envio
+                        {
+                            Id = conexion.Lector.GetInt32(3)
+                        },
+                        metodoPago = new MetodoPago
+                        {
+                            Id = conexion.Lector.GetInt32(4)
+                        },
+                        FechaCompra = conexion.Lector.GetDateTime(5),
+                        ImporteFinal = conexion.Lector.GetDecimal(6)
+                    };
+
+                    lista.Add(compra);
+
+                }
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conexion.cerrarConexion();
+            }
+        }
         public List<Compra> listarXusuario(int id)
         {
             AccesoDatos conexion = new AccesoDatos();

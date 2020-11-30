@@ -214,3 +214,11 @@ INSERT into METODOPAGO(Nombre, Detalle, Precio, Condicion) VALUES ('Elegir Metod
 select es.nombre from COMPRA as c
 INNER JOIN ENVIO as e on e.id=c.IdEnvio
 INNER JOIN ESTADOENVIO as es on es.id=e.IdMetodo
+
+Select c.Id, p.Nombre, p.Apellido, p.Direccion, ee.Nombre, m.Nombre, c.FechaCompra, c.ImporteFinal from COMPRA as c
+INNER JOIN ENVIO as e on e.id=c.idenvio
+INNER JOIN ESTADOENVIO as ee on ee.id=e.idestado
+INNER JOIN METODOENVIO as m on m.Id=e.IdMetodo
+INNER JOIN USUARIO as u on u.id=c.IdUsuario
+INNER JOIN PERSONA as p on p.id=u.IdPersona
+WHERE ee.id <> 0

@@ -192,7 +192,7 @@ namespace Negocio
             try
             {
                 //
-                conexion.setearConsulta("INSERT into ENVIO(IdMetodo, IdEstado, FechaEntrega) VALUES(@idMetodo, 1, @fechaEntrega)");
+                conexion.setearConsulta("INSERT into ENVIO(IdMetodo, IdEstado, FechaEntrega) VALUES(@idMetodo, @IdEstado, @fechaEntrega)");
                 //
                 conexion.Comando.Parameters.Clear();
                 conexion.Comando.Parameters.AddWithValue("@idMetodo", envio.metodoEnvio.Id);

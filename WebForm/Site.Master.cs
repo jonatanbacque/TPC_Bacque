@@ -71,12 +71,18 @@ namespace WebForm
         protected void btnCerrarSesion_Click(object sender, EventArgs e)
         {
             Session.Remove("usuario");
+            Session.Remove("listaElementos");
+            Session.Remove("carrito");
+            Session.Remove("envio");
             Response.Redirect("/");
         }
 
         protected void btnIniciarSesion_Click(object sender, EventArgs e)
         {
             Session.Remove("usuario");
+            Session.Remove("listaElementos");
+            Session.Remove("carrito");
+            Session.Remove("envio");
             Response.Redirect("IniciarSesion.aspx");
         }
 

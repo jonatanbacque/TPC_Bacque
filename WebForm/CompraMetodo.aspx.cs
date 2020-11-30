@@ -133,6 +133,10 @@ namespace WebForm
                 };
 
                 compraNegocio.agregar(compra);
+
+                Session.Remove("listaElementos");
+                Session.Remove("carrito");
+                Session.Remove("envio");
             }
             catch (Exception ex)
             {
