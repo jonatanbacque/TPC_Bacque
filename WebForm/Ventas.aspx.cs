@@ -29,23 +29,27 @@ namespace WebForm
             {
                 if (Session["usuario"] != null)
                 {
-                    foreach (Compra item in compraNegocio.listar(((Usuario)(Session["usuario"])).Id))
+                    foreach (Compra item in compraNegocio.listarActivas())
                     {
                         ListaCompra listaAux = new ListaCompra
                         {
-                            ID = item.Id,
+                            ID = item.carrito.Id,
+                            Nombre = item.usuario.persona.Nombre + ", " + item.usuario.persona.Apellido,
+                            Direccion = item.usuario.persona.Direccion,
                             Estado = item.envio.estadoEnvio.Nombre,
                             FechaCompra = item.FechaCompra,
-                            FechaEntrega = item.envio.fechaEntrega,
+                            MetodoCompra=item.metodoPago.Nombre,
                             Precio = item.ImporteFinal,
+                            MetodoEnvio = item.envio.metodoEnvio.Nombre,
+                            FechaEntrega = item.envio.fechaEntrega
                         };
 
                         listaCompra.Add(listaAux);
 
                     }
                     //
-                    dgvCompra.DataSource = listaCompra;
-                    dgvCompra.DataBind();
+                    dgvVentas.DataSource = listaCompra;
+                    dgvVentas.DataBind();
                     //Cargo importe final en el carrito
                     carrito = new Carrito
                     {
@@ -66,6 +70,13 @@ namespace WebForm
         {
             try
             {
+                Session.Remove("carrito");
+
+                Session.Add("carrito", Convert.ToInt32(dgvVentas.Rows[Convert.ToInt32(e.CommandArgument)].Cells[0].Text));
+
+                Session.Remove("listaElementos");
+
+                Session.Add("listaElementos", elementoNegocio.listarID(Convert.ToInt32(Session["carrito"])));
             }
             catch (Exception ex)
             {

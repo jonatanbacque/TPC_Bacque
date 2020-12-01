@@ -21,38 +21,40 @@ namespace WebForm
 
         public List<Compra> aux;
 
+        void cargarLista()
+        {
+            if (Session["usuario"] != null)
+            {
+                //
+                decimal importeFinal = 0;
+                foreach (Compra item in compraNegocio.listarXusuario(((Usuario)(Session["usuario"])).Id))
+                {
+                    ListaCompra listaAux = new ListaCompra
+                    {
+                        ID = item.carrito.Id,
+                        Estado = item.envio.estadoEnvio.Nombre,
+                        FechaCompra = item.FechaCompra,
+                        FechaEntrega = item.envio.fechaEntrega,
+                        Precio = item.ImporteFinal,
+                    };
+                    listaCompra.Add(listaAux);
+                }
+                //
+                dgvCompra.DataSource = listaCompra;
+                dgvCompra.DataBind();
+                //Cargo importe final en el carrito
+                carrito = new Carrito
+                {
+                    Id = Convert.ToInt32(Session["carrito"]),
+                    Importe = importeFinal
+                };
+            }
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
-            //
-            decimal importeFinal = 0;
             try
             {
-                if (Session["usuario"] != null)
-                {
-                    foreach (Compra item in compraNegocio.listarXusuario(((Usuario)(Session["usuario"])).Id))
-                    {
-                        ListaCompra listaAux = new ListaCompra
-                        {
-                            ID = item.Id,
-                            Estado = item.envio.estadoEnvio.Nombre,
-                            FechaCompra = item.FechaCompra,
-                            FechaEntrega = item.envio.fechaEntrega,
-                            Precio = item.ImporteFinal,
-                        };
-
-                        listaCompra.Add(listaAux);
-
-                    }
-                    //
-                    dgvCompra.DataSource = listaCompra;
-                    dgvCompra.DataBind();
-                    //Cargo importe final en el carrito
-                    carrito = new Carrito
-                    {
-                        Id = Convert.ToInt32(Session["carrito"]),
-                        Importe = importeFinal
-                    };
-                }
+                cargarLista();
             }
             catch (Exception ex)
             {
@@ -66,6 +68,8 @@ namespace WebForm
         {
             try
             {
+                Session.Add("listaElementos", elementoNegocio.listarID(
+                    Convert.ToInt32(dgvCompra.Rows[Convert.ToInt32(e.CommandArgument)].Cells[0].Text)));
             }
             catch (Exception ex)
             {

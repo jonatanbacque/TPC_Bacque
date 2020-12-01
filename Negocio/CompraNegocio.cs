@@ -67,13 +67,15 @@ namespace Negocio
             try
             {
                 conexion.abrirConexion();
-                conexion.setearConsulta("Select c.Id, c.idUsuario, p.Nombre, p.Apellido, p.Direccion, ee.Nombre, m.Nombre, c.FechaCompra, c.ImporteFinal from COMPRA as c " +
-                    "INNER JOIN ENVIO as e on e.id = c.idenvio " +
-                    "INNER JOIN ESTADOENVIO as ee on ee.id = e.idestado " +
-                    "INNER JOIN METODOENVIO as m on m.Id = e.IdMetodo " +
+                conexion.setearConsulta("Select c.Id, c.idUsuario, p.Nombre, p.Apellido, p.Direccion, c.idCarrito, e.id, ee.Nombre, " +
+                    "me.Nombre, e.FechaEntrega, mp.id, mp.Nombre, c.FechaCompra, c.ImporteFinal from COMPRA as c " +
                     "INNER JOIN USUARIO as u on u.id = c.IdUsuario " +
                     "INNER JOIN PERSONA as p on p.id = u.IdPersona " +
-                    "WHERE ee.id <> 0");
+                    "INNER JOIN ENVIO as e on e.id = c.idenvio " +
+                    "INNER JOIN ESTADOENVIO as ee on ee.id = e.idestado " +
+                    "INNER JOIN METODOENVIO as me on me.Id = e.IdMetodo " +
+                    "INNER JOIN METODOPAGO as mp on mp.Id = c.IdMetodo " +
+                    "WHERE ee.id != 0");
                 conexion.ejecutarConsulta();
 
                 while (conexion.Lector.Read())
@@ -83,22 +85,38 @@ namespace Negocio
                         Id = conexion.Lector.GetInt32(0),
                         usuario = new Usuario
                         {
-                            Id = conexion.Lector.GetInt32(1)
+                            Id = conexion.Lector.GetInt32(1),
+                            persona = new Persona
+                            {
+                                Nombre = conexion.Lector.GetString(2),
+                                Apellido = conexion.Lector.GetString(3),
+                                Direccion = conexion.Lector.GetString(4)
+                            }
                         },
                         carrito = new Carrito
                         {
-                            Id = conexion.Lector.GetInt32(2)
+                            Id = conexion.Lector.GetInt32(5)
                         },
                         envio = new Envio
                         {
-                            Id = conexion.Lector.GetInt32(3)
+                            Id = conexion.Lector.GetInt32(6),
+                            estadoEnvio = new EstadoEnvio
+                            {
+                                Nombre= conexion.Lector.GetString(7)
+                            },
+                            metodoEnvio = new MetodoEnvio
+                            {
+                                Nombre = conexion.Lector.GetString(8)
+                            },
+                            fechaEntrega =  conexion.Lector.GetDateTime(9)
                         },
                         metodoPago = new MetodoPago
                         {
-                            Id = conexion.Lector.GetInt32(4)
+                            Id = conexion.Lector.GetInt32(10),
+                            Nombre=conexion.Lector.GetString(11)
                         },
-                        FechaCompra = conexion.Lector.GetDateTime(5),
-                        ImporteFinal = conexion.Lector.GetDecimal(6)
+                        FechaCompra = conexion.Lector.GetDateTime(12),
+                        ImporteFinal = conexion.Lector.GetDecimal(13)
                     };
 
                     lista.Add(compra);

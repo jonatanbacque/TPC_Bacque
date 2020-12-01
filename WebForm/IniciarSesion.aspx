@@ -11,26 +11,26 @@
     </div>
     <hr />
 
-<%--    <asp:UpdatePanel runat="server">
-        <ContentTemplate>--%>
+    <asp:UpdatePanel runat="server">
+        <ContentTemplate>
 
             <asp:Panel CssClass="form-row" DefaultButton="btnIngresar" runat="server">
                 <div class="form-group col-md-4 center_div">
                     <div class="form-group">
                         <asp:Label for="txtNombre" Text="Nombre" runat="server" />
-                        <asp:TextBox ID="txtNombre" CssClass="form-control" placeholder="Ingrese nombre" runat="server" />
+                        <asp:TextBox ID="txtNombre" CssClass="form-control" AutoPostBack="true" placeholder="Ingrese nombre" runat="server" />
                     </div>
                     <div class="form-group">
                         <asp:Label for="txtApellido" Text="Apellido" runat="server" />
-                        <asp:TextBox ID="txtApellido" CssClass="form-control" placeholder="Ingrese apellido" runat="server" />
+                        <asp:TextBox ID="txtApellido" CssClass="form-control" AutoPostBack="true" placeholder="Ingrese apellido" runat="server" />
                     </div>
                     <div class="form-group">
                         <asp:Label for="txtDNI" Text="DNI" runat="server" />
-                        <asp:TextBox ID="txtDNI" CssClass="form-control" placeholder="Ingrese DNI" runat="server" />
+                        <asp:TextBox ID="txtDNI" CssClass="form-control" AutoPostBack="true" placeholder="Ingrese DNI" runat="server" />
                     </div>
                     <div class="form-group">
                         <asp:Label for="txtDireccion" Text="Dirección" runat="server" />
-                        <asp:TextBox ID="txtDireccion" CssClass="form-control" placeholder="Ingrese dirección" runat="server" />
+                        <asp:TextBox ID="txtDireccion" CssClass="form-control" AutoPostBack="true" placeholder="Ingrese dirección" runat="server" />
                     </div>
                     <div class="form-group">
                         <asp:Label for="txtTelefono" Text="Telefono" runat="server" />
@@ -38,16 +38,16 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text">+54 9</span>
                             </div>
-                            <asp:TextBox ID="txtTelefono" TextMode="Phone" CssClass="form-control" placeholder="Ingrese numero de teléfono" runat="server" />
+                            <asp:TextBox ID="txtTelefono" TextMode="Phone" CssClass="form-control" AutoPostBack="true" placeholder="Ingrese numero de teléfono" runat="server" />
                         </div>
                     </div>
                     <div class="form-group">
                         <asp:Label for="txtEmail" Text="Email" runat="server" />
-                        <asp:TextBox ID="txtEmail" TextMode="Email" CssClass="form-control" placeholder="Ingrese direccion de email" runat="server" />
+                        <asp:TextBox ID="txtEmail" TextMode="Email" CssClass="form-control" AutoPostBack="true" placeholder="Ingrese direccion de email" runat="server" />
                     </div>
                     <div class="form-group">
                         <asp:Label for="txtUsuarioNom" Text="Usuario" runat="server" />
-                        <asp:TextBox ID="txtUsuarioNom" CssClass="form-control" placeholder="Ingrese nombre de usuario" runat="server" />
+                        <asp:TextBox ID="txtUsuarioNom" CssClass="form-control" AutoPostBack="true" placeholder="Ingrese nombre de usuario" runat="server" />
                     </div>
                     <div class="form-group">
                         <asp:Label for="txtContrasena1" Text="Contraseña" runat="server" />
@@ -65,7 +65,7 @@
                 <div class="form-group col-md-4 center_div">
                     <div class="form-group">
                         <asp:Label for="txtUsuario" Text="Usuario" runat="server" />
-                        <asp:TextBox ID="txtUsuario" CssClass="form-control" placeholder="Ingrese usuario" runat="server" />
+                        <asp:TextBox ID="txtUsuario" CssClass="form-control" AutoPostBack="true" placeholder="Ingrese usuario" runat="server" />
                     </div>
                     <div class="form-group">
                         <asp:Label for="txtContrasena" Text="Contraseña" runat="server" />
@@ -77,6 +77,6 @@
                     </div>
                 </div>
             </asp:Panel>
-<%--        </ContentTemplate>
-    </asp:UpdatePanel>--%>
+        </ContentTemplate>
+    </asp:UpdatePanel>
 </asp:Content>

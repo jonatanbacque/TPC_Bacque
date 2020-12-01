@@ -16,7 +16,6 @@ namespace WebForm
 
         Persona persona;
         Usuario usuario;
-        bool a;
         protected void Page_Load(object sender, EventArgs e)
         {
             try
@@ -43,10 +42,8 @@ namespace WebForm
 
                     if (usuarioNegocio.nombreOK(txtUsuarioNom.Text))
                     {
-                        int dni = 0;
-                        a = int.TryParse(txtDNI.Text, out dni);
-                        int tel = 0;
-                        a = int.TryParse(txtTelefono.Text, out tel);
+                        int.TryParse(txtDNI.Text, out int dni);
+                        int.TryParse(txtTelefono.Text, out int tel);
 
                         persona = new Persona
                         {
@@ -105,7 +102,7 @@ namespace WebForm
                 usuario = new Usuario
                 {
                     Nombre = txtUsuario.Text,
-                    Password = txtContrasena.Text,
+                    Password = txtContrasena.Text
                 };
                 //Comprueba si existe
                 if (usuarioNegocio.loguear(usuario) == 0)

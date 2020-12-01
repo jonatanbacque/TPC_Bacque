@@ -11,10 +11,6 @@
     <hr />
     <asp:GridView class="table table-striped table-dark border-dark" DataKeyNames="ID" ID="dgvCompra" AutoGenerateColumns="False" OnRowCommand="dgvCompra_RowCommand" runat="server" HorizontalAlign="Center">
         <Columns>
-            <asp:ButtonField HeaderText="Cancelar" ButtonType="Button" Text="Eliminar" CommandName="Select">
-                <HeaderStyle HorizontalAlign="Center" VerticalAlign="Middle" />
-                <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle"/>
-            </asp:ButtonField>
             <asp:BoundField HeaderText="ID" DataField="ID" ReadOnly="true">
                 <HeaderStyle CssClass="oculto"/>
                 <ItemStyle CssClass="oculto"/>
@@ -35,6 +31,10 @@
                 <HeaderStyle HorizontalAlign="Center" VerticalAlign="Middle"/>
                 <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle"/>
             </asp:BoundField>
+            <asp:ButtonField HeaderText="Cancelar" ButtonType="Button" Text="Detalles" CommandName="Select">
+                <HeaderStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+                <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle"/>
+            </asp:ButtonField>
         </Columns>
     </asp:GridView>
 </asp:Content>

@@ -222,3 +222,12 @@ INNER JOIN METODOENVIO as m on m.Id=e.IdMetodo
 INNER JOIN USUARIO as u on u.id=c.IdUsuario
 INNER JOIN PERSONA as p on p.id=u.IdPersona
 WHERE ee.id <> 0
+
+Select c.Id, c.idUsuario, p.Nombre, p.Apellido, p.Direccion, e.id, ee.Nombre, me.Nombre, e.FechaEntrega, mp.id, mp.Nombre, c.FechaCompra, c.ImporteFinal from COMPRA as c
+					INNER JOIN USUARIO as u on u.id = c.IdUsuario
+					INNER JOIN PERSONA as p on p.id = u.IdPersona
+					INNER JOIN ENVIO as e on e.id = c.idenvio
+					INNER JOIN ESTADOENVIO as ee on ee.id = e.idestado
+					INNER JOIN METODOENVIO as me on me.Id = e.IdMetodo
+					INNER JOIN METODOPAGO as mp on mp.Id = c.IdMetodo
+					WHERE ee.id != 0

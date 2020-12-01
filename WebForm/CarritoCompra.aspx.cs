@@ -47,9 +47,10 @@ namespace WebForm
                     Id = Convert.ToInt32(Session["carrito"]),
                     Importe = importeFinal
                 };
-            }
             //
             carritoNegocio.modificar(carrito);
+            }
+
             btnComprar.Visible = true;
             //
             lblImporte.Text = "$ " + importeFinal.ToString();
