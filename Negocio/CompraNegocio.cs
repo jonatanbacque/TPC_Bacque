@@ -140,13 +140,13 @@ namespace Negocio
             try
             {
                 conexion.abrirConexion();
-                conexion.setearConsulta("Select c.Id, c.IdUsuario, c.IdCarrito, e.Id, es.Id, es.Nombre, e.FechaEntrega, c.IdMetodo, c.FechaCompra, " +
-                    "c.ImporteFinal from COMPRA as c " +
+                conexion.setearConsulta("Select c.Id, c.IdUsuario, c.IdCarrito, e.Id, es.Id, es.Nombre, e.FechaEntrega, " +
+                    "c.IdMetodo, c.FechaCompra, c.ImporteFinal from COMPRA as c " +
                     "INNER JOIN ENVIO as e on e.id = c.IdEnvio " +
                     "INNER JOIN ESTADOENVIO as es on es.ID = e.IdEstado " +
                     "where IdUsuario = " + id.ToString());
                 conexion.ejecutarConsulta();
-
+                //
                 while (conexion.Lector.Read())
                 {
                     compra = new Compra()

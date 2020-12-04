@@ -63,13 +63,19 @@ namespace WebForm
             }
         }
 
-        //Borrar articulo de la lista del carrito
         protected void dgvCompra_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             try
             {
-                Session.Add("listaElementos", elementoNegocio.listarID(
-                    Convert.ToInt32(dgvCompra.Rows[Convert.ToInt32(e.CommandArgument)].Cells[0].Text)));
+                if (Convert.ToInt32(dgvCompra.Rows[Convert.ToInt32(e.CommandArgument)].Cells[0].Text) != 0)
+                {
+                    Session.Add("listaElementos", elementoNegocio.listarID(
+                        Convert.ToInt32(dgvCompra.Rows[Convert.ToInt32(e.CommandArgument)].Cells[0].Text)));
+                }
+                else
+                {
+                    dgvCompra.Rows[Convert.ToInt32(e.CommandArgument)].Cells[5].Text = "Error";
+                }
             }
             catch (Exception ex)
             {

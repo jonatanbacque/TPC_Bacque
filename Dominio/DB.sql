@@ -231,3 +231,5 @@ Select c.Id, c.idUsuario, p.Nombre, p.Apellido, p.Direccion, e.id, ee.Nombre, me
 					INNER JOIN METODOENVIO as me on me.Id = e.IdMetodo
 					INNER JOIN METODOPAGO as mp on mp.Id = c.IdMetodo
 					WHERE ee.id != 0
+
+					select * from CARRITO

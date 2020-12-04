@@ -31,7 +31,7 @@
                 <HeaderStyle HorizontalAlign="Center" VerticalAlign="Middle"/>
                 <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle"/>
             </asp:BoundField>
-            <asp:ButtonField HeaderText="Cancelar" ButtonType="Button" Text="Detalles" CommandName="Select">
+            <asp:ButtonField HeaderText="Detalles" ButtonType="Button" Text="Detalles" CommandName="Select">
                 <HeaderStyle HorizontalAlign="Center" VerticalAlign="Middle" />
                 <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle"/>
             </asp:ButtonField>

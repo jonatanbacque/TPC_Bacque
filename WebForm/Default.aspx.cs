@@ -33,14 +33,13 @@ namespace WebForm
                         //
                         if (Convert.ToInt32(Session["carrito"]) != 0)
                         {
-                            //ya existe un carrito asi que lo cargo en la variable local para saber el ID
+                            //Ya existe un carrito asi que lo cargo en la variable local para saber el ID
                             elemento.carrito.Id = Convert.ToInt32(Session["carrito"]);
                         }
                         else
                         {
-                            //Guardo nuevo ID de carrito y agrego articulo  
+                            //Guardo nuevo ID de carrito y agrego articulo
                             elemento.carrito.Id = carritoNegocio.UltimoCarrito();
-                            carritoNegocio.agregar(elemento.carrito);
                             Session.Add("carrito", elemento.carrito.Id);
                         };
 
@@ -53,15 +52,6 @@ namespace WebForm
                         Session.Add("listaElementos", elementoNegocio.listarID(elemento.carrito.Id));
                     }
                 }
-                //Consulto si la lista esta vacia para inicializarla
-                if (Session["listado"] != null)
-                {
-                    listaArticulos = (List<Articulo>)Session["listado"];
-                }
-                else
-                {
-                    listaArticulos = new List<Articulo>();
-                }
 
                 //Consulto si la lista esta vacia para inicializarla
                 if (Session["listaElementos"] != null)
@@ -70,7 +60,7 @@ namespace WebForm
                 }
                 else
                 {
-                    listaElementos = new List<Elemento>();
+                    //listaElementos = new List<Elemento>();
                 }
 
                 //Muestro boton de carrito si existe
