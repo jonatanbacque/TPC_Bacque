@@ -72,7 +72,7 @@ namespace WebForm
                 Response.Redirect("Error.aspx");
             }
             //
-            Response.Redirect("CompraListado.aspx");
+            Response.Redirect("Compras.aspx");
         }
 
         protected void btnVolver_Click(object sender, EventArgs e)
