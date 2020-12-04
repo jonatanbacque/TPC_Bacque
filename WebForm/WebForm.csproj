@@ -109,7 +109,7 @@
     <Content Include="CarritoCompra.aspx" />
     <Content Include="CompraDetalle.aspx" />
     <Content Include="CompraMetodo.aspx" />
-    <Content Include="CompraListado.aspx" />
+    <Content Include="Compras.aspx" />
     <Content Include="Contacto.aspx" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
@@ -138,6 +138,7 @@
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="IniciarSesion.aspx" />
     <Content Include="Listado.aspx" />
+    <Content Include="ListadoEliminados.aspx" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
@@ -167,7 +168,9 @@
     <Content Include="Scripts\WebForms\WebParts.js" />
     <Content Include="Scripts\WebForms\WebUIValidation.js" />
     <Content Include="Site.Master" />
+    <Content Include="VentasCanceladas.aspx" />
     <Content Include="Ventas.aspx" />
+    <Content Include="VentasDetalles.aspx" />
     <Content Include="VentasEditar.aspx" />
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="Web.config" />
@@ -205,12 +208,12 @@
     <Compile Include="CompraMetodo.aspx.designer.cs">
       <DependentUpon>CompraMetodo.aspx</DependentUpon>
     </Compile>
-    <Compile Include="CompraListado.aspx.cs">
-      <DependentUpon>CompraListado.aspx</DependentUpon>
+    <Compile Include="Compras.aspx.cs">
+      <DependentUpon>Compras.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="CompraListado.aspx.designer.cs">
-      <DependentUpon>CompraListado.aspx</DependentUpon>
+    <Compile Include="Compras.aspx.designer.cs">
+      <DependentUpon>Compras.aspx</DependentUpon>
     </Compile>
     <Compile Include="Contacto.aspx.cs">
       <DependentUpon>Contacto.aspx</DependentUpon>
@@ -257,6 +260,13 @@
     <Compile Include="Listado.aspx.designer.cs">
       <DependentUpon>Listado.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ListadoEliminados.aspx.cs">
+      <DependentUpon>ListadoEliminados.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ListadoEliminados.aspx.designer.cs">
+      <DependentUpon>ListadoEliminados.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -277,12 +287,26 @@
     <Compile Include="Site.Mobile.Master.designer.cs">
       <DependentUpon>Site.Mobile.Master</DependentUpon>
     </Compile>
+    <Compile Include="VentasCanceladas.aspx.cs">
+      <DependentUpon>VentasCanceladas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="VentasCanceladas.aspx.designer.cs">
+      <DependentUpon>VentasCanceladas.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Ventas.aspx.cs">
       <DependentUpon>Ventas.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Ventas.aspx.designer.cs">
       <DependentUpon>Ventas.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="VentasDetalles.aspx.cs">
+      <DependentUpon>VentasDetalles.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="VentasDetalles.aspx.designer.cs">
+      <DependentUpon>VentasDetalles.aspx</DependentUpon>
     </Compile>
     <Compile Include="VentasEditar.aspx.cs">
       <DependentUpon>VentasEditar.aspx</DependentUpon>

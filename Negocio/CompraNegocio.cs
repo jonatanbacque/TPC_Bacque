@@ -18,7 +18,8 @@ namespace Negocio
             try
             {
                 conexion.abrirConexion();
-                conexion.setearConsulta("Select Id, IdUsuario, IdCarrito, IdEnvio, IdMetodo, FechaCompra, ImporteFinal from COMPRA");
+                conexion.setearConsulta("Select Id, IdUsuario, IdCarrito, IdEnvio, IdMetodo, FechaCompra, ImporteFinal from COMPRA " +
+                    "WHERE Condicion = 1");
                 conexion.ejecutarConsulta();
 
                 while (conexion.Lector.Read())
@@ -75,7 +76,80 @@ namespace Negocio
                     "INNER JOIN ESTADOENVIO as ee on ee.id = e.idestado " +
                     "INNER JOIN METODOENVIO as me on me.Id = e.IdMetodo " +
                     "INNER JOIN METODOPAGO as mp on mp.Id = c.IdMetodo " +
-                    "WHERE ee.id != 0");
+                    "WHERE c.Condicion = 1 AND ee.id != 0");
+                conexion.ejecutarConsulta();
+
+                while (conexion.Lector.Read())
+                {
+                    compra = new Compra()
+                    {
+                        Id = conexion.Lector.GetInt32(0),
+                        usuario = new Usuario
+                        {
+                            Id = conexion.Lector.GetInt32(1),
+                            persona = new Persona
+                            {
+                                Nombre = conexion.Lector.GetString(2),
+                                Apellido = conexion.Lector.GetString(3),
+                                Direccion = conexion.Lector.GetString(4)
+                            }
+                        },
+                        carrito = new Carrito
+                        {
+                            Id = conexion.Lector.GetInt32(5)
+                        },
+                        envio = new Envio
+                        {
+                            Id = conexion.Lector.GetInt32(6),
+                            estadoEnvio = new EstadoEnvio
+                            {
+                                Nombre = conexion.Lector.GetString(7)
+                            },
+                            metodoEnvio = new MetodoEnvio
+                            {
+                                Nombre = conexion.Lector.GetString(8)
+                            },
+                            fechaEntrega = conexion.Lector.GetDateTime(9)
+                        },
+                        metodoPago = new MetodoPago
+                        {
+                            Id = conexion.Lector.GetInt32(10),
+                            Nombre = conexion.Lector.GetString(11)
+                        },
+                        FechaCompra = conexion.Lector.GetDateTime(12),
+                        ImporteFinal = conexion.Lector.GetDecimal(13)
+                    };
+
+                    lista.Add(compra);
+
+                }
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conexion.cerrarConexion();
+            }
+        }
+        public List<Compra> listarCanceladas()
+        {
+            AccesoDatos conexion = new AccesoDatos();
+            List<Compra> lista = new List<Compra>();
+            try
+            {
+                conexion.abrirConexion();
+                conexion.setearConsulta("Select c.Id, c.idUsuario, p.Nombre, p.Apellido, p.Direccion, c.idCarrito, e.id, ee.Nombre, " +
+                    "me.Nombre, e.FechaEntrega, mp.id, mp.Nombre, c.FechaCompra, c.ImporteFinal from COMPRA as c " +
+                    "INNER JOIN USUARIO as u on u.id = c.IdUsuario " +
+                    "INNER JOIN PERSONA as p on p.id = u.IdPersona " +
+                    "INNER JOIN ENVIO as e on e.id = c.idenvio " +
+                    "INNER JOIN ESTADOENVIO as ee on ee.id = e.idestado " +
+                    "INNER JOIN METODOENVIO as me on me.Id = e.IdMetodo " +
+                    "INNER JOIN METODOPAGO as mp on mp.Id = c.IdMetodo " +
+                    "WHERE c.Condicion = 0 AND ee.id != 0");
                 conexion.ejecutarConsulta();
 
                 while (conexion.Lector.Read())
@@ -144,7 +218,7 @@ namespace Negocio
                     "c.IdMetodo, c.FechaCompra, c.ImporteFinal from COMPRA as c " +
                     "INNER JOIN ENVIO as e on e.id = c.IdEnvio " +
                     "INNER JOIN ESTADOENVIO as es on es.ID = e.IdEstado " +
-                    "where IdUsuario = " + id.ToString());
+                    "where c.Condicion = 1 AND c.IdUsuario = " + id.ToString());
                 conexion.ejecutarConsulta();
                 //
                 while (conexion.Lector.Read())
@@ -201,7 +275,7 @@ namespace Negocio
             {
                 conexion.abrirConexion();
                 conexion.setearConsulta("Select Id, IdUsuario, IdCarrito, IdEnvio, IdMetodo, FechaCompra, ImporteFinal from COMPRA " +
-                    "Where ID = " + ID.ToString());
+                    "Where Condicion = 1 AND ID = " + ID.ToString());
                 conexion.ejecutarConsulta();
 
                 while (conexion.Lector.Read())
@@ -275,11 +349,11 @@ namespace Negocio
             try
             {
                 //
-                conexion.setearConsulta("Delete from COMPRA Where Id=@id");
+                conexion.abrirConexion();
+                conexion.setearConsulta("Update COMPRA Set Condicion=0 Where Id=@id");
                 //
                 conexion.Comando.Parameters.AddWithValue("@id", id);
                 //
-                conexion.abrirConexion();
                 conexion.ejecutarAccion();
             }
             catch (Exception ex)
@@ -337,7 +411,7 @@ namespace Negocio
                 //
                 conexion.abrirConexion();
                 conexion.setearConsulta("Update COMPRA Set " + usuario + carrito + envio + metodo +fecha + importe +
-                    " Where Id=@id");
+                    " Where Condicion = 1 AND Id=@id");
                 //
                 conexion.Comando.Parameters.Clear();
                 if (compra.usuario != null) 

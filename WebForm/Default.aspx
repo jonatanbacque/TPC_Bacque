@@ -21,9 +21,9 @@
                         <div class="card-body"></div>
                         <div class="card-footer">
                             <h6 class="card-title"><% = item.Producto %></h6>
-                            <%--<div>
-                                <small class="text-muted"><% = item.Descripcion %></small>
-                            </div>--%>
+                            <div>
+                                <small class="text-muted"><% = item.Presentacion %></small>
+                            </div>
                             <div>
                                 <small class="text-muted">Precio: $ <% = item.Precio %></small>
                             </div>

@@ -1,24 +1,16 @@
-﻿<%@ Page Title="Ventas" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Ventas.aspx.cs" Inherits="WebForm.Ventas" %>
-
+﻿<%@ Page Title="Ventas canceladas" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="VentasCanceladas.aspx.cs" Inherits="WebForm.VentasCanceladas" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <div>
-        <h2>Ventas</h2>
+        <h2>Ventas canceladas</h2>
     </div>
     <hr />
     <div class="form-group">
         <a href="/" class="btn btn-primary">Volver</a>
-        <asp:Button class="btn btn-primary" ID="btnListado" Text="Ver listado de productos" OnClick="btnListado_Click" runat="server" />
-        <asp:Button class="btn btn-primary" ID="btnEdicion" Text="Editar elementos" OnClick="btnEdicion_Click" runat="server" />
-        <a href="VentaCanceladas.aspx" class="btn btn-primary">Ventas Canceladas</a>
     </div>
     <hr />
     <asp:GridView class="table table-striped table-dark border-dark" DataKeyNames="ID" ID="dgvVentas" AutoGenerateColumns="False" OnRowCommand="dgvVentas_RowCommand" runat="server" HorizontalAlign="Center">
         <Columns>
             <asp:BoundField HeaderText="ID" DataField="ID" ReadOnly="true">
-                <HeaderStyle CssClass="oculto"/>
-                <ItemStyle CssClass="oculto"/>
-            </asp:BoundField>
-            <asp:BoundField HeaderText="IdCarrito" DataField="IdCarrito" ReadOnly="true">
                 <HeaderStyle CssClass="oculto"/>
                 <ItemStyle CssClass="oculto"/>
             </asp:BoundField>

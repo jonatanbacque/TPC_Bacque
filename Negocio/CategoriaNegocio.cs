@@ -134,8 +134,8 @@ namespace Negocio
             try
             {
                 conexion.abrirConexion();
-                conexion.setearConsulta("INSERT INTO CATEGORIA (Nombre, Detalle, Condicion) " +
-                    "VALUES (@nombre, @detalle, 1)");
+                conexion.setearConsulta("INSERT INTO CATEGORIA (Nombre, Detalle) " +
+                    "VALUES (@nombre, @detalle)");
                 //
                 conexion.Comando.Parameters.Clear();
                 conexion.Comando.Parameters.AddWithValue("@nombre", categoria.Nombre);

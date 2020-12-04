@@ -11,16 +11,25 @@ namespace WebForm
 {
 
 
-    public partial class _Default
+    public partial class Compras
     {
 
         /// <summary>
-        /// Control btnCarrito.
+        /// Control btn.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnCarrito;
+        protected global::System.Web.UI.WebControls.Button btn;
+
+        /// <summary>
+        /// Control dgvCompra.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView dgvCompra;
     }
 }

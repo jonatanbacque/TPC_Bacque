@@ -18,7 +18,7 @@ namespace Negocio
             {
                 conexion.abrirConexion();
                 conexion.setearConsulta("Select ID, Nombre, Apellido, DNI, Direccion, Email, Telefono, condicion from PERSONA " +
-                    "Where ID = " + id.ToString() + " and Condicion = 1");
+                    "Where Condicion = 1 and ID = " + id.ToString());
                 conexion.ejecutarConsulta();
 
                 while (conexion.Lector.Read())

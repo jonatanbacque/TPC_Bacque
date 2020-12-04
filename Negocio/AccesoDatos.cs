@@ -9,7 +9,7 @@ namespace Negocio
 {
     public class AccesoDatos
     {
-        public static string cadenaConexion = "data source =.\\SQLEXPRESS; initial catalog = DB; integrated security = sspi";
+        public static string cadenaConexion = "data source =.\\SQLEXPRESS; initial catalog = Bacque_DB; integrated security = sspi";
         private SqlCommand comando;
         private SqlConnection conexion;
         private SqlDataReader lector;

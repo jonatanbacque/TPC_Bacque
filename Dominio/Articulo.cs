@@ -8,7 +8,10 @@ namespace Dominio
 {
     public class Articulo
     {
-        public Articulo(int id, string producto, string presentacion, string descripcion, string imagenUrl, decimal precio, string marca, Categoria categoria)
+
+        public Articulo() { }
+
+        public Articulo(int id, string producto, string presentacion, string descripcion, string imagenUrl, decimal precio, string marca, Categoria categoria, int condicion)
         {
             Id = id;
             Producto = producto;
@@ -18,9 +21,8 @@ namespace Dominio
             Precio = precio;
             Marca = marca;
             this.categoria = categoria;
+            Condicion = condicion;
         }
-
-        public Articulo() { }
 
         public int Id { get; set; }
         public string Producto { get; set; }
@@ -30,6 +32,7 @@ namespace Dominio
         public decimal Precio { get; set; }
         public string Marca { get; set; }
         public Categoria categoria { get; set; }
+        public int Condicion { get; set; }
 
         public override string ToString()//Al requerir un string de la clase articulo devuelve el nombre
         {

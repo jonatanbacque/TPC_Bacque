@@ -9,16 +9,17 @@ using Negocio;
 
 namespace WebForm
 {
-    public partial class CompraDetalle : System.Web.UI.Page
+    public partial class VentasDetalles : System.Web.UI.Page
     {
         EnvioNegocio envioNegocio = new EnvioNegocio();
         CompraNegocio compraNegocio = new CompraNegocio();
         MetodoPagoNegocio metodoPagoNegocio = new MetodoPagoNegocio();
+        EstadoEnvioNegocio estadoEnvioNegocio = new EstadoEnvioNegocio();
 
         void cargarDgv(List<Elemento> lista)
         {
             List<ListaCarrito> listaCarrito = new List<ListaCarrito>();
-
+            //
             foreach (Elemento item in lista)
             {
                 ListaCarrito listaAux = new ListaCarrito
@@ -32,7 +33,7 @@ namespace WebForm
                 };
                 listaCarrito.Add(listaAux);
             }
-
+            //
             dgvCompra.DataSource = listaCarrito;
             dgvCompra.DataBind();
         }
@@ -41,16 +42,26 @@ namespace WebForm
         {
             try
             {
-                if (Session["listaCompra"] != null) cargarDgv((List<Elemento>)Session["listaCompra"]);
-                //
-                if (Session["compra"] != null)
+                if (!IsPostBack)
                 {
-                    Compra compra = compraNegocio.listarID(Convert.ToInt32(Session["compra"]));
-                    lblEstado.Text = envioNegocio.listarID(compra.envio.Id).estadoEnvio.Nombre;
-                    txtPrecio.Text = "$ " + compra.ImporteFinal.ToString();
-                    txtPrecioMetodo.Text = metodoPagoNegocio.listarID(compra.metodoPago.Id).Nombre;
-                    txtEnvio.Text = envioNegocio.listarID(compra.envio.Id).metodoEnvio.Nombre;
-                    txtEnvioPrecio.Text = "$ " + envioNegocio.listarID(compra.envio.Id).metodoEnvio.Precio.ToString();
+                    //
+                    if (Session["listaVenta"] != null) cargarDgv((List<Elemento>)Session["listaVenta"]);
+                    //
+                    ddlEnvioEstado.DataSource = estadoEnvioNegocio.listar();
+                    ddlEnvioEstado.DataTextField = "Nombre";
+                    ddlEnvioEstado.DataValueField = "ID";
+                    ddlEnvioEstado.DataBind();
+                    //
+                    if (Session["compra"] != null)
+                    {
+                        Compra compra = compraNegocio.listarID(Convert.ToInt32(Session["compra"]));
+                        txtPrecio.Text = "$ " + compra.ImporteFinal.ToString();
+                        txtPrecioMetodo.Text = metodoPagoNegocio.listarID(compra.metodoPago.Id).Nombre;
+                        txtEnvio.Text = envioNegocio.listarID(compra.envio.Id).metodoEnvio.Nombre;
+                        txtEnvioPrecio.Text = "$ " + envioNegocio.listarID(compra.envio.Id).metodoEnvio.Precio.ToString();
+                        ddlEnvioEstado.SelectedIndex = ddlEnvioEstado.Items.IndexOf(
+                            ddlEnvioEstado.Items.FindByText(envioNegocio.listarID(compra.envio.Id).estadoEnvio.Nombre.ToString()));
+                    }
                 }
             }
             catch (Exception ex)
@@ -60,26 +71,31 @@ namespace WebForm
             }
         }
 
-        protected void btnCancelar_Click(object sender, EventArgs e)
+        protected void btnGuardar_Click(object sender, EventArgs e)
         {
             try
             {
-                compraNegocio.eliminar(Convert.ToInt32(Session["compra"]));
+                //
+                Compra compra = compraNegocio.listarID(Convert.ToInt32(Session["compra"]));
+                Envio envio = envioNegocio.listarID(compra.envio.Id);
+                //
+                envio.estadoEnvio.Id = ddlEnvioEstado.SelectedIndex + 1;
+                envioNegocio.modificar(envio);
+                //
+                lblResultado.Text = "Guardado";
             }
             catch (Exception ex)
             {
                 Session.Add("errorEncontrado", ex.ToString());
                 Response.Redirect("Error.aspx");
             }
-            //
-            Response.Redirect("CompraListado.aspx");
         }
 
         protected void btnVolver_Click(object sender, EventArgs e)
         {
             try
             {
-                Session.Remove("listaCompra");
+                Session.Remove("listaVenta");
             }
             catch (Exception ex)
             {
@@ -87,7 +103,7 @@ namespace WebForm
                 Response.Redirect("Error.aspx");
             }
             //
-            Response.Redirect("Compras.aspx");
+            Response.Redirect("Ventas.aspx");
         }
     }
 }

@@ -19,7 +19,55 @@ namespace Negocio
             {
                 conexion.abrirConexion();
                 conexion.setearConsulta("Select a.ID, a.Producto, a.Presentacion, a.Descripcion, a.ImagenUrl, a.Precio, a.Marca, c.ID, " +
-                                        "c.Nombre, c.Detalle from ARTICULO as a INNER JOIN CATEGORIA as c on c.ID = a.IdCategoria");
+                                        "c.Nombre, c.Detalle from ARTICULO as a INNER JOIN CATEGORIA as c on c.ID = a.IdCategoria " +
+                                        "WHERE a.Condicion = 1");
+                conexion.ejecutarConsulta();
+
+                while (conexion.Lector.Read())
+                {
+                    articulo = new Articulo
+                    {
+                        Id = conexion.Lector.GetInt32(0),
+                        Producto = conexion.Lector.GetString(1),
+                        Presentacion = conexion.Lector.GetString(2),
+                        Descripcion = conexion.Lector.GetString(3),
+                        ImagenUrl = conexion.Lector.GetString(4),
+                        Precio = conexion.Lector.GetDecimal(5),
+                        Marca = conexion.Lector.GetString(6),
+
+                        categoria = new Categoria
+                        {
+                            Id = conexion.Lector.GetInt32(7),
+                            Nombre = conexion.Lector.GetString(8),
+                            Detalle = conexion.Lector.GetString(9),
+                        }
+                    };
+
+                    lista.Add(articulo);
+
+                }
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conexion.cerrarConexion();
+
+            }
+        }
+        public List<Articulo> listarEliminados()
+        {
+            AccesoDatos conexion = new AccesoDatos();
+            List<Articulo> lista = new List<Articulo>();
+            try
+            {
+                conexion.abrirConexion();
+                conexion.setearConsulta("Select a.ID, a.Producto, a.Presentacion, a.Descripcion, a.ImagenUrl, a.Precio, a.Marca, c.ID, " +
+                                        "c.Nombre, c.Detalle from ARTICULO as a INNER JOIN CATEGORIA as c on c.ID = a.IdCategoria " +
+                                        "WHERE a.Condicion = 0");
                 conexion.ejecutarConsulta();
 
                 while (conexion.Lector.Read())
@@ -67,7 +115,7 @@ namespace Negocio
                 conexion.abrirConexion();
                 conexion.setearConsulta("Select a.ID, a.Producto, a.Presentacion, a.Descripcion, a.ImagenUrl, a.Precio, a.Marca, c.ID, " +
                                         "c.Nombre, c.Detalle from ARTICULO as a INNER JOIN CATEGORIA as c on c.ID = a.IdCategoria " +
-                                        "WHERE a.ID =" + ID);
+                                        "WHERE a.Condicion = 1 AND a.ID =" + ID);
                 conexion.ejecutarConsulta();
 
                 while (conexion.Lector.Read())
@@ -112,7 +160,7 @@ namespace Negocio
                 conexion.abrirConexion();
                 conexion.setearConsulta("Select a.ID, a.Producto, a.Presentacion, a.Descripcion, a.ImagenUrl, a.Precio, a.Marca, c.ID, " +
                                         "c.Nombre, c.Detalle from ARTICULO as a INNER JOIN CATEGORIA as c on c.ID = a.IdCategoria " +
-                                        "WHERE a.Producto LIKE '%" + nombre + "%'");
+                                        "WHERE a.Condicion = 1 AND a.Producto LIKE '%" + nombre + "%'");
                 conexion.ejecutarConsulta();
 
                 while (conexion.Lector.Read())
@@ -162,7 +210,7 @@ namespace Negocio
                 conexion.setearConsulta("Select a.ID, a.Producto, a.Presentacion, a.Descripcion, a.ImagenUrl, a.Precio, a.Marca, c.ID, " +
                                         "c.Nombre, c.Detalle from ARTICULO as a " +
                                         "INNER JOIN CATEGORIA as c on c.ID = a.IdCategoria " +
-                                        "WHERE c.nombre LIKE '%" + nombre + "%'");
+                                        "WHERE a.Condicion = 1 AND c.nombre LIKE '%" + nombre + "%'");
                 conexion.ejecutarConsulta();
 
                 while (conexion.Lector.Read())
@@ -207,7 +255,8 @@ namespace Negocio
                 //
                 conexion.abrirConexion();
                 conexion.setearConsulta("Update ARTICULO Set Producto=@producto, Presentacion=@Presentacion, Descripcion=@descripcion, " +
-                                        "ImagenUrl=@imagenUrl, Precio=@precio, Marca=@marca, IdCategoria=@idCategoria Where Id=@id");
+                                        "ImagenUrl=@imagenUrl, Precio=@precio, Marca=@marca, IdCategoria=@idCategoria " +
+                                        "Where Condicion = 1 AND Id=@id");
                 //
                 conexion.Comando.Parameters.Clear();
                 conexion.Comando.Parameters.AddWithValue("@producto", articulo.Producto);
@@ -238,7 +287,7 @@ namespace Negocio
             {
                 //
                 conexion.abrirConexion();
-                conexion.setearConsulta("Delete from ARTICULO Where Id=@id");
+                conexion.setearConsulta("Update ARTICULO Set Condicion=0 Where Id=@id");
                 //
                 conexion.Comando.Parameters.AddWithValue("@id", id);
                 //
@@ -261,7 +310,8 @@ namespace Negocio
             {
                 conexion.abrirConexion();
                 conexion.setearConsulta("insert into ARTICULO (Producto, Presentacion, Descripcion, ImagenUrl, Precio, " +
-                                        "Marca, IdCategoria) values (@Producto, @Presentacion, @Descripcion, @imagenURL, @precio, @marca, @idCategoria)");
+                                        "Marca, IdCategoria) values (@Producto, @Presentacion, @Descripcion, @imagenURL, " +
+                                        "@precio, @marca, @idCategoria)");
                 //
                 conexion.Comando.Parameters.Clear();
                 conexion.Comando.Parameters.AddWithValue("@producto", articulo.Producto);

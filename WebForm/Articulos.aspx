@@ -41,7 +41,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text">$</span>
                             </div>
-                            <asp:TextBox ID="txtPrecio" TextMode="Number" class="form-control" placeholder="Ingrese precio del producto." runat="server" aria-label="Amount (to the nearest dollar)" />
+                            <asp:TextBox ID="txtPrecio" class="form-control" placeholder="Ingrese precio del producto." runat="server"/>
                             <div class="input-group-append">
                                 <span class="input-group-text">.00</span>
                             </div>

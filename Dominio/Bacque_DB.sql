@@ -1,17 +1,17 @@
 use master
 go
-drop database db
+drop database Bacque_DB
 go
-create database DB
+create database Bacque_DB
 go
-use DB
+use Bacque_DB
 go
 
 CREATE TABLE [dbo].[CATEGORIA](
 	[Id] [int] IDENTITY(1,1) PRIMARY KEY NOT NULL,
 	[Nombre] [varchar](200) NULL,
 	[Detalle] [varchar](600) NULL,
-	[Condicion] [int] NULL
+	[Condicion] [int] DEFAULT 1 NULL
 	)
 GO
 
@@ -23,7 +23,8 @@ CREATE TABLE [dbo].[ARTICULO](
 	[ImagenUrl] [varchar](2000) NULL,
 	[Precio] numeric(18,2) NULL,
 	[Marca] [varchar](20) NULL,
-	[IdCategoria] [int] FOREIGN KEY REFERENCES CATEGORIA(Id) NOT NULL
+	[IdCategoria] [int] FOREIGN KEY REFERENCES CATEGORIA(Id) NOT NULL,
+	[Condicion] [int] DEFAULT 1 NULL
 	)
 GO
 
@@ -35,7 +36,7 @@ CREATE TABLE [dbo].[PERSONA](
 	[DNI] [int] NULL,
 	[Email] [varchar](600) NULL,
 	[Telefono] [int] NULL,
-	[Condicion] [int] NULL
+	[Condicion] [int] DEFAULT 1 NULL
 	)
 GO
 
@@ -68,7 +69,7 @@ CREATE TABLE [dbo].[METODOENVIO](
 	[Detalle] [varchar](200) NULL,
 	[Demora] [int] NULL,
 	[Precio] numeric(18,2) NULL,
-	[Condicion] [int] NULL
+	[Condicion] [int] DEFAULT 1 NULL
 	)
 GO
 
@@ -76,7 +77,7 @@ CREATE TABLE [dbo].[ESTADOENVIO](
 	[Id] [int] IDENTITY(1,1) PRIMARY KEY NOT NULL,
 	[Nombre] [varchar](200) NULL,
 	[Detalle] [varchar](200) NULL,
-	[Condicion] [int] NULL
+	[Condicion] [int] DEFAULT 1 NULL
 	)
 GO
 
@@ -93,7 +94,7 @@ CREATE TABLE [dbo].[METODOPAGO](
 	[Nombre] [varchar](200) NULL,
 	[Detalle] [varchar](200) NULL,
 	[Precio] numeric(18,2) NULL,
-	[Condicion] [int] NULL
+	[Condicion] [int] DEFAULT 1 NULL
 	)
 GO
 
@@ -104,7 +105,8 @@ CREATE TABLE [dbo].[COMPRA](
 	[IdEnvio] [int] FOREIGN KEY REFERENCES ENVIO(Id) NULL,
 	[IdMetodo] [int] FOREIGN KEY REFERENCES METODOPAGO(Id) NULL,
 	[FechaCompra] [datetime] DEFAULT '1-1-2000' NULL,
-	[ImporteFinal] numeric(17,2) NULL
+	[ImporteFinal] numeric(17,2) NULL,
+	[Condicion] [int] DEFAULT 1 NULL
 	)
 GO
 
@@ -115,7 +117,7 @@ insert into CATEGORIA values ('Elegir Categoria','',1),
 ('Limpieza','Muy buena calidad',1),
 ('Decoración','Te queda la casa hermosa',1)
 
-insert into ARTICULO values ('Difusores ambientales', 'Envases de 125ml o 1L','Fragancias disponibles: Coco, Rosas, Sandalo y Bebe', 'https://ss-static-01.esmsv.com/id/117805/productos/obtenerimagen/?id=211&useDensity=false&width=1280&height=720&tipoEscala=fit', 645, 'Aleli Esencias', 2),
+insert into ARTICULO(Producto, Presentacion, Descripcion, ImagenUrl, Precio, Marca, IdCategoria) values ('Difusores ambientales', 'Envases de 125ml o 1L','Fragancias disponibles: Coco, Rosas, Sandalo y Bebe', 'https://ss-static-01.esmsv.com/id/117805/productos/obtenerimagen/?id=211&useDensity=false&width=1280&height=720&tipoEscala=fit', 645, 'Aleli Esencias', 2),
 ('Body splash', 'envases de 1 litro','Fragancias disponibles: Coco, Rosas, Sandalo y Bebe', 'https://ss-static-01.esmsv.com/id/117805/productos/obtenerimagen/?id=203&useDensity=false&width=1280&height=720&tipoEscala=fit', 750, 'Aleli Esencias', 2),
 ('Gel de ducha', 'envases de 1 litro','Fragancias disponibles: Coco, Rosas, Sandalo y Bebe', 'https://ss-static-01.esmsv.com/id/117805/productos/obtenerimagen/?id=157&useDensity=false&width=1280&height=720&tipoEscala=fit', 280, 'Aleli Esencias', 2),
 ('Desodorante Pisos', 'envases de 1 litro', 'Fragancias disponibles: Lysoform', 'https://ss-static-01.esmsv.com/id/117805/productos/obtenerimagen/?id=195&useDensity=false&width=1280&height=720&tipoEscala=fit', 720, 'Aleli Esencias', 3),
@@ -206,10 +208,7 @@ select m.Nombre, m.Detalle, m.Demora, m.Precio, e.nombre from ENVIO as en
 INNER JOIN ESTADOENVIO as e on e.id = en.IdEstado
 INNER JOIN METODOENVIO as m on m.id = en.IdMetodo
 
-
 Select ID, Nombre, Detalle, Demora, Precio from METODOENVIO WHERE Condicion = 1
-
-
 
 select es.nombre from COMPRA as c
 INNER JOIN ENVIO as e on e.id=c.IdEnvio
@@ -224,15 +223,15 @@ INNER JOIN PERSONA as p on p.id=u.IdPersona
 WHERE ee.id <> 0
 
 Select c.Id, c.idUsuario, p.Nombre, p.Apellido, p.Direccion, e.id, ee.Nombre, me.Nombre, e.FechaEntrega, mp.id, mp.Nombre, c.FechaCompra, c.ImporteFinal from COMPRA as c
-					INNER JOIN USUARIO as u on u.id = c.IdUsuario
-					INNER JOIN PERSONA as p on p.id = u.IdPersona
-					INNER JOIN ENVIO as e on e.id = c.idenvio
-					INNER JOIN ESTADOENVIO as ee on ee.id = e.idestado
-					INNER JOIN METODOENVIO as me on me.Id = e.IdMetodo
-					INNER JOIN METODOPAGO as mp on mp.Id = c.IdMetodo
-					WHERE ee.id != 0
+INNER JOIN USUARIO as u on u.id = c.IdUsuario
+INNER JOIN PERSONA as p on p.id = u.IdPersona
+INNER JOIN ENVIO as e on e.id = c.idenvio
+INNER JOIN ESTADOENVIO as ee on ee.id = e.idestado
+INNER JOIN METODOENVIO as me on me.Id = e.IdMetodo
+INNER JOIN METODOPAGO as mp on mp.Id = c.IdMetodo
+WHERE ee.id != 0
 
-					select * from CARRITO
+select * from CARRITO
 
 Select c.Id, c.IdUsuario, c.IdCarrito, e.Id, es.Id, es.Nombre, e.FechaEntrega, c.IdMetodo, c.FechaCompra, c.ImporteFinal from COMPRA as c
 INNER JOIN ENVIO as e on e.id = c.IdEnvio

@@ -8,7 +8,9 @@ namespace Dominio
 {
     public class Compra
     {
-        public Compra(int id, Usuario usuario, Carrito carrito, Envio envio, MetodoPago metodoPago, DateTime fechaCompra, decimal importeFinal)
+        public Compra() { }
+
+        public Compra(int id, Usuario usuario, Carrito carrito, Envio envio, MetodoPago metodoPago, DateTime fechaCompra, decimal importeFinal, int condicion)
         {
             Id = id;
             this.usuario = usuario;
@@ -17,15 +19,16 @@ namespace Dominio
             this.metodoPago = metodoPago;
             FechaCompra = fechaCompra;
             ImporteFinal = importeFinal;
+            Condicion = condicion;
         }
-        public Compra() { }
 
         public int Id { get; set; }
         public Usuario usuario { get; set; }
         public Carrito carrito { get; set; }
         public Envio envio { get; set; }
-        public MetodoPago metodoPago  { get; set; }
+        public MetodoPago metodoPago { get; set; }
         public DateTime FechaCompra { get; set; }
         public decimal ImporteFinal { get; set; }
+        public int Condicion { get; set; }
     }
 }

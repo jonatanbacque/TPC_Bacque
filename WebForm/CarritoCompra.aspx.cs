@@ -26,7 +26,7 @@ namespace WebForm
             {
                 ListaCarrito listaAux = new ListaCarrito
                 {
-                    ID = item.articulo.Id,
+                    ID = item.articulo.Id,                    
                     Producto = item.articulo.Producto,
                     Descripcion = item.articulo.Descripcion,
                     ImagenUrl = item.articulo.ImagenUrl,
@@ -76,13 +76,16 @@ namespace WebForm
         {
             try
             {
-                //Con el índice tenés que agarrar el dgv.rows en el índice ese punto columns, la que quieras punto id y obtener el valor posta.
-                elementoNegocio.eliminarArticulo(Convert.ToInt32(Session["carrito"]),
-                    Convert.ToInt32(dgvCarrito.Rows[Convert.ToInt32(e.CommandArgument)].Cells[5].Text));
-                //Session.Remove("listaElementos");
-                Session.Add("listaElementos", elementoNegocio.listarID(Convert.ToInt32(Session["carrito"])));
-                //
-                cargarDgv((List<Elemento>)Session["listaElementos"]);
+                if (Session["carrito"] != null)
+                {
+                    //Con el índice tenés que agarrar el dgv.rows en el índice ese punto columns, la que quieras punto id y obtener el valor posta.
+                    elementoNegocio.eliminarArticulo(Convert.ToInt32(Session["carrito"]),
+                        Convert.ToInt32(dgvCarrito.Rows[Convert.ToInt32(e.CommandArgument)].Cells[3].Text));
+                    //Session.Remove("listaElementos");
+                    Session.Add("listaElementos", elementoNegocio.listarID(Convert.ToInt32(Session["carrito"])));
+                    //
+                    cargarDgv((List<Elemento>)Session["listaElementos"]);
+                }
             }
             catch (Exception ex)
             {

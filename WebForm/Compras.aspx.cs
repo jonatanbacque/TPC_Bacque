@@ -9,7 +9,7 @@ using Negocio;
 
 namespace WebForm
 {
-    public partial class CompraListado : System.Web.UI.Page
+    public partial class Compras : System.Web.UI.Page
     {
         CarritoNegocio carritoNegocio = new CarritoNegocio();
         ElementoNegocio elementoNegocio = new ElementoNegocio();
@@ -26,7 +26,6 @@ namespace WebForm
             if (Session["usuario"] != null)
             {
                 //
-                decimal importeFinal = 0;
                 foreach (Compra item in compraNegocio.listarXusuario(((Usuario)(Session["usuario"])).Id))
                 {
                     ListaCompra listaAux = new ListaCompra
@@ -43,12 +42,6 @@ namespace WebForm
                 //
                 dgvCompra.DataSource = listaCompra;
                 dgvCompra.DataBind();
-                //Cargo importe final en el carrito
-                carrito = new Carrito
-                {
-                    Id = Convert.ToInt32(Session["carrito"]),
-                    Importe = importeFinal
-                };
             }
         }
         protected void Page_Load(object sender, EventArgs e)
@@ -71,7 +64,7 @@ namespace WebForm
                 if (Convert.ToInt32(dgvCompra.Rows[Convert.ToInt32(e.CommandArgument)].Cells[0].Text) != 0)
                 {
                     Session.Add("compra", Convert.ToInt32(dgvCompra.Rows[Convert.ToInt32(e.CommandArgument)].Cells[0].Text));
-                    Session.Add("listaElementos", elementoNegocio.listarID(
+                    Session.Add("listaCompra", elementoNegocio.listarID(
                         Convert.ToInt32(dgvCompra.Rows[Convert.ToInt32(e.CommandArgument)].Cells[1].Text)));
                 }
                 else
@@ -86,26 +79,6 @@ namespace WebForm
             }
             //
             Response.Redirect("CompraDetalle.aspx");
-
         }
-
-        protected void btnCarritoVaciar_Click(object sender, EventArgs e)
-        {
-            try
-            {
-            }
-            catch (Exception ex)
-            {
-                Session.Add("errorEncontrado", ex.ToString());
-                Response.Redirect("Error.aspx");
-            }
-            //
-            Response.Redirect("/");
-        }
-
-        protected void btnComprar_Click(object sender, EventArgs e)
-        {
-        }
-
     }
 }

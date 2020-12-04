@@ -23,7 +23,7 @@
                         <asp:TextBox ID="txtFechaEntrega" CssClass="form-control" Visible="false" runat="server" />
                     </div>
                     <div class="form-group">
-                        <asp:Label for="txtPrecio" Text="Precio" runat="server" />
+                        <asp:Label for="txtPrecio" Text="Costo de envío" runat="server" />
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">$</span>
