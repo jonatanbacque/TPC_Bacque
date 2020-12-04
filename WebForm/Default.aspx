@@ -21,7 +21,7 @@
                         <div class="card-body"></div>
                         <div class="card-footer">
                             <h6 class="card-title"><% = item.Producto %></h6>
-<%--                            <div>
+                            <%--<div>
                                 <small class="text-muted"><% = item.Descripcion %></small>
                             </div>--%>
                             <div>
@@ -29,7 +29,7 @@
                             </div>
                             <hr />
                             <div class="btn-group-auto" role="group" aria-label="Basic example">
-                                <a href="Detalle.aspx?ID=<% =item.Id.ToString() %>" class="btn btn-primary">Detalle</a>
+                                <%--<a href="Detalle.aspx?ID=<% =item.Id.ToString() %>" class="btn btn-primary">Detalle</a>--%>
 
                                 <a href="?ID=<% =item.Id.ToString() %>" class="btn btn-primary">Agregar al Carrito</a>
                             </div>

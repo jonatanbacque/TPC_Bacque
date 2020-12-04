@@ -31,7 +31,8 @@ namespace WebForm
                 {
                     ListaCompra listaAux = new ListaCompra
                     {
-                        ID = item.carrito.Id,
+                        ID=item.Id,
+                        IdCarrito = item.carrito.Id,
                         Estado = item.envio.estadoEnvio.Nombre,
                         FechaCompra = item.FechaCompra,
                         FechaEntrega = item.envio.fechaEntrega,
@@ -69,8 +70,9 @@ namespace WebForm
             {
                 if (Convert.ToInt32(dgvCompra.Rows[Convert.ToInt32(e.CommandArgument)].Cells[0].Text) != 0)
                 {
+                    Session.Add("compra", Convert.ToInt32(dgvCompra.Rows[Convert.ToInt32(e.CommandArgument)].Cells[0].Text));
                     Session.Add("listaElementos", elementoNegocio.listarID(
-                        Convert.ToInt32(dgvCompra.Rows[Convert.ToInt32(e.CommandArgument)].Cells[0].Text)));
+                        Convert.ToInt32(dgvCompra.Rows[Convert.ToInt32(e.CommandArgument)].Cells[1].Text)));
                 }
                 else
                 {
@@ -83,7 +85,7 @@ namespace WebForm
                 Response.Redirect("Error.aspx");
             }
             //
-            Response.Redirect("CarritoCompra.aspx");
+            Response.Redirect("CompraDetalle.aspx");
 
         }
 

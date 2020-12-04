@@ -15,6 +15,8 @@ namespace WebForm
         ElementoNegocio elementoNegocio = new ElementoNegocio();
         MetodoEnvioNegocio metodoEnvioNegocio = new MetodoEnvioNegocio();
         EnvioNegocio envioNegocio = new EnvioNegocio();
+        UsuarioNegocio usuarioNegocio = new UsuarioNegocio();
+        CompraNegocio compraNegocio = new CompraNegocio();
 
         public List<Elemento> listaElementos;
         protected void Page_Load(object sender, EventArgs e)
@@ -131,11 +133,25 @@ namespace WebForm
                         Id = 2
                     },
                     fechaEntrega = DateTime.Today.AddDays(metodoEnvioNegocio.listarID
-                    (Convert.ToInt32(ddlMetodoEnvio.SelectedValue)).Demora),
+                (Convert.ToInt32(ddlMetodoEnvio.SelectedValue)).Demora),
                 };
 
                 envioNegocio.agregar(envio);
-                Session.Add("envio", envioNegocio.ultimo());
+
+                Compra compra = new Compra
+                {
+                    Id = compraNegocio.ultimo(),
+                    //cargo envio
+                    envio = new Envio
+                    {
+                        Id = envioNegocio.ultimo()
+                    },
+                    //cargo usuario
+                    usuario = usuarioNegocio.listarID(((Usuario)(Session["usuario"])).Id),
+                };
+
+                compraNegocio.modificar(compra);
+                //Session.Add("envio", envioNegocio.ultimo());
             }
             catch (Exception ex)
             {

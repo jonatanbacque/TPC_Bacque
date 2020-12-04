@@ -37,9 +37,6 @@
                             <asp:Button class="btn btn-primary" ID="btnContinuar" Text="Continuar" Enabled ="false" OnClick="btnContinuar_Click" runat="server" />
                         </div>
                     </div>
-                    <div class="form-group">
-                        <asp:Label ID="lblContinuar" CssClass="form-control" runat="server" />
-                    </div>
                 </div>
 
                 <div class="form-group col-md-8">

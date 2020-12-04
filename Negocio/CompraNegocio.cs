@@ -102,18 +102,18 @@ namespace Negocio
                             Id = conexion.Lector.GetInt32(6),
                             estadoEnvio = new EstadoEnvio
                             {
-                                Nombre= conexion.Lector.GetString(7)
+                                Nombre = conexion.Lector.GetString(7)
                             },
                             metodoEnvio = new MetodoEnvio
                             {
                                 Nombre = conexion.Lector.GetString(8)
                             },
-                            fechaEntrega =  conexion.Lector.GetDateTime(9)
+                            fechaEntrega = conexion.Lector.GetDateTime(9)
                         },
                         metodoPago = new MetodoPago
                         {
                             Id = conexion.Lector.GetInt32(10),
-                            Nombre=conexion.Lector.GetString(11)
+                            Nombre = conexion.Lector.GetString(11)
                         },
                         FechaCompra = conexion.Lector.GetDateTime(12),
                         ImporteFinal = conexion.Lector.GetDecimal(13)
@@ -168,7 +168,7 @@ namespace Negocio
                                 Id = conexion.Lector.GetInt32(4),
                                 Nombre = conexion.Lector.GetString(5)
                             },
-                            fechaEntrega= conexion.Lector.GetDateTime(6)
+                            fechaEntrega = conexion.Lector.GetDateTime(6)
                         },
                         metodoPago = new MetodoPago
                         {
@@ -291,22 +291,67 @@ namespace Negocio
                 conexion.cerrarConexion();
             }
         }
+
+
         public void modificar(Compra compra)
         {
             AccesoDatos conexion = new AccesoDatos();
             try
             {
+                string usuario = "";
+                string carrito = "";
+                string envio = "";
+                string metodo = "";
+                string fecha = "";
+                string importe = "";
+                if (compra.usuario != null)
+                {
+                    usuario = "IdUsuario=@idUsuario ";
+                    if (compra.carrito != null || compra.metodoPago != null || compra.envio != null || compra.FechaCompra > Convert.ToDateTime("1-1-2000") || 
+                        compra.ImporteFinal != 0) usuario = "IdUsuario=@idUsuario, ";
+                }
+                if (compra.carrito != null)
+                {
+                    carrito = "IdCarrito = @idCarrito ";
+                    if (compra.envio != null || compra.metodoPago != null || compra.FechaCompra > Convert.ToDateTime("1-1-2000") || 
+                        compra.ImporteFinal != 0) carrito = "IdCarrito = @idCarrito, ";
+                }
+                if (compra.envio != null)
+                {
+                    envio = "IdEnvio = @idEnvio ";
+                    if (compra.metodoPago != null || compra.FechaCompra > Convert.ToDateTime("1-1-2000") ||
+                        compra.ImporteFinal != 0) envio = "IdEnvio = @idEnvio, ";
+                }
+                if (compra.metodoPago != null)
+                {
+                    metodo = "IdMetodo = @IdMetodo ";
+                    if (compra.FechaCompra > Convert.ToDateTime("1-1-2000") ||
+                        compra.ImporteFinal != 0) metodo = "IdMetodo = @IdMetodo, ";
+                }
+                if (compra.FechaCompra > Convert.ToDateTime("1-1-2000"))
+                {
+                    fecha = "FechaCompra=@fechaCompra ";
+                    if (compra.ImporteFinal != 0) fecha = "FechaCompra=@fechaCompra, ";
+                }
+                if (compra.ImporteFinal != 0) importe = "ImporteFinal=@importeFinal ";
                 //
                 conexion.abrirConexion();
-                conexion.setearConsulta("Update COMPRA Set IdUsuario=@idUsuario, IdCarrito=@idCarrito, IdEnvio=@idEnvio, " +
-                    "FechaCompra=@fechaCompra, ImporteFinal=@importeFinal Where Id=@id");
+                conexion.setearConsulta("Update COMPRA Set " + usuario + carrito + envio + metodo +fecha + importe +
+                    " Where Id=@id");
                 //
                 conexion.Comando.Parameters.Clear();
-                conexion.Comando.Parameters.AddWithValue("@idUsuario", compra.usuario.Id);
-                conexion.Comando.Parameters.AddWithValue("@idCarrito", compra.carrito.Id);
-                conexion.Comando.Parameters.AddWithValue("@idEnvio", compra.envio.Id);
-                conexion.Comando.Parameters.AddWithValue("@fechaCompra", compra.FechaCompra);
-                conexion.Comando.Parameters.AddWithValue("@importeFinal", compra.ImporteFinal);
+                if (compra.usuario != null) 
+                    conexion.Comando.Parameters.AddWithValue("@idUsuario", compra.usuario.Id);
+                if (compra.carrito != null) 
+                    conexion.Comando.Parameters.AddWithValue("@idCarrito", compra.carrito.Id);
+                if (compra.envio != null) 
+                    conexion.Comando.Parameters.AddWithValue("@idEnvio", compra.envio.Id);
+                if (compra.metodoPago != null)
+                    conexion.Comando.Parameters.AddWithValue("@idMetodo", compra.metodoPago.Id);
+                if (compra.FechaCompra > Convert.ToDateTime("1-1-2000")) 
+                    conexion.Comando.Parameters.AddWithValue("@fechaCompra", compra.FechaCompra);
+                if (compra.ImporteFinal != 0) 
+                    conexion.Comando.Parameters.AddWithValue("@importeFinal", compra.ImporteFinal);
                 conexion.Comando.Parameters.AddWithValue("@id", compra.Id);
                 //
                 conexion.ejecutarAccion();
@@ -326,16 +371,10 @@ namespace Negocio
             try
             {
                 //
-                conexion.setearConsulta("INSERT into COMPRA (IdUsuario, IdCarrito, IdEnvio, IdMetodo, FechaCompra, ImporteFinal) " +
-                    "VALUES(@idUsuario, @idCarrito, @idEnvio, @idMetodo, @fechaCompra, @importeFinal)");
+                conexion.setearConsulta("INSERT into COMPRA (IdCarrito) VALUES(@idCarrito)");
                 //
                 conexion.Comando.Parameters.Clear();
-                conexion.Comando.Parameters.AddWithValue("@idUsuario", compra.usuario.Id);
                 conexion.Comando.Parameters.AddWithValue("@idCarrito", compra.carrito.Id);
-                conexion.Comando.Parameters.AddWithValue("@idEnvio", compra.envio.Id);
-                conexion.Comando.Parameters.AddWithValue("@idMetodo", compra.metodoPago.Id);
-                conexion.Comando.Parameters.AddWithValue("@fechaCompra", compra.FechaCompra);
-                conexion.Comando.Parameters.AddWithValue("@importeFinal", compra.ImporteFinal);
                 //
                 conexion.abrirConexion();
                 conexion.ejecutarAccion();
@@ -349,5 +388,34 @@ namespace Negocio
                 conexion.cerrarConexion();
             }
         }
+        //public void agregar(Compra compra)
+        //{
+        //    AccesoDatos conexion = new AccesoDatos();
+        //    try
+        //    {
+        //        //
+        //        conexion.setearConsulta("INSERT into COMPRA (IdUsuario, IdCarrito, IdEnvio, IdMetodo, FechaCompra, ImporteFinal) " +
+        //            "VALUES(@idUsuario, @idCarrito, @idEnvio, @idMetodo, @fechaCompra, @importeFinal)");
+        //        //
+        //        conexion.Comando.Parameters.Clear();
+        //        conexion.Comando.Parameters.AddWithValue("@idUsuario", compra.usuario.Id);
+        //        conexion.Comando.Parameters.AddWithValue("@idCarrito", compra.carrito.Id);
+        //        conexion.Comando.Parameters.AddWithValue("@idEnvio", compra.envio.Id);
+        //        conexion.Comando.Parameters.AddWithValue("@idMetodo", compra.metodoPago.Id);
+        //        conexion.Comando.Parameters.AddWithValue("@fechaCompra", compra.FechaCompra);
+        //        conexion.Comando.Parameters.AddWithValue("@importeFinal", compra.ImporteFinal);
+        //        //
+        //        conexion.abrirConexion();
+        //        conexion.ejecutarAccion();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+        //    }
+        //    finally
+        //    {
+        //        conexion.cerrarConexion();
+        //    }
+        //}
     }
 }

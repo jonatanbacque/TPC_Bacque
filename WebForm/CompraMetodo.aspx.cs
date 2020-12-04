@@ -74,7 +74,7 @@ namespace WebForm
                 txtEnvio.Text = ((Usuario)Session["usuario"]).persona.Direccion;
                 //Cargo importe final
                 decimal preciocarrito = carritoNegocio.listarID(Convert.ToInt32(Session["carrito"])).Importe;
-                decimal precioenvio = envioNegocio.listarID(Convert.ToInt32(Session["envio"])).metodoEnvio.Precio;
+                decimal precioenvio = envioNegocio.listarID(envioNegocio.ultimo()).metodoEnvio.Precio;
                 decimal interes = metodoPagoNegocio.listarID(ddlMetodoPago.SelectedIndex + 1).Precio;
 
                 importeFinal = (preciocarrito + precioenvio) * interes;
@@ -117,22 +117,23 @@ namespace WebForm
             {
                 //Cargo importe final
                 decimal preciocarrito = carritoNegocio.listarID(Convert.ToInt32(Session["carrito"])).Importe;
-                decimal precioenvio = envioNegocio.listarID(Convert.ToInt32(Session["envio"])).metodoEnvio.Precio;
+                decimal precioenvio = envioNegocio.listarID(envioNegocio.ultimo()).metodoEnvio.Precio;
                 decimal interes = metodoPagoNegocio.listarID(ddlMetodoPago.SelectedIndex + 1).Precio;
 
                 importeFinal = (preciocarrito + precioenvio) * interes;
 
                 compra = new Compra
                 {
-                    usuario = usuarioNegocio.listarID(((Usuario)(Session["usuario"])).Id),
-                    carrito = carritoNegocio.listarID(Convert.ToInt32(Session["carrito"])),
-                    envio = envioNegocio.listarID(Convert.ToInt32(Session["envio"])),
+                    Id = compraNegocio.ultimo(),
+                    //    usuario = usuarioNegocio.listarID(((Usuario)(Session["usuario"])).Id),
+                    //    carrito = carritoNegocio.listarID(Convert.ToInt32(Session["carrito"])),
+                    //    envio = envioNegocio.listarID(Convert.ToInt32(Session["envio"])),
                     metodoPago = metodoPagoNegocio.listarID(ddlMetodoPago.SelectedIndex + 1),
                     FechaCompra = DateTime.Now,
                     ImporteFinal = importeFinal
                 };
 
-                compraNegocio.agregar(compra);
+                compraNegocio.modificar(compra);
 
                 Session.Remove("listaElementos");
                 Session.Remove("carrito");

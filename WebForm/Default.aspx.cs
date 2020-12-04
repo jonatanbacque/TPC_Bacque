@@ -16,6 +16,7 @@ namespace WebForm
         public CarritoNegocio carritoNegocio = new CarritoNegocio();
         public List<Articulo> listaArticulos;
         public List<Elemento> listaElementos;
+        Carrito carrito = new Carrito();
         protected void Page_Load(object sender, EventArgs e)
         {
             try
@@ -39,6 +40,7 @@ namespace WebForm
                         else
                         {
                             //Guardo nuevo ID de carrito y agrego articulo
+                            carritoNegocio.agregar(carrito);
                             elemento.carrito.Id = carritoNegocio.UltimoCarrito();
                             Session.Add("carrito", elemento.carrito.Id);
                         };

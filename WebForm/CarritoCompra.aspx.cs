@@ -13,6 +13,8 @@ namespace WebForm
     {
         CarritoNegocio carritoNegocio = new CarritoNegocio();
         ElementoNegocio elementoNegocio = new ElementoNegocio();
+        UsuarioNegocio usuarioNegocio = new UsuarioNegocio();
+        CompraNegocio compraNegocio = new CompraNegocio();
         Carrito carrito;
 
         void cargarDgv(List<Elemento> lista)
@@ -47,8 +49,8 @@ namespace WebForm
                     Id = Convert.ToInt32(Session["carrito"]),
                     Importe = importeFinal
                 };
-            //
-            carritoNegocio.modificar(carrito);
+                //
+                carritoNegocio.modificar(carrito);
             }
 
             btnComprar.Visible = true;
@@ -76,8 +78,7 @@ namespace WebForm
             {
                 //Con el índice tenés que agarrar el dgv.rows en el índice ese punto columns, la que quieras punto id y obtener el valor posta.
                 elementoNegocio.eliminarArticulo(Convert.ToInt32(Session["carrito"]),
-                    Convert.ToInt32(dgvCarrito.Rows[Convert.ToInt32(e.CommandArgument)].Cells[3].Text));
-                //
+                    Convert.ToInt32(dgvCarrito.Rows[Convert.ToInt32(e.CommandArgument)].Cells[5].Text));
                 //Session.Remove("listaElementos");
                 Session.Add("listaElementos", elementoNegocio.listarID(Convert.ToInt32(Session["carrito"])));
                 //
@@ -113,6 +114,19 @@ namespace WebForm
 
         protected void btnComprar_Click(object sender, EventArgs e)
         {
+            try
+            {
+                Compra compra = new Compra
+                {
+                    carrito = carritoNegocio.listarID(Convert.ToInt32(Session["carrito"]))
+                };
+                compraNegocio.agregar(compra);
+            }
+            catch (Exception ex)
+            {
+                Session.Add("errorEncontrado", ex.ToString());
+                Response.Redirect("Error.aspx");
+            }
             //
             Response.Redirect("EnvioMetodo.aspx");
         }

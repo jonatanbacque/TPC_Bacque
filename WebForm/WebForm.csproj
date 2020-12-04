@@ -107,6 +107,7 @@
   <ItemGroup>
     <Content Include="Articulos.aspx" />
     <Content Include="CarritoCompra.aspx" />
+    <Content Include="CompraDetalle.aspx" />
     <Content Include="CompraMetodo.aspx" />
     <Content Include="CompraListado.aspx" />
     <Content Include="Contacto.aspx" />
@@ -189,6 +190,13 @@
     </Compile>
     <Compile Include="CarritoCompra.aspx.designer.cs">
       <DependentUpon>CarritoCompra.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CompraDetalle.aspx.cs">
+      <DependentUpon>CompraDetalle.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CompraDetalle.aspx.designer.cs">
+      <DependentUpon>CompraDetalle.aspx</DependentUpon>
     </Compile>
     <Compile Include="CompraMetodo.aspx.cs">
       <DependentUpon>CompraMetodo.aspx</DependentUpon>
