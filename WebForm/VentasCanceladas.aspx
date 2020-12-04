@@ -14,6 +14,10 @@
                 <HeaderStyle CssClass="oculto"/>
                 <ItemStyle CssClass="oculto"/>
             </asp:BoundField>
+            <asp:BoundField HeaderText="IdCarrito" DataField="IdCarrito" ReadOnly="true">
+                <HeaderStyle CssClass="oculto"/>
+                <ItemStyle CssClass="oculto"/>
+            </asp:BoundField>
             <asp:BoundField HeaderText="Nombre" DataField="Nombre" ReadOnly="true">
                 <HeaderStyle HorizontalAlign="Center" VerticalAlign="Middle"/>
                 <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle"/>

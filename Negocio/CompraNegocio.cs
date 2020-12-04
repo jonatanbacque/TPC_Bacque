@@ -275,7 +275,7 @@ namespace Negocio
             {
                 conexion.abrirConexion();
                 conexion.setearConsulta("Select Id, IdUsuario, IdCarrito, IdEnvio, IdMetodo, FechaCompra, ImporteFinal from COMPRA " +
-                    "Where Condicion = 1 AND ID = " + ID.ToString());
+                    "Where ID = " + ID.ToString());
                 conexion.ejecutarConsulta();
 
                 while (conexion.Lector.Read())
@@ -314,6 +314,7 @@ namespace Negocio
                 conexion.cerrarConexion();
             }
         }
+
         public int ultimo()
         {
             AccesoDatos conexion = new AccesoDatos();

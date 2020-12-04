@@ -33,7 +33,8 @@ namespace WebForm
                     {
                         ListaCompra listaAux = new ListaCompra
                         {
-                            ID = item.carrito.Id,
+                            ID = item.Id,
+                            IdCarrito = item.carrito.Id,
                             Nombre = item.usuario.persona.Nombre + ", " + item.usuario.persona.Apellido,
                             Direccion = item.usuario.persona.Direccion,
                             Estado = item.envio.estadoEnvio.Nombre,
@@ -69,13 +70,16 @@ namespace WebForm
         {
             try
             {
-                Session.Remove("carrito");
-
-                Session.Add("carrito", Convert.ToInt32(dgvVentas.Rows[Convert.ToInt32(e.CommandArgument)].Cells[0].Text));
-
-                Session.Remove("listaElementos");
-
-                Session.Add("listaElementos", elementoNegocio.listarID(Convert.ToInt32(Session["carrito"])));
+                if (Convert.ToInt32(dgvVentas.Rows[Convert.ToInt32(e.CommandArgument)].Cells[0].Text) != 0)
+                {
+                    Session.Add("compra", Convert.ToInt32(dgvVentas.Rows[Convert.ToInt32(e.CommandArgument)].Cells[0].Text));
+                    Session.Add("listaVenta", elementoNegocio.listarID(
+                        Convert.ToInt32(dgvVentas.Rows[Convert.ToInt32(e.CommandArgument)].Cells[1].Text)));
+                }
+                else
+                {
+                    dgvVentas.Rows[Convert.ToInt32(e.CommandArgument)].Cells[5].Text = "Error";
+                }
             }
             catch (Exception ex)
             {
@@ -83,7 +87,7 @@ namespace WebForm
                 Response.Redirect("Error.aspx");
             }
             //
-            Response.Redirect("CarritoCompra.aspx");
+            Response.Redirect("VentasDetalles.aspx");
         }
     }
 }

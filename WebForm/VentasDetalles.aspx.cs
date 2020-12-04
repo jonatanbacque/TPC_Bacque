@@ -9,6 +9,7 @@ using Negocio;
 
 namespace WebForm
 {
+
     public partial class VentasDetalles : System.Web.UI.Page
     {
         EnvioNegocio envioNegocio = new EnvioNegocio();
