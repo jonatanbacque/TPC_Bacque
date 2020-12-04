@@ -5,7 +5,7 @@
     </div>
     <hr />
     <div class="form-group">
-        <a href="/" class="btn btn-primary">Volver</a>
+        <a href="Ventas.aspx" class="btn btn-primary">Volver</a>
     </div>
     <hr />
     <asp:GridView class="table table-striped table-dark border-dark" DataKeyNames="ID" ID="dgvVentas" AutoGenerateColumns="False" OnRowCommand="dgvVentas_RowCommand" runat="server" HorizontalAlign="Center">

@@ -16,7 +16,7 @@
                 <div class="card-deck">
                     <% foreach (Dominio.Articulo item in listaArticulos)
                         { %>
-                    <div class="card border-primary text-center container-fluid" style="max-width: 260px; min-width: 120px;">
+                    <div class="card border-primary text-center container-fluid" style="max-width: 260px; min-width: 150px;">
                         <img class="card-img-top img-fluid" src="<% = item.ImagenUrl %>" alt="<% = item.Producto %>">
                         <div class="card-body"></div>
                         <div class="card-footer">

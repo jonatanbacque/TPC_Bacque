@@ -147,7 +147,7 @@ namespace WebForm
                         Id = envioNegocio.ultimo()
                     },
                     //cargo usuario
-                    usuario = usuarioNegocio.listarID(((Usuario)(Session["usuario"])).Id),
+                    usuario = usuarioNegocio.listarID(((Usuario)Session["usuario"]).Id),
                 };
 
                 compraNegocio.modificar(compra);

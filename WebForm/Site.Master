@@ -60,12 +60,18 @@
                             <a class="dropdown-item" href="/">Borrar filtros</a>
                         </div>
                     </li>
+                    <%if (usuario.Nivel == 2)
+                        { %>
                     <li class="nav-item active">
                         <a class="nav-link" href="Ventas.aspx">Ventas<span class="sr-only">(current)</span></a>
                     </li>
+                    <% }; %>
+                    <%if (usuario.Nivel == 1)
+                        { %>
                     <li class="nav-item active">
                         <a class="nav-link" href="Compras.aspx">Compra<span class="sr-only">(current)</span></a>
                     </li>
+                    <% }; %>
                 </ul>
             </div>
             <ul class="navbar-nav">

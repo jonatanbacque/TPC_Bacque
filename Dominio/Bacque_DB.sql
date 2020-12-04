@@ -141,7 +141,18 @@ set @condicion = 1
 
 INSERT into PERSONA(Nombre, Apellido, DNI, Direccion, Email, Telefono, condicion) VALUES(@nombre, @apellido, @dNI, @direccion, @email, @telefono, @condicion)
 
-INSERT into Usuario(IdPersona, Nombre, Password, Nivel) VALUES(1, 'jorgito', 'klapaus1', 1)
+set @nombre = 'Manu'
+set @apellido = 'Carrasco'
+set @dNI= 34798585
+set @direccion = 'Olazabal 479'
+set @email = 'manucarrasco@hotmail.com'
+set @telefono = 1157521663
+set @condicion = 1
+
+INSERT into PERSONA(Nombre, Apellido, DNI, Direccion, Email, Telefono, condicion) VALUES(@nombre, @apellido, @dNI, @direccion, @email, @telefono, @condicion)
+
+INSERT into Usuario(IdPersona, Nombre, Password, Nivel) VALUES(1, 'jorgito', 'klapaus1', 2),
+(2,'manu','1234',1)
 
 INSERT into ESTADOENVIO(Nombre, Detalle, Condicion) VALUES ('Elegir Estado de Envío','',1),
 ('En preparación','',1),

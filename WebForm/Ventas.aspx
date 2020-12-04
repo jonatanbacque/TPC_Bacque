@@ -9,7 +9,7 @@
         <a href="/" class="btn btn-primary">Volver</a>
         <asp:Button class="btn btn-primary" ID="btnListado" Text="Ver listado de productos" OnClick="btnListado_Click" runat="server" />
         <asp:Button class="btn btn-primary" ID="btnEdicion" Text="Editar elementos" OnClick="btnEdicion_Click" runat="server" />
-        <a href="VentaCanceladas.aspx" class="btn btn-primary">Ventas Canceladas</a>
+        <a href="VentasCanceladas.aspx" class="btn btn-primary">Ventas Canceladas</a>
     </div>
     <hr />
     <asp:GridView class="table table-striped table-dark border-dark" DataKeyNames="ID" ID="dgvVentas" AutoGenerateColumns="False" OnRowCommand="dgvVentas_RowCommand" runat="server" HorizontalAlign="Center">

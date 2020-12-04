@@ -11,13 +11,10 @@ namespace WebForm
 {
     public partial class Ventas : System.Web.UI.Page
     {
-        CarritoNegocio carritoNegocio = new CarritoNegocio();
         ElementoNegocio elementoNegocio = new ElementoNegocio();
         CompraNegocio compraNegocio = new CompraNegocio();
-        UsuarioNegocio usuarioNegocio = new UsuarioNegocio();
 
         List<ListaCompra> listaCompra = new List<ListaCompra>();
-        Carrito carrito;
 
         public List<Compra> aux;
 
