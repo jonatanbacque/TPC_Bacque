@@ -13,6 +13,7 @@ namespace WebForm
     {
         PersonaNegocio personaNegocio = new PersonaNegocio();
         UsuarioNegocio usuarioNegocio = new UsuarioNegocio();
+        CorreoNegocio correoNegocio = new CorreoNegocio();
 
         Persona persona;
         Usuario usuario;
@@ -59,10 +60,7 @@ namespace WebForm
 
                         usuario = new Usuario
                         {
-                            persona = new Persona
-                            {
-                                Id = personaNegocio.ultimo()
-                            },
+                            persona = personaNegocio.listarID(personaNegocio.ultimo()),
                             Nombre = txtUsuarioNom.Text,
                             Password = txtContrasena1.Text,
                             Nivel = 1
@@ -76,6 +74,8 @@ namespace WebForm
 
                     else lblCrear.Text = "El usuario ya existe!";
                 }
+
+                correoNegocio.AltaUsuario(usuario);
             }
             catch (Exception ex)
             {

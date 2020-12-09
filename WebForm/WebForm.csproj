@@ -116,6 +116,8 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Site.css" />
+    <Content Include="Correo.aspx" />
+    <Content Include="CorreoHTML.html" />
     <Content Include="Detalle.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="EnvioMetodo.aspx" />
@@ -221,6 +223,13 @@
     </Compile>
     <Compile Include="Contacto.aspx.designer.cs">
       <DependentUpon>Contacto.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Correo.aspx.cs">
+      <DependentUpon>Correo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Correo.aspx.designer.cs">
+      <DependentUpon>Correo.aspx</DependentUpon>
     </Compile>
     <Compile Include="Detalle.aspx.cs">
       <DependentUpon>Detalle.aspx</DependentUpon>
