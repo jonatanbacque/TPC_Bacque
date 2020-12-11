@@ -17,7 +17,6 @@ namespace WebForm
         UsuarioNegocio usuarioNegocio = new UsuarioNegocio();
 
         List<ListaCompra> listaCompra = new List<ListaCompra>();
-        Carrito carrito;
 
         public List<Compra> aux;
 

@@ -54,6 +54,50 @@ namespace Negocio
                 conexion.cerrarConexion();
             }
         }
+        public Usuario adminlistar()
+        {
+            AccesoDatos conexion = new AccesoDatos();
+            try
+            {
+                conexion.abrirConexion();
+                conexion.setearConsulta("Select u.ID, p.ID, p.Nombre, p.Apellido, p.DNI, p.Direccion, " +
+                    "p.Email, p.Telefono, p.condicion , u.nombre, u.password, u.nivel from USUARIO as u " +
+                    "INNER JOIN PERSONA as p on p.id=u.idPersona " +
+                    "Where u.nivel = 2 and p.condicion =1");
+                conexion.ejecutarConsulta();
+
+                while (conexion.Lector.Read())
+                {
+                    usuario = new Usuario()
+                    {
+                        Id = conexion.Lector.GetInt32(0),
+                        persona = new Persona
+                        {
+                            Id = conexion.Lector.GetInt32(1),
+                            Nombre = conexion.Lector.GetString(2),
+                            Apellido = conexion.Lector.GetString(3),
+                            DNI = conexion.Lector.GetInt32(4),
+                            Direccion = conexion.Lector.GetString(5),
+                            Email = conexion.Lector.GetString(6),
+                            Telefono = conexion.Lector.GetInt32(7),
+                            Condicion = conexion.Lector.GetInt32(8)
+                        },
+                        Nombre = conexion.Lector.GetString(9),
+                        Password = conexion.Lector.GetString(10),
+                        Nivel = conexion.Lector.GetInt32(11)
+                    };
+                }
+                return usuario;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conexion.cerrarConexion();
+            }
+        }
 
         public bool nombreOK(string nombre)
         {
@@ -84,29 +128,29 @@ namespace Negocio
             }
         }
 
-        //public void eliminar(int id)
-        //{
-        //    AccesoDatos conexion = new AccesoDatos();
-        //    try
-        //    {
-        //        //
-        //        //conexion.setearConsulta("Delete from Persona Where Id@id");
-        //        conexion.setearConsulta("update Usuario set Condicion = 0 Where Id@id");
-        //        //
-        //        conexion.Comando.Parameters.AddWithValue("@id", id);
-        //        //
-        //        conexion.abrirConexion();
-        //        conexion.ejecutarAccion();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw ex;
-        //    }
-        //    finally
-        //    {
-        //        conexion.cerrarConexion();
-        //    }
-        //}
+        public void eliminar(int id)
+        {
+            AccesoDatos conexion = new AccesoDatos();
+            try
+            {
+                //
+                //conexion.setearConsulta("Delete from Persona Where Id@id");
+                conexion.setearConsulta("update Usuario set Condicion = 0 Where Id@id");
+                //
+                conexion.Comando.Parameters.AddWithValue("@id", id);
+                //
+                conexion.abrirConexion();
+                conexion.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conexion.cerrarConexion();
+            }
+        }
 
         public void agregar(Usuario usuario)
         {

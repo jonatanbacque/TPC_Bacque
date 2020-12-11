@@ -17,6 +17,7 @@ namespace WebForm
         EnvioNegocio envioNegocio = new EnvioNegocio();
         CompraNegocio compraNegocio = new CompraNegocio();
         ElementoNegocio elementoNegocio = new ElementoNegocio();
+        CorreoNegocio correoNegocio = new CorreoNegocio();
 
         Compra compra;
 
@@ -112,7 +113,6 @@ namespace WebForm
 
         protected void btnFinalizar_Click(object sender, EventArgs e)
         {
-            decimal a = importeFinal;
             try
             {
                 //Cargo importe final
@@ -134,6 +134,12 @@ namespace WebForm
                 };
 
                 compraNegocio.modificar(compra);
+
+                correoNegocio.clienteCompra(usuarioNegocio.listarID(compraNegocio.listarID(compraNegocio.ultimo()).usuario.Id), 
+                    compraNegocio.listarID(compraNegocio.ultimo()));
+
+                correoNegocio.adminCompra(usuarioNegocio.listarID(compraNegocio.listarID(compraNegocio.ultimo()).usuario.Id),
+                    compraNegocio.listarID(compraNegocio.ultimo()));
 
                 Session.Remove("listaElementos");
                 Session.Remove("carrito");
